@@ -1,4 +1,5 @@
 import type { BioAge } from "#/integrations/api/types";
+import { useCountUp } from "#/lib/use-count-up";
 import { BioAgeDial } from "./bio-age-dial";
 
 interface BioAgeCardProps {
@@ -6,14 +7,17 @@ interface BioAgeCardProps {
 }
 
 function MetricsGrid({ chrono, delta }: { chrono: number; delta: number }) {
-	const sign = delta < 0 ? "" : "+";
+	const displayChrono = useCountUp(chrono);
+	const displayDelta = useCountUp(Math.abs(delta));
+	const sign = delta < 0 ? "-" : "+";
+
 	return (
 		<div className="w-full mt-10 grid grid-cols-2 gap-8 border-t border-border/30 pt-8">
 			<div className="text-center space-y-1">
 				<p className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.1em]">
 					Chronological
 				</p>
-				<p className="font-headline font-bold text-2xl">{chrono}</p>
+				<p className="font-headline font-bold text-2xl">{displayChrono}</p>
 			</div>
 			<div className="text-center space-y-1">
 				<p className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.1em]">
@@ -21,7 +25,7 @@ function MetricsGrid({ chrono, delta }: { chrono: number; delta: number }) {
 				</p>
 				<p className="font-headline font-bold text-2xl text-green-glow">
 					{sign}
-					{delta} Years
+					{displayDelta} Years
 				</p>
 			</div>
 		</div>

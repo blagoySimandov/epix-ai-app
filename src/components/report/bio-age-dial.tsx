@@ -1,4 +1,5 @@
 import type { BioAge } from "#/integrations/api/types";
+import { useCountUp } from "#/lib/use-count-up";
 
 const RADIUS = 44;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
@@ -16,9 +17,9 @@ interface BioAgeDialProps {
 }
 
 export function BioAgeDial({ bio, chrono, status }: BioAgeDialProps) {
-	const ratio = bio / chrono;
-	const offset = CIRCUMFERENCE * (1 - ratio);
+	const offset = CIRCUMFERENCE * (1 - bio / chrono);
 	const color = RING_COLORS[status];
+	const displayBio = useCountUp(bio);
 
 	return (
 		<div className="relative w-56 h-56 flex items-center justify-center">
@@ -54,7 +55,7 @@ export function BioAgeDial({ bio, chrono, status }: BioAgeDialProps) {
 			</svg>
 			<div className="absolute inset-0 flex flex-col items-center justify-center text-center">
 				<span className="font-headline font-extrabold text-6xl text-primary tracking-tighter">
-					{bio}
+					{displayBio}
 				</span>
 				<span className="font-sans text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">
 					Bio Age

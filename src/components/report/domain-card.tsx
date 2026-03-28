@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Activity, Brain, Heart, Shield } from "lucide-react";
 import type { Domain } from "#/integrations/api/types";
+import { useCountUp } from "#/lib/use-count-up";
 
 const DOMAIN_ICONS: Record<
 	string,
@@ -32,6 +33,7 @@ export function DomainCard({ domain }: DomainCardProps) {
 	const Icon = DOMAIN_ICONS[domain.id] ?? Heart;
 	const iconStyle = ICON_STYLE[domain.risk];
 	const dotStyle = RISK_DOT[domain.risk];
+	const displayScore = useCountUp(domain.score, 1000, 600);
 
 	return (
 		<Link
@@ -49,7 +51,7 @@ export function DomainCard({ domain }: DomainCardProps) {
 				<p className="font-headline font-bold text-lg mb-0.5">{domain.name}</p>
 				<div className="flex items-baseline gap-1">
 					<span className="font-headline font-extrabold text-2xl">
-						{domain.score}
+						{displayScore}
 					</span>
 					<span className="text-[10px] text-muted-foreground">/100</span>
 				</div>
