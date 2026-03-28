@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as DesignRouteImport } from './routes/design'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as ReportDomainRouteImport } from './routes/report.$domain'
 
 const DesignRoute = DesignRouteImport.update({
   id: '/design',
   path: '/design',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportDomainRoute = ReportDomainRouteImport.update({
+  id: '/report/$domain',
+  path: '/report/$domain',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
   '/design': typeof DesignRoute
+  '/report/$domain': typeof ReportDomainRoute
 }
 export interface FileRoutesByTo {
+  '/': typeof IndexRoute
   '/design': typeof DesignRoute
+  '/report/$domain': typeof ReportDomainRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
   '/design': typeof DesignRoute
+  '/report/$domain': typeof ReportDomainRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/design'
+  fullPaths: '/' | '/design' | '/report/$domain'
   fileRoutesByTo: FileRoutesByTo
-  to: '/design'
-  id: '__root__' | '/design'
+  to: '/' | '/design' | '/report/$domain'
+  id: '__root__' | '/' | '/design' | '/report/$domain'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
   DesignRoute: typeof DesignRoute
+  ReportDomainRoute: typeof ReportDomainRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +68,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DesignRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/report/$domain': {
+      id: '/report/$domain'
+      path: '/report/$domain'
+      fullPath: '/report/$domain'
+      preLoaderRoute: typeof ReportDomainRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
   DesignRoute: DesignRoute,
+  ReportDomainRoute: ReportDomainRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

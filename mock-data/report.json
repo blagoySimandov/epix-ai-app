@@ -1,0 +1,14 @@
+{
+  "bioAge": {
+    "chrono": 28,
+    "bio": 24,
+    "delta": -4,
+    "status": "Slower aging"
+  },
+  "domains": [
+    { "id": "cardio", "name": "Cardio", "score": 72, "activation": "Moderate", "risk": "yellow" },
+    { "id": "metabolic", "name": "Metabolic", "score": 31, "activation": "Low", "risk": "green" },
+    { "id": "neuro", "name": "Neuro", "score": 55, "activation": "Moderate", "risk": "yellow" },
+    { "id": "onco", "name": "Onco", "score": 18, "activation": "Low", "risk": "green" }
+  ]
+}
