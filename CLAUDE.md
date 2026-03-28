@@ -1,5 +1,8 @@
 # AI Assistant Instructions for epix-ai
 
+## Project Overview
+Epix AI is a health-genomics mobile application built as a PWA (Vite + React + TypeScript + Tailwind CSS) that translates a user's genetic and epigenetic data into personalised, real-time health intelligence across 9 core scenarios: a genomic risk report with biological age tracking and disease domain drill-downs (Cardio, Metabolic, Neuro, Onco); an aging velocity dashboard with time-series visualisation; a camera-based food and medication scanner that triggers pharmacogenomic and nutrigenomic alerts with safe alternatives; an activity dashboard that contextualises step deficits against cardiovascular genetic risk; a travel health advisory that cross-references destination environments with genetic predispositions; a blood test upload and AI interpretation flow with genetically-adjusted reference ranges and longitudinal biomarker tracking; a real-time workout screen with gene-based heart rate zone guidance and post-workout recovery estimation; an alcohol metabolism warning triggered on drink detection; and a sleep recovery dashboard linking circadian gene variants to aging speed — all screens use hardcoded mock data, a consistent design system (custom Tailwind tokens + CSS variables), a mobile-first 390px layout with a persistent bottom tab bar, and React Router v6 for navigation.
+
 ## Design System Workflow
 When creating, updating, or modifying components within the `src/components/design-system` directory:
 1. You MUST export the component from `src/components/design-system/index.ts`.
