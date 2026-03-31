@@ -40,6 +40,9 @@
   --green-glow: #00e475;
   --green-text: #00984c;
   --surface-ring: #e6e8ea;
+  --amber: #f59e0b;
+  --rose: #f43f5e;
+  --violet: #8b5cf6;
 
   --sidebar-background: #F8FAFC;
   --sidebar-foreground: #191c1e;
@@ -127,6 +130,9 @@
   --color-green-glow: var(--green-glow);
   --color-green-text: var(--green-text);
   --color-surface-ring: var(--surface-ring);
+  --color-amber: var(--amber);
+  --color-rose: var(--rose);
+  --color-violet: var(--violet);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);

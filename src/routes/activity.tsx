@@ -16,20 +16,20 @@ export const Route = createFileRoute("/activity")({
 
 function stepsStatus(steps: number) {
 	if (steps >= 8000) return { label: "On Track", color: "var(--green-text)" };
-	if (steps >= 5000) return { label: "Below Goal", color: "#f59e0b" };
-	return { label: "Low", color: "#f43f5e" };
+	if (steps >= 5000) return { label: "Below Goal", color: "var(--amber)" };
+	return { label: "Low", color: "var(--rose)" };
 }
 
 function hrStatus(hr: number) {
-	if (hr <= 80) return { label: "Normal", color: "var(--green-text)" };
-	if (hr <= 100) return { label: "Elevated", color: "#f59e0b" };
-	return { label: "High", color: "#f43f5e" };
+	if (hr <= 80) return { label: "Normal", color: "var(--teal)" };
+	if (hr <= 100) return { label: "Elevated", color: "var(--amber)" };
+	return { label: "High", color: "var(--rose)" };
 }
 
 function hrvStatus(hrv: number) {
-	if (hrv >= 50) return { label: "Good", color: "var(--green-text)" };
-	if (hrv >= 30) return { label: "Fair", color: "#f59e0b" };
-	return { label: "Low", color: "#f43f5e" };
+	if (hrv >= 50) return { label: "Good", color: "var(--violet)" };
+	if (hrv >= 30) return { label: "Fair", color: "var(--amber)" };
+	return { label: "Low", color: "var(--rose)" };
 }
 
 function PageHeader() {
