@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Activity, ChevronRight, Wind } from "lucide-react";
 import { AgingTrajectoryChart } from "@design-system";
-import { BioAgeCard } from "#/components/report/bio-age-card";
+import { BioAgeWidget } from "@design-system/widgets";
 import { BottomNav } from "#/components/report/bottom-nav";
 import { DomainCard } from "#/components/report/domain-card";
 import type {
@@ -146,7 +146,12 @@ function HomePage() {
 			<main className="pt-10 pb-32 px-6 max-w-md mx-auto space-y-12">
 				<section className="space-y-6">
 					<BioAgeHeader status={data.bioAge.status} />
-					<BioAgeCard bioAge={data.bioAge} />
+					<BioAgeWidget
+						bio={data.bioAge.bio}
+						chrono={data.bioAge.chrono}
+						delta={data.bioAge.delta}
+						status={data.bioAge.status}
+					/>
 				</section>
 				<section className="space-y-6">
 					<div className="flex items-center justify-between">

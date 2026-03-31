@@ -9,6 +9,7 @@ import {
 	QuickStatCard,
 	StatusDot,
 } from "@design-system";
+import { BioAgeWidget } from "@design-system/widgets";
 import { Gauge, Sun, Zap } from "lucide-react";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -245,6 +246,28 @@ function DesignSystem() {
 						statusLabel="Active"
 						accentColor="#f43f5e"
 					/>
+				</div>
+			</section>
+
+			<section className="mb-16">
+				<h2 className="text-2xl font-semibold mb-6 border-b pb-2">
+					Widgets
+				</h2>
+				<p className="text-muted-foreground mb-6">
+					Higher-level components that compose design system primitives into screen-ready patterns.
+				</p>
+				<div className="space-y-8">
+					<div>
+						<h3 className="text-lg font-medium mb-2">BioAgeWidget</h3>
+						<p className="text-sm text-muted-foreground mb-4">
+							Dark-card hero widget showing biological age on a glowing arc dial with decorative tick ring, delta badge, insight sentence, and stats footer. Adapts color to aging status.
+						</p>
+						<div className="grid sm:grid-cols-3 gap-4 max-w-2xl">
+							<BioAgeWidget bio={24} chrono={28} delta={-4} status="Slower aging" />
+							<BioAgeWidget bio={32} chrono={32} delta={0} status="Average" />
+							<BioAgeWidget bio={38} chrono={34} delta={4} status="Faster aging" />
+						</div>
+					</div>
 				</div>
 			</section>
 
