@@ -26,7 +26,12 @@ export interface StatusDotProps
 	extends HTMLAttributes<HTMLSpanElement>,
 		VariantProps<typeof statusDotVariants> {}
 
-export function StatusDot({ className, variant, size, ...props }: StatusDotProps) {
+export function StatusDot({
+	className,
+	variant,
+	size,
+	...props
+}: StatusDotProps) {
 	return (
 		<span
 			className={cn(statusDotVariants({ variant, size }), className)}

@@ -19,8 +19,8 @@ export const Route = createFileRoute("/")({
 
 const STATUS_STYLE: Record<BioAge["status"], string> = {
 	"Slower aging": "bg-green-glow/20 text-green-text",
-	Average: "bg-yellow-100 text-yellow-700",
-	"Faster aging": "bg-rose-100 text-rose-700",
+	Average: "bg-yellow-400/20 text-yellow-500",
+	"Faster aging": "bg-rose-500/20 text-rose-400",
 };
 
 function BioAgeHeader({ status }: { status: BioAge["status"] }) {
@@ -59,7 +59,7 @@ function InsightsBanner() {
 			</div>
 			<button
 				type="button"
-				className="bg-teal-light/20 text-teal-light h-10 px-4 rounded-xl font-bold text-xs shrink-0"
+				className="bg-teal/20 text-teal h-10 px-4 rounded-xl font-bold text-xs shrink-0"
 			>
 				View
 			</button>

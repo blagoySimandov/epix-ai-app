@@ -28,7 +28,7 @@ function NavItem({ to, icon: Icon, label }: (typeof NAV_ITEMS)[number]) {
 
 export function BottomNav() {
 	return (
-		<nav className="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-white/70 backdrop-blur-2xl shadow-[0_-8px_32px_0_rgba(13,28,50,0.06)] rounded-t-3xl">
+		<nav className="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 [background:color-mix(in_srgb,var(--card)_75%,transparent)] backdrop-blur-2xl shadow-[0_-8px_32px_0_rgba(13,28,50,0.06)] rounded-t-3xl">
 			{NAV_ITEMS.map((item) => (
 				<NavItem key={item.to} {...item} />
 			))}

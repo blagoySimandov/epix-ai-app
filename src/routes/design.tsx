@@ -1,8 +1,8 @@
 import {
+	Badge,
 	BarChartOverview,
 	ColorCard,
 	LineChartTrend,
-	Badge,
 	StatusDot,
 } from "@design-system";
 import { createFileRoute } from "@tanstack/react-router";

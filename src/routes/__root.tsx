@@ -6,6 +6,8 @@ import {
 	Scripts,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+import { Moon, Sun } from "lucide-react";
+import * as React from "react";
 
 import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
 import TanStackQueryProvider from "../integrations/tanstack-query/root-provider";
@@ -50,6 +52,47 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 	shellComponent: RootDocument,
 });
 
+function ThemeToggle() {
+	const [theme, setTheme] = React.useState<"light" | "dark" | "auto">("auto");
+
+	React.useEffect(() => {
+		const storedTheme = localStorage.getItem("theme") as
+			| "light"
+			| "dark"
+			| "auto";
+		if (storedTheme) {
+			setTheme(storedTheme);
+		}
+	}, []);
+
+	const toggleTheme = () => {
+		const newTheme = theme === "light" ? "dark" : "light";
+		setTheme(newTheme);
+		localStorage.setItem("theme", newTheme);
+
+		const root = document.documentElement;
+		root.classList.remove("light", "dark");
+		root.classList.add(newTheme);
+		root.setAttribute("data-theme", newTheme);
+		root.style.colorScheme = newTheme;
+	};
+
+	return (
+		<button
+			type="button"
+			onClick={toggleTheme}
+			className="fixed top-4 right-4 z-[100] p-2 rounded-full bg-card/80 backdrop-blur-sm border shadow-sm hover:bg-muted transition-colors"
+			aria-label="Toggle theme"
+		>
+			{theme === "light" ? (
+				<Moon className="w-5 h-5" />
+			) : (
+				<Sun className="w-5 h-5 text-yellow-500" />
+			)}
+		</button>
+	);
+}
+
 function RootDocument({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en" suppressHydrationWarning>
@@ -59,6 +102,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			</head>
 			<body className="font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(79,184,178,0.24)]">
 				<TanStackQueryProvider>
+					<ThemeToggle />
 					{children}
 					<TanStackDevtools
 						config={{

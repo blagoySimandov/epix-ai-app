@@ -16,7 +16,7 @@ const DOMAIN_ICONS: Record<
 const ICON_STYLE: Record<Domain["risk"], { bg: string; text: string }> = {
 	yellow: { bg: "bg-teal-light/30", text: "text-teal" },
 	green: { bg: "bg-green-glow/20", text: "text-green-text" },
-	red: { bg: "bg-rose-100", text: "text-rose-600" },
+	red: { bg: "bg-rose-500/20", text: "text-rose-400" },
 };
 
 const RISK_DOT: Record<Domain["risk"], string> = {
@@ -39,7 +39,7 @@ export function DomainCard({ domain }: DomainCardProps) {
 		<Link
 			to="/report/$domain"
 			params={{ domain: domain.id }}
-			className="glass-card p-5 rounded-[1.5rem] shadow-[0_4px_20px_rgba(0,0,0,0.02)] border border-white/40 flex flex-col justify-between aspect-square active:scale-95 transition-transform duration-200"
+			className="glass-card p-5 rounded-[1.5rem] shadow-[0_4px_20px_rgba(0,0,0,0.02)] border border-border/40 flex flex-col justify-between aspect-square active:scale-95 transition-transform duration-200"
 		>
 			<div className="flex justify-between items-start">
 				<div className={`p-2 rounded-xl ${iconStyle.bg} ${iconStyle.text}`}>
