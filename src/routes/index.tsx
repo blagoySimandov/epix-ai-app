@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Activity, ChevronRight, Wind } from "lucide-react";
 import { AgingTrajectoryChart } from "@design-system";
 import { BioAgeWidget } from "@design-system/widgets";
-import { BottomNav } from "#/components/report/bottom-nav";
 import { DomainCard } from "#/components/report/domain-card";
 import type {
 	BioAge,
@@ -179,7 +178,6 @@ function HomePage() {
 				</section>
 				<InsightsBanner />
 			</main>
-			<BottomNav />
 		</>
 	);
 }

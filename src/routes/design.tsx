@@ -19,7 +19,7 @@ export const Route = createFileRoute("/design")({
 
 function DesignSystem() {
 	return (
-		<main className="container mx-auto max-w-5xl px-4 py-12">
+		<main className="container mx-auto max-w-5xl px-4 pt-12 pb-32">
 			<div className="mb-12">
 				<h1 className="text-4xl font-bold text-foreground tracking-tight sm:text-5xl mb-4">
 					Design System

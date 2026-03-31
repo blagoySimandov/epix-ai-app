@@ -11,7 +11,7 @@ function DomainDetailPage() {
 
 	return (
 		<main className="min-h-screen bg-background">
-			<div className="mx-auto max-w-[390px] px-4 pt-10 flex flex-col gap-6">
+			<div className="mx-auto max-w-[390px] px-4 pt-10 pb-32 flex flex-col gap-6">
 				<div className="flex items-center gap-3">
 					<Link to="/" className="p-2 -ml-2 text-muted-foreground">
 						<ArrowLeft size={20} />

@@ -12,6 +12,7 @@ import * as React from "react";
 import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
 import TanStackQueryProvider from "../integrations/tanstack-query/root-provider";
 import appCss from "../styles.css?url";
+import { BottomNav } from "../components/report/bottom-nav";
 
 interface MyRouterContext {
 	queryClient: QueryClient;
@@ -104,6 +105,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<TanStackQueryProvider>
 					<ThemeToggle />
 					{children}
+					<BottomNav />
 					<TanStackDevtools
 						config={{
 							position: "bottom-right",
