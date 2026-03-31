@@ -1,3 +1,8 @@
+export {
+	AgingTrajectoryChart,
+	type AgingTrajectoryChartProps,
+	type TrajectoryPoint,
+} from "./aging-trajectory-chart";
 export { Badge, type BadgeProps } from "./badge";
 export { BarChartOverview } from "./bar-chart-overview";
 export { ColorCard } from "./color-card";

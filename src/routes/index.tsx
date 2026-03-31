@@ -1,14 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import {
-	CartesianGrid,
-	Line,
-	LineChart,
-	ResponsiveContainer,
-	Tooltip,
-	XAxis,
-	YAxis,
-} from "recharts";
 import { Activity, ChevronRight, Wind } from "lucide-react";
+import { AgingTrajectoryChart } from "@design-system";
 import { BioAgeCard } from "#/components/report/bio-age-card";
 import { BottomNav } from "#/components/report/bottom-nav";
 import { DomainCard } from "#/components/report/domain-card";
@@ -17,7 +9,6 @@ import type {
 	Domain,
 	Environment,
 	PhysicalActivity,
-	WeekPoint,
 } from "#/integrations/api/types";
 import {
 	reportQueryOptions,
@@ -62,102 +53,6 @@ function DomainGrid({ domains }: { domains: Domain[] }) {
 	);
 }
 
-const TOOLTIP_STYLE = {
-	backgroundColor: "var(--card)",
-	borderColor: "var(--border)",
-	borderRadius: "0.5rem",
-	fontSize: 12,
-	color: "var(--card-foreground)",
-};
-
-function LegendItem({
-	color,
-	label,
-	dashed,
-}: {
-	color: string;
-	label: string;
-	dashed?: boolean;
-}) {
-	return (
-		<div className="flex items-center gap-1.5 text-[10px] font-medium text-muted-foreground">
-			<svg width="16" height="6" viewBox="0 0 16 6" aria-hidden="true">
-				<title>{label}</title>
-				<line
-					x1="0"
-					y1="3"
-					x2="16"
-					y2="3"
-					stroke={color}
-					strokeWidth="2"
-					strokeDasharray={dashed ? "4 3" : undefined}
-				/>
-			</svg>
-			{label}
-		</div>
-	);
-}
-
-function AgeHistoryChart({ data }: { data: WeekPoint[] }) {
-	return (
-		<section className="space-y-4">
-			<h2 className="font-headline font-bold text-2xl tracking-tight">
-				Aging Trajectory
-			</h2>
-			<div className="glass-card rounded-[1.5rem] p-4 border border-border/40">
-				<div className="h-40 w-full">
-					<ResponsiveContainer width="100%" height="100%">
-						<LineChart
-							data={data}
-							margin={{ top: 4, right: 4, left: -28, bottom: 0 }}
-						>
-							<CartesianGrid
-								strokeDasharray="3 3"
-								vertical={false}
-								stroke="var(--border)"
-							/>
-							<XAxis
-								dataKey="week"
-								tick={{ fontSize: 10, fill: "var(--muted-foreground)" }}
-								axisLine={false}
-								tickLine={false}
-								interval={2}
-							/>
-							<YAxis
-								tick={{ fontSize: 10, fill: "var(--muted-foreground)" }}
-								axisLine={false}
-								tickLine={false}
-								domain={["dataMin - 1", "dataMax + 1"]}
-							/>
-							<Tooltip contentStyle={TOOLTIP_STYLE} />
-							<Line
-								type="monotone"
-								dataKey="bioAge"
-								stroke="var(--teal)"
-								strokeWidth={2.5}
-								dot={false}
-								name="Bio Age"
-							/>
-							<Line
-								type="monotone"
-								dataKey="baseline"
-								stroke="var(--muted-foreground)"
-								strokeWidth={1.5}
-								strokeDasharray="5 5"
-								dot={false}
-								name="Baseline"
-							/>
-						</LineChart>
-					</ResponsiveContainer>
-				</div>
-				<div className="flex gap-6 justify-center mt-2">
-					<LegendItem color="var(--teal)" label="Bio Age" />
-					<LegendItem color="var(--muted-foreground)" label="Baseline" dashed />
-				</div>
-			</div>
-		</section>
-	);
-}
 
 function ActivityPanel({ pa }: { pa: PhysicalActivity }) {
 	return (
@@ -267,7 +162,7 @@ function HomePage() {
 					</div>
 					<DomainGrid domains={data.domains} />
 				</section>
-				<AgeHistoryChart data={data.bioAgeHistory} />
+				<AgingTrajectoryChart data={data.bioAgeHistory} />
 				<section className="space-y-4">
 					<h2 className="font-headline font-bold text-2xl tracking-tight">
 						Health Signals
