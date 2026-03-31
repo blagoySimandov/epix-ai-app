@@ -9,13 +9,25 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as EnvironmentRouteImport } from './routes/environment'
 import { Route as DesignRouteImport } from './routes/design'
+import { Route as ActivityRouteImport } from './routes/activity'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ReportDomainRouteImport } from './routes/report.$domain'
 
+const EnvironmentRoute = EnvironmentRouteImport.update({
+  id: '/environment',
+  path: '/environment',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DesignRoute = DesignRouteImport.update({
   id: '/design',
   path: '/design',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ActivityRoute = ActivityRouteImport.update({
+  id: '/activity',
+  path: '/activity',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -31,41 +43,69 @@ const ReportDomainRoute = ReportDomainRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/activity': typeof ActivityRoute
   '/design': typeof DesignRoute
+  '/environment': typeof EnvironmentRoute
   '/report/$domain': typeof ReportDomainRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/activity': typeof ActivityRoute
   '/design': typeof DesignRoute
+  '/environment': typeof EnvironmentRoute
   '/report/$domain': typeof ReportDomainRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/activity': typeof ActivityRoute
   '/design': typeof DesignRoute
+  '/environment': typeof EnvironmentRoute
   '/report/$domain': typeof ReportDomainRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/design' | '/report/$domain'
+  fullPaths: '/' | '/activity' | '/design' | '/environment' | '/report/$domain'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/design' | '/report/$domain'
-  id: '__root__' | '/' | '/design' | '/report/$domain'
+  to: '/' | '/activity' | '/design' | '/environment' | '/report/$domain'
+  id:
+    | '__root__'
+    | '/'
+    | '/activity'
+    | '/design'
+    | '/environment'
+    | '/report/$domain'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ActivityRoute: typeof ActivityRoute
   DesignRoute: typeof DesignRoute
+  EnvironmentRoute: typeof EnvironmentRoute
   ReportDomainRoute: typeof ReportDomainRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/environment': {
+      id: '/environment'
+      path: '/environment'
+      fullPath: '/environment'
+      preLoaderRoute: typeof EnvironmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/design': {
       id: '/design'
       path: '/design'
       fullPath: '/design'
       preLoaderRoute: typeof DesignRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/activity': {
+      id: '/activity'
+      path: '/activity'
+      fullPath: '/activity'
+      preLoaderRoute: typeof ActivityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -87,7 +127,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ActivityRoute: ActivityRoute,
   DesignRoute: DesignRoute,
+  EnvironmentRoute: EnvironmentRoute,
   ReportDomainRoute: ReportDomainRoute,
 }
 export const routeTree = rootRouteImport

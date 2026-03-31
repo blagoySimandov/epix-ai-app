@@ -5,10 +5,103 @@
     "delta": -4,
     "status": "Slower aging"
   },
+  "bioAgeHistory": [
+    { "week": "W1", "bioAge": 26.2, "baseline": 28 },
+    { "week": "W2", "bioAge": 25.8, "baseline": 28 },
+    { "week": "W3", "bioAge": 25.5, "baseline": 28 },
+    { "week": "W4", "bioAge": 25.1, "baseline": 28 },
+    { "week": "W5", "bioAge": 24.9, "baseline": 28 },
+    { "week": "W6", "bioAge": 24.7, "baseline": 28 },
+    { "week": "W7", "bioAge": 24.5, "baseline": 28 },
+    { "week": "W8", "bioAge": 24.3, "baseline": 28 },
+    { "week": "W9", "bioAge": 24.1, "baseline": 28 },
+    { "week": "W10", "bioAge": 24.0, "baseline": 28 },
+    { "week": "W11", "bioAge": 24.1, "baseline": 28 },
+    { "week": "W12", "bioAge": 24.0, "baseline": 28 }
+  ],
   "domains": [
-    { "id": "cardio", "name": "Cardio", "score": 72, "activation": "Moderate", "risk": "yellow" },
-    { "id": "metabolic", "name": "Metabolic", "score": 31, "activation": "Low", "risk": "green" },
-    { "id": "neuro", "name": "Neuro", "score": 55, "activation": "Moderate", "risk": "yellow" },
-    { "id": "onco", "name": "Onco", "score": 18, "activation": "Low", "risk": "green" }
-  ]
+    { "id": "cardio", "name": "Cardio", "score": 72, "activation": "Moderate", "risk": "yellow", "geneticRisk": 68, "geneticActivation": 45 },
+    { "id": "metabolic", "name": "Metabolic", "score": 31, "activation": "Low", "risk": "green", "geneticRisk": 28, "geneticActivation": 22 },
+    { "id": "neuro", "name": "Neuro", "score": 55, "activation": "Moderate", "risk": "yellow", "geneticRisk": 52, "geneticActivation": 38 },
+    { "id": "onco", "name": "Onco", "score": 18, "activation": "Low", "risk": "green", "geneticRisk": 15, "geneticActivation": 12 }
+  ],
+  "physicalActivity": {
+    "steps": 9243,
+    "restingHR": 58,
+    "hrv": 62,
+    "history": {
+      "steps": [
+        { "day": "Mon", "value": 7800 },
+        { "day": "Tue", "value": 11200 },
+        { "day": "Wed", "value": 8500 },
+        { "day": "Thu", "value": 6300 },
+        { "day": "Fri", "value": 10100 },
+        { "day": "Sat", "value": 12400 },
+        { "day": "Sun", "value": 9243 }
+      ],
+      "restingHR": [
+        { "day": "Mon", "value": 61 },
+        { "day": "Tue", "value": 59 },
+        { "day": "Wed", "value": 62 },
+        { "day": "Thu", "value": 60 },
+        { "day": "Fri", "value": 58 },
+        { "day": "Sat", "value": 57 },
+        { "day": "Sun", "value": 58 }
+      ],
+      "hrv": [
+        { "day": "Mon", "value": 54 },
+        { "day": "Tue", "value": 61 },
+        { "day": "Wed", "value": 58 },
+        { "day": "Thu", "value": 55 },
+        { "day": "Fri", "value": 63 },
+        { "day": "Sat", "value": 66 },
+        { "day": "Sun", "value": 62 }
+      ]
+    }
+  },
+  "environment": {
+    "airQuality": { "aqi": 42, "label": "Good" },
+    "uvIndex": 6,
+    "meteorological": { "condition": "Partly Cloudy", "temp": 18 },
+    "elevation": 320,
+    "magneticStorms": { "level": "Kp2", "active": false },
+    "history": {
+      "airQuality": [
+        { "day": "Mon", "value": 55 },
+        { "day": "Tue", "value": 48 },
+        { "day": "Wed", "value": 62 },
+        { "day": "Thu", "value": 71 },
+        { "day": "Fri", "value": 45 },
+        { "day": "Sat", "value": 38 },
+        { "day": "Sun", "value": 42 }
+      ],
+      "uvIndex": [
+        { "day": "Mon", "value": 5 },
+        { "day": "Tue", "value": 7 },
+        { "day": "Wed", "value": 8 },
+        { "day": "Thu", "value": 4 },
+        { "day": "Fri", "value": 6 },
+        { "day": "Sat", "value": 9 },
+        { "day": "Sun", "value": 6 }
+      ],
+      "elevation": [
+        { "day": "Mon", "value": 305 },
+        { "day": "Tue", "value": 320 },
+        { "day": "Wed", "value": 280 },
+        { "day": "Thu", "value": 295 },
+        { "day": "Fri", "value": 310 },
+        { "day": "Sat", "value": 340 },
+        { "day": "Sun", "value": 320 }
+      ],
+      "magneticStorms": [
+        { "day": "Mon", "value": 1 },
+        { "day": "Tue", "value": 2 },
+        { "day": "Wed", "value": 3 },
+        { "day": "Thu", "value": 4 },
+        { "day": "Fri", "value": 2 },
+        { "day": "Sat", "value": 1 },
+        { "day": "Sun", "value": 2 }
+      ]
+    }
+  }
 }

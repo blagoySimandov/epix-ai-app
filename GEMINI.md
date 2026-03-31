@@ -17,3 +17,5 @@ The following components are part of the core design system:
 - **BarChartOverview**: A pre-styled responsive Bar Chart widget displaying comparative metrics using the Recharts library and standard design tokens.
 - **LineChartTrend**: A pre-styled responsive Line Chart widget displaying trends over time using the Recharts library and standard design tokens.
 - **ColorCard**: A specialized presentation card used purely within the design system inventory route to display and preview theme color tokens and their hex/CSS variables.
+- **HalfCircleGauge**: An enhanced dual-arc SVG semicircle gauge that visualises two concurrent 0–100 levels with gradient strokes and a center value callout. `primaryColor` drives the outer arc (Risk); `secondaryColor` (defaults to `var(--teal)`) drives the inner arc (Activation). Used for displaying genetic risk vs. activation levels on domain cards.
+- **MetricChart**: A compact, single-metric area chart (using Recharts) for 7-day trend data. Accepts `data: Array<{ day: string; value: number }>`, a `color` CSS string, and an optional `unit` label. Used in physical activity and environment detail pages.

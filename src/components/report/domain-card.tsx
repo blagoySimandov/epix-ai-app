@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Activity, Brain, Heart, Shield } from "lucide-react";
+import { HalfCircleGauge } from "@design-system";
 import type { Domain } from "#/integrations/api/types";
-import { useCountUp } from "#/lib/use-count-up";
 
 const DOMAIN_ICONS: Record<
 	string,
@@ -25,39 +25,61 @@ const RISK_DOT: Record<Domain["risk"], string> = {
 	red: "bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.5)]",
 };
 
-interface DomainCardProps {
-	domain: Domain;
-}
+const RISK_COLORS: Record<Domain["risk"], string> = {
+	yellow: "#facc15",
+	green: "var(--green-glow)",
+	red: "#f43f5e",
+};
 
-export function DomainCard({ domain }: DomainCardProps) {
+const RISK_BG: Record<Domain["risk"], string> = {
+	yellow: "bg-yellow-400/5",
+	green: "bg-green-glow/5",
+	red: "bg-rose-500/5",
+};
+
+export function DomainCard({ domain }: { domain: Domain }) {
 	const Icon = DOMAIN_ICONS[domain.id] ?? Heart;
-	const iconStyle = ICON_STYLE[domain.risk];
-	const dotStyle = RISK_DOT[domain.risk];
-	const displayScore = useCountUp(domain.score, 1000, 600);
+	const { bg, text } = ICON_STYLE[domain.risk];
 
 	return (
 		<Link
 			to="/report/$domain"
 			params={{ domain: domain.id }}
-			className="glass-card p-5 rounded-[1.5rem] shadow-[0_4px_20px_rgba(0,0,0,0.02)] border border-border/40 flex flex-col justify-between aspect-square active:scale-95 transition-transform duration-200"
+			className="glass-card p-4 rounded-[2rem] shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-white/5 flex flex-col gap-4 active:scale-[0.98] transition-all duration-200 relative overflow-hidden"
 		>
-			<div className="flex justify-between items-start">
-				<div className={`p-2 rounded-xl ${iconStyle.bg} ${iconStyle.text}`}>
-					<Icon size={20} />
+			<div
+				className={`absolute inset-0 ${RISK_BG[domain.risk]} pointer-events-none`}
+			/>
+
+			<div className="relative z-10 flex flex-col gap-4">
+				<div className="flex items-center justify-between">
+					<div className="flex items-center gap-2.5">
+						<div className={`p-2 rounded-xl ${bg} ${text} shadow-sm`}>
+							<Icon size={16} />
+						</div>
+						<p className="font-headline font-bold text-sm tracking-tight">
+							{domain.name}
+						</p>
+					</div>
+					<div className={`w-2 h-2 rounded-full ${RISK_DOT[domain.risk]}`} />
 				</div>
-				<div className={`w-2.5 h-2.5 rounded-full ${dotStyle}`} />
-			</div>
-			<div>
-				<p className="font-headline font-bold text-lg mb-0.5">{domain.name}</p>
-				<div className="flex items-baseline gap-1">
-					<span className="font-headline font-extrabold text-2xl">
-						{displayScore}
+
+				<div className="px-1">
+					<HalfCircleGauge
+						primaryLevel={domain.geneticRisk}
+						secondaryLevel={domain.geneticActivation}
+						primaryColor={RISK_COLORS[domain.risk]}
+					/>
+				</div>
+
+				<div className="flex justify-between items-center px-1">
+					<span className="text-[10px] text-muted-foreground font-medium uppercase tracking-[0.1em]">
+						Activation
 					</span>
-					<span className="text-[10px] text-muted-foreground">/100</span>
+					<span className="text-[10px] text-teal font-bold tabular-nums">
+						{domain.geneticActivation}%
+					</span>
 				</div>
-				<p className="text-[11px] font-medium text-muted-foreground mt-2">
-					{domain.activation} Activation
-				</p>
 			</div>
 		</Link>
 	);

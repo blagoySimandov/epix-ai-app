@@ -2,7 +2,9 @@ import {
 	Badge,
 	BarChartOverview,
 	ColorCard,
+	HalfCircleGauge,
 	LineChartTrend,
+	MetricChart,
 	StatusDot,
 } from "@design-system";
 import { createFileRoute } from "@tanstack/react-router";
@@ -99,6 +101,87 @@ function DesignSystem() {
 				<div className="grid md:grid-cols-2 gap-8">
 					<BarChartOverview />
 					<LineChartTrend />
+				</div>
+				<div className="mt-8 bg-card border rounded-2xl p-6 shadow-sm space-y-3">
+					<h3 className="text-lg font-medium">
+						MetricChart — 7-Day Area Trend
+					</h3>
+					<p className="text-sm text-muted-foreground">
+						Compact area chart for displaying a single metric over a 7-day window. Accepts any{" "}
+						<code className="text-xs font-mono bg-muted px-1 py-0.5 rounded">color</code> string and optional{" "}
+						<code className="text-xs font-mono bg-muted px-1 py-0.5 rounded">unit</code> label.
+					</p>
+					<MetricChart
+						data={[
+							{ day: "Mon", value: 61 },
+							{ day: "Tue", value: 59 },
+							{ day: "Wed", value: 62 },
+							{ day: "Thu", value: 60 },
+							{ day: "Fri", value: 58 },
+							{ day: "Sat", value: 57 },
+							{ day: "Sun", value: 58 },
+						]}
+						color="var(--teal)"
+						unit=" bpm"
+					/>
+				</div>
+			</section>
+
+			<section className="mb-16">
+				<h2 className="text-2xl font-semibold mb-6 border-b pb-2">
+					Half Circle Gauge
+				</h2>
+				<p className="text-muted-foreground mb-6">
+					Enhanced dual-arc SVG gauge featuring gradient strokes and a center
+					value callout. The outer arc is{" "}
+					<code className="text-xs font-mono bg-muted px-1 py-0.5 rounded">
+						primaryColor
+					</code>{" "}
+					(risk level), the inner arc defaults to{" "}
+					<code className="text-xs font-mono bg-muted px-1 py-0.5 rounded">
+						var(--teal)
+					</code>{" "}
+					(activation level).
+				</p>
+				<div className="grid grid-cols-3 gap-6 max-w-lg">
+					{[
+						{
+							label: "Low Risk",
+							primaryLevel: 22,
+							secondaryLevel: 18,
+							primaryColor: "var(--green-glow)",
+						},
+						{
+							label: "Moderate",
+							primaryLevel: 60,
+							secondaryLevel: 40,
+							primaryColor: "#facc15",
+						},
+						{
+							label: "High Risk",
+							primaryLevel: 88,
+							secondaryLevel: 72,
+							primaryColor: "#f43f5e",
+						},
+					].map(({ label, primaryLevel, secondaryLevel, primaryColor }) => (
+						<div
+							key={label}
+							className="bg-card border rounded-2xl p-4 shadow-sm space-y-4"
+						>
+							<HalfCircleGauge
+								primaryLevel={primaryLevel}
+								secondaryLevel={secondaryLevel}
+								primaryColor={primaryColor}
+							/>
+							<div className="space-y-1">
+								<p className="text-sm font-bold text-center">{label}</p>
+								<div className="flex justify-between text-[10px] text-muted-foreground uppercase font-medium tracking-wider">
+									<span>Risk {primaryLevel}%</span>
+									<span>Act {secondaryLevel}%</span>
+								</div>
+							</div>
+						</div>
+					))}
 				</div>
 			</section>
 

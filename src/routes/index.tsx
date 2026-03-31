@@ -1,8 +1,24 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import {
+	CartesianGrid,
+	Line,
+	LineChart,
+	ResponsiveContainer,
+	Tooltip,
+	XAxis,
+	YAxis,
+} from "recharts";
+import { Activity, ChevronRight, Wind } from "lucide-react";
 import { BioAgeCard } from "#/components/report/bio-age-card";
 import { BottomNav } from "#/components/report/bottom-nav";
 import { DomainCard } from "#/components/report/domain-card";
-import type { BioAge, Domain } from "#/integrations/api/types";
+import type {
+	BioAge,
+	Domain,
+	Environment,
+	PhysicalActivity,
+	WeekPoint,
+} from "#/integrations/api/types";
 import {
 	reportQueryOptions,
 	useReport,
@@ -43,6 +59,166 @@ function DomainGrid({ domains }: { domains: Domain[] }) {
 				<DomainCard key={domain.id} domain={domain} />
 			))}
 		</div>
+	);
+}
+
+const TOOLTIP_STYLE = {
+	backgroundColor: "var(--card)",
+	borderColor: "var(--border)",
+	borderRadius: "0.5rem",
+	fontSize: 12,
+	color: "var(--card-foreground)",
+};
+
+function LegendItem({
+	color,
+	label,
+	dashed,
+}: {
+	color: string;
+	label: string;
+	dashed?: boolean;
+}) {
+	return (
+		<div className="flex items-center gap-1.5 text-[10px] font-medium text-muted-foreground">
+			<svg width="16" height="6" viewBox="0 0 16 6" aria-hidden="true">
+				<title>{label}</title>
+				<line
+					x1="0"
+					y1="3"
+					x2="16"
+					y2="3"
+					stroke={color}
+					strokeWidth="2"
+					strokeDasharray={dashed ? "4 3" : undefined}
+				/>
+			</svg>
+			{label}
+		</div>
+	);
+}
+
+function AgeHistoryChart({ data }: { data: WeekPoint[] }) {
+	return (
+		<section className="space-y-4">
+			<h2 className="font-headline font-bold text-2xl tracking-tight">
+				Aging Trajectory
+			</h2>
+			<div className="glass-card rounded-[1.5rem] p-4 border border-border/40">
+				<div className="h-40 w-full">
+					<ResponsiveContainer width="100%" height="100%">
+						<LineChart
+							data={data}
+							margin={{ top: 4, right: 4, left: -28, bottom: 0 }}
+						>
+							<CartesianGrid
+								strokeDasharray="3 3"
+								vertical={false}
+								stroke="var(--border)"
+							/>
+							<XAxis
+								dataKey="week"
+								tick={{ fontSize: 10, fill: "var(--muted-foreground)" }}
+								axisLine={false}
+								tickLine={false}
+								interval={2}
+							/>
+							<YAxis
+								tick={{ fontSize: 10, fill: "var(--muted-foreground)" }}
+								axisLine={false}
+								tickLine={false}
+								domain={["dataMin - 1", "dataMax + 1"]}
+							/>
+							<Tooltip contentStyle={TOOLTIP_STYLE} />
+							<Line
+								type="monotone"
+								dataKey="bioAge"
+								stroke="var(--teal)"
+								strokeWidth={2.5}
+								dot={false}
+								name="Bio Age"
+							/>
+							<Line
+								type="monotone"
+								dataKey="baseline"
+								stroke="var(--muted-foreground)"
+								strokeWidth={1.5}
+								strokeDasharray="5 5"
+								dot={false}
+								name="Baseline"
+							/>
+						</LineChart>
+					</ResponsiveContainer>
+				</div>
+				<div className="flex gap-6 justify-center mt-2">
+					<LegendItem color="var(--teal)" label="Bio Age" />
+					<LegendItem color="var(--muted-foreground)" label="Baseline" dashed />
+				</div>
+			</div>
+		</section>
+	);
+}
+
+function ActivityPanel({ pa }: { pa: PhysicalActivity }) {
+	return (
+		<Link
+			to="/activity"
+			className="glass-card p-4 rounded-[1.5rem] border border-border/40 flex flex-col gap-3 active:scale-95 transition-transform duration-200"
+		>
+			<div className="flex justify-between items-start">
+				<div className="p-2 rounded-xl bg-teal/10 text-teal">
+					<Activity size={18} />
+				</div>
+				<ChevronRight size={16} className="text-muted-foreground mt-1" />
+			</div>
+			<div>
+				<p className="font-headline font-extrabold text-3xl leading-none">
+					{pa.steps.toLocaleString()}
+				</p>
+				<p className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider mt-1">
+					steps today
+				</p>
+			</div>
+			<p className="text-[11px] font-semibold text-muted-foreground">
+				Physical Activity
+			</p>
+		</Link>
+	);
+}
+
+const AQI_COLOR = (aqi: number) =>
+	aqi <= 50
+		? "text-green-text"
+		: aqi <= 100
+			? "text-yellow-500"
+			: "text-rose-400";
+
+function EnvironmentPanel({ env }: { env: Environment }) {
+	return (
+		<Link
+			to="/environment"
+			className="glass-card p-4 rounded-[1.5rem] border border-border/40 flex flex-col gap-3 active:scale-95 transition-transform duration-200"
+		>
+			<div className="flex justify-between items-start">
+				<div className="p-2 rounded-xl bg-teal/10 text-teal">
+					<Wind size={18} />
+				</div>
+				<ChevronRight size={16} className="text-muted-foreground mt-1" />
+			</div>
+			<div>
+				<p
+					className={`font-headline font-extrabold text-3xl leading-none ${AQI_COLOR(env.airQuality.aqi)}`}
+				>
+					{env.airQuality.aqi}
+				</p>
+				<p className="text-[10px] text-muted-foreground font-semibold uppercase tracking-wider mt-1">
+					AQI · {env.airQuality.label}
+				</p>
+			</div>
+			<p className="text-[11px] font-semibold text-muted-foreground">
+				Environment
+			</p>
+		</Link>
 	);
 }
 
@@ -90,6 +266,16 @@ function HomePage() {
 						</button>
 					</div>
 					<DomainGrid domains={data.domains} />
+				</section>
+				<AgeHistoryChart data={data.bioAgeHistory} />
+				<section className="space-y-4">
+					<h2 className="font-headline font-bold text-2xl tracking-tight">
+						Health Signals
+					</h2>
+					<div className="grid grid-cols-2 gap-4">
+						<ActivityPanel pa={data.physicalActivity} />
+						<EnvironmentPanel env={data.environment} />
+					</div>
 				</section>
 				<InsightsBanner />
 			</main>
