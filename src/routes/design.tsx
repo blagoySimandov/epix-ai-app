@@ -6,8 +6,10 @@ import {
 	HalfCircleGauge,
 	LineChartTrend,
 	MetricChart,
+	QuickStatCard,
 	StatusDot,
 } from "@design-system";
+import { Gauge, Sun, Zap } from "lucide-react";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/design")({
@@ -209,6 +211,40 @@ function DesignSystem() {
 							</div>
 						</div>
 					))}
+				</div>
+			</section>
+
+			<section className="mb-16">
+				<h2 className="text-2xl font-semibold mb-6 border-b pb-2">
+					QuickStatCard
+				</h2>
+				<p className="text-muted-foreground mb-6">
+					Compact glanceable card for displaying a single health metric at a glance. Shows an icon, label, large value, and color-coded status label via{" "}
+					<code className="text-xs font-mono bg-muted px-1 py-0.5 rounded">accentColor</code>.
+					Used in 2-column grids for at-a-glance dashboards.
+				</p>
+				<div className="grid grid-cols-3 gap-4 max-w-md">
+					<QuickStatCard
+						icon={Gauge}
+						label="Air Quality"
+						value={42}
+						statusLabel="Good"
+						accentColor="var(--green-text)"
+					/>
+					<QuickStatCard
+						icon={Sun}
+						label="UV Index"
+						value={6}
+						statusLabel="High"
+						accentColor="#f97316"
+					/>
+					<QuickStatCard
+						icon={Zap}
+						label="Magnetic Kp"
+						value="G2"
+						statusLabel="Active"
+						accentColor="#f43f5e"
+					/>
 				</div>
 			</section>
 

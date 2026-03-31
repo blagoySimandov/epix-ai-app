@@ -7,8 +7,9 @@ Epix AI is a health-genomics mobile application built as a PWA (Vite + React + T
 When creating, updating, or modifying components within the `src/components/design-system` directory:
 1. You MUST export the component from `src/components/design-system/index.ts`.
 2. You MUST update the design system inventory route at `src/routes/design.tsx` to showcase the component and document its usage. This ensures `/design` remains a complete, live inventory of all available UI elements.
-3. Use the `@design-system` alias when importing components from the design system.
+3. Use the `@design-system` alias when importing core design system components, and `@design-system/widgets` for widgets.
 4. You MUST update the "Design System Components" section in both `GEMINI.md` and `CLAUDE.md` with a short explanation of the new or modified component.
+5. For components that compose design system primitives but are more screen-specific, place them under `src/components/design-system/widgets/` and export from its `index.ts`. Screens should be built almost entirely from design system components and widgets.
 
 ## Design System Components
 The following components are part of the core design system:
@@ -20,3 +21,8 @@ The following components are part of the core design system:
 - **HalfCircleGauge**: An enhanced dual-arc SVG semicircle gauge that visualises two concurrent 0–100 levels with gradient strokes and a center value callout. `primaryColor` drives the outer arc (Risk); `secondaryColor` (defaults to `var(--teal)`) drives the inner arc (Activation). Used for displaying genetic risk vs. activation levels on domain cards.
 - **MetricChart**: A compact, single-metric area chart (using Recharts) for 7-day trend data. Accepts `data: Array<{ day: string; value: number }>`, a `color` CSS string, and an optional `unit` label. Used in physical activity and environment detail pages.
 - **AgingTrajectoryChart**: A dark-navy area chart card for displaying bio age vs baseline over a multi-week period. Accepts `data: TrajectoryPoint[]` (`{ week, bioAge, baseline }`). Automatically computes and displays the delta (improvement/regression in years) in the header with a trending icon. Features a teal gradient area fill and a glowing dot on the latest data point. Used on the home screen.
+- **QuickStatCard**: A compact glanceable card for displaying a single health metric. Shows an icon, label, large value with optional unit, and a status label — all color-coded via `accentColor`. Designed for 2-column grids to give at-a-glance status of multiple metrics.
+
+## Design System Widgets (`src/components/design-system/widgets/`)
+Widgets are reusable components that compose design system primitives into higher-level patterns. They are more specific than core design system components but still reusable across multiple screens. Import from `@design-system/widgets`.
+- **MetricTrendCard**: A card combining a header (icon + title + current value + optional status label) with a `MetricChart` 7-day sparkline. Accepts `icon`, `title`, `currentValue`, `unit`, `data`, `color`, and optional `statusLabel`. Used on environment, activity, blood test, and sleep screens.

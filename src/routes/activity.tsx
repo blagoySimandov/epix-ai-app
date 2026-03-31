@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, Activity, Heart, Zap } from "lucide-react";
-import { MetricChart } from "@design-system";
-import type { DayValue, PhysicalActivity } from "#/integrations/api/types";
+import { Activity, ArrowLeft, Heart, Zap } from "lucide-react";
+import { QuickStatCard } from "@design-system";
+import { MetricTrendCard } from "@design-system/widgets";
+import type { PhysicalActivity } from "#/integrations/api/types";
 import {
 	reportQueryOptions,
 	useReport,
@@ -12,6 +13,24 @@ export const Route = createFileRoute("/activity")({
 		queryClient.ensureQueryData(reportQueryOptions),
 	component: ActivityPage,
 });
+
+function stepsStatus(steps: number) {
+	if (steps >= 8000) return { label: "On Track", color: "var(--green-text)" };
+	if (steps >= 5000) return { label: "Below Goal", color: "#f59e0b" };
+	return { label: "Low", color: "#f43f5e" };
+}
+
+function hrStatus(hr: number) {
+	if (hr <= 80) return { label: "Normal", color: "var(--green-text)" };
+	if (hr <= 100) return { label: "Elevated", color: "#f59e0b" };
+	return { label: "High", color: "#f43f5e" };
+}
+
+function hrvStatus(hrv: number) {
+	if (hrv >= 50) return { label: "Good", color: "var(--green-text)" };
+	if (hrv >= 30) return { label: "Fair", color: "#f59e0b" };
+	return { label: "Low", color: "#f43f5e" };
+}
 
 function PageHeader() {
 	return (
@@ -26,78 +45,76 @@ function PageHeader() {
 	);
 }
 
-function StatCard({
-	label,
-	value,
-	unit,
-	icon: Icon,
-	color,
-}: {
-	label: string;
-	value: string | number;
-	unit: string;
-	icon: React.ComponentType<{ size?: number }>;
-	color: string;
-}) {
-	return (
-		<div className="flex-1 glass-card p-3 rounded-2xl border border-border/40 flex flex-col items-center gap-1">
-			<Icon size={16} color={color} />
-			<p className="font-headline font-bold text-xl leading-none">
-				{value}
-				<span className="text-[10px] font-normal text-muted-foreground ml-0.5">
-					{unit}
-				</span>
-			</p>
-			<p className="text-[9px] font-bold uppercase tracking-wider text-muted-foreground">
-				{label}
-			</p>
-		</div>
-	);
-}
+function QuickStatsGrid({ pa }: { pa: PhysicalActivity }) {
+	const steps = stepsStatus(pa.steps);
+	const hr = hrStatus(pa.restingHR);
+	const hrv = hrvStatus(pa.hrv);
 
-function StatsRow({ pa }: { pa: PhysicalActivity }) {
 	return (
-		<div className="flex gap-3">
-			<StatCard
+		<div className="grid grid-cols-3 gap-3">
+			<QuickStatCard
+				icon={Activity}
 				label="Steps"
 				value={pa.steps.toLocaleString()}
-				unit=""
-				icon={Activity}
-				color="var(--teal)"
+				statusLabel={steps.label}
+				accentColor={steps.color}
 			/>
-			<StatCard
+			<QuickStatCard
+				icon={Heart}
 				label="Resting HR"
 				value={pa.restingHR}
-				unit="bpm"
-				icon={Heart}
-				color="#f43f5e"
+				unit=" bpm"
+				statusLabel={hr.label}
+				accentColor={hr.color}
 			/>
-			<StatCard
+			<QuickStatCard
+				icon={Zap}
 				label="HRV"
 				value={pa.hrv}
-				unit="ms"
-				icon={Zap}
-				color="#facc15"
+				unit=" ms"
+				statusLabel={hrv.label}
+				accentColor={hrv.color}
 			/>
 		</div>
 	);
 }
 
-function MetricSection({
-	title,
-	data,
-	color,
-	unit,
-}: {
-	title: string;
-	data: DayValue[];
-	color: string;
-	unit: string;
-}) {
+function TrendsSection({ pa }: { pa: PhysicalActivity }) {
+	const steps = stepsStatus(pa.steps);
+	const hr = hrStatus(pa.restingHR);
+	const hrv = hrvStatus(pa.hrv);
+
 	return (
-		<div className="glass-card rounded-[1.5rem] p-4 border border-border/40 space-y-3">
-			<p className="font-semibold text-sm">{title} · 7 Days</p>
-			<MetricChart data={data} color={color} unit={unit} />
+		<div className="flex flex-col gap-4">
+			<p className="font-semibold text-sm text-muted-foreground uppercase tracking-wider px-1">
+				7-Day Trends
+			</p>
+			<MetricTrendCard
+				icon={Activity}
+				title="Steps"
+				currentValue={pa.steps.toLocaleString()}
+				data={pa.history.steps}
+				color={steps.color}
+				statusLabel={steps.label}
+			/>
+			<MetricTrendCard
+				icon={Heart}
+				title="Resting Heart Rate"
+				currentValue={pa.restingHR}
+				unit=" bpm"
+				data={pa.history.restingHR}
+				color={hr.color}
+				statusLabel={hr.label}
+			/>
+			<MetricTrendCard
+				icon={Zap}
+				title="Heart Rate Variability"
+				currentValue={pa.hrv}
+				unit=" ms"
+				data={pa.history.hrv}
+				color={hrv.color}
+				statusLabel={hrv.label}
+			/>
 		</div>
 	);
 }
@@ -110,25 +127,8 @@ function ActivityPage() {
 		<main className="min-h-screen bg-background">
 			<div className="mx-auto max-w-[390px] px-4 pt-10 pb-32 flex flex-col gap-6">
 				<PageHeader />
-				<StatsRow pa={pa} />
-				<MetricSection
-					title="Steps"
-					data={pa.history.steps}
-					color="var(--teal)"
-					unit=""
-				/>
-				<MetricSection
-					title="Resting Heart Rate"
-					data={pa.history.restingHR}
-					color="#f43f5e"
-					unit=" bpm"
-				/>
-				<MetricSection
-					title="Heart Rate Variability"
-					data={pa.history.hrv}
-					color="#facc15"
-					unit=" ms"
-				/>
+				<QuickStatsGrid pa={pa} />
+				<TrendsSection pa={pa} />
 			</div>
 		</main>
 	);
