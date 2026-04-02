@@ -35,7 +35,7 @@ export interface DayValue {
 }
 
 export interface WeekPoint {
-	week: string;
+	label: string;
 	bioAge: number;
 	baseline: number;
 }

@@ -10,7 +10,7 @@ import {
 import { TrendingDown, TrendingUp } from "lucide-react";
 
 export interface TrajectoryPoint {
-	week: string;
+	label: string;
 	bioAge: number;
 	baseline: number;
 }
@@ -73,7 +73,7 @@ function buildColoredData(data: TrajectoryPoint[]): ChartPoint[] {
 		}
 
 		result.push({
-			label: curr.week,
+			label: curr.label,
 			bioAge: curr.bioAge,
 			baseline: curr.baseline,
 			below: currAbove ? null : curr.bioAge,
@@ -289,7 +289,7 @@ export function AgingTrajectoryChart({ data }: AgingTrajectoryChartProps) {
 					<p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
 						Aging Trajectory
 					</p>
-					<p className="text-xs text-muted-foreground mt-0.5">12-week trend</p>
+					<p className="text-xs text-muted-foreground mt-0.5">12-month trend</p>
 				</div>
 				<DeltaBadge delta={delta} />
 			</div>
