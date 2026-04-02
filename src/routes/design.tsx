@@ -114,24 +114,26 @@ function DesignSystem() {
 						AgingTrajectoryChart — Bio Age History
 					</h3>
 					<p className="text-sm text-muted-foreground mb-4">
-						Dark-card area chart showing bio age vs baseline over time. Computes
-						delta automatically from the data and shows a glowing dot on the
-						latest point.
+						Line chart showing bio age vs a purple dashed baseline. The bio age
+						line is teal/blue when below the baseline (improving) and rose/red
+						when above it (accelerating). Crossing points are interpolated so
+						the segments connect smoothly. Stats header shows current bio age,
+						baseline, and delta badge.
 					</p>
 					<AgingTrajectoryChart
 						data={[
-							{ week: "W1", bioAge: 26.4, baseline: 28 },
-							{ week: "W2", bioAge: 26.1, baseline: 28 },
-							{ week: "W3", bioAge: 25.8, baseline: 28 },
-							{ week: "W4", bioAge: 25.2, baseline: 28 },
-							{ week: "W5", bioAge: 25.0, baseline: 28 },
-							{ week: "W6", bioAge: 24.8, baseline: 28 },
-							{ week: "W7", bioAge: 24.5, baseline: 28 },
-							{ week: "W8", bioAge: 24.3, baseline: 28 },
-							{ week: "W9", bioAge: 24.1, baseline: 28 },
-							{ week: "W10", bioAge: 23.9, baseline: 28 },
-							{ week: "W11", bioAge: 24.0, baseline: 28 },
-							{ week: "W12", bioAge: 24.1, baseline: 28 },
+							{ week: "W1", bioAge: 29.5, baseline: 28 },
+							{ week: "W2", bioAge: 29.0, baseline: 28 },
+							{ week: "W3", bioAge: 28.5, baseline: 28 },
+							{ week: "W4", bioAge: 28.2, baseline: 28 },
+							{ week: "W5", bioAge: 27.8, baseline: 28 },
+							{ week: "W6", bioAge: 27.2, baseline: 28 },
+							{ week: "W7", bioAge: 26.8, baseline: 28 },
+							{ week: "W8", bioAge: 26.4, baseline: 28 },
+							{ week: "W9", bioAge: 26.0, baseline: 28 },
+							{ week: "W10", bioAge: 25.7, baseline: 28 },
+							{ week: "W11", bioAge: 25.4, baseline: 28 },
+							{ week: "W12", bioAge: 25.1, baseline: 28 },
 						]}
 					/>
 				</div>
