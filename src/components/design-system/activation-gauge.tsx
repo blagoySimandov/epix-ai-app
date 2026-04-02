@@ -63,7 +63,7 @@ export function ActivationGauge({ level }: ActivationGaugeProps) {
 			</div>
 
 			{/* Scale Labels */}
-			<div className="absolute bottom-1 left-4 text-[8px] font-bold text-muted-foreground uppercase tracking-widest">
+			<div className="absolute bottom-1 left-7 text-[8px] font-bold text-muted-foreground uppercase tracking-widest">
 				0%
 			</div>
 			<div className="absolute bottom-1 right-4 text-[8px] font-bold text-muted-foreground uppercase tracking-widest">
