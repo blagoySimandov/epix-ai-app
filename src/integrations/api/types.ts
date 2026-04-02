@@ -5,14 +5,28 @@ export interface BioAge {
 	status: "Slower aging" | "Average" | "Faster aging";
 }
 
+export type RiskLevel = "green" | "yellow" | "red";
+
+export interface Disease {
+	id: string;
+	name: string;
+	status: RiskLevel;
+	geneticRisk: number; // 0-100 percentage
+	geneticRiskDescription: string;
+	activation: number; // 0-100 percentage
+	activationDescription: string;
+	geneticMarker: string;
+}
+
 export interface Domain {
 	id: string;
 	name: string;
 	score: number;
 	activation: string;
-	risk: "green" | "yellow" | "red";
+	risk: RiskLevel;
 	geneticRisk: number;
 	geneticActivation: number;
+	diseases?: Disease[];
 }
 
 export interface DayValue {

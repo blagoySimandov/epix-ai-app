@@ -11,3 +11,6 @@ export { LineChartTrend } from "./line-chart-trend";
 export { MetricChart, type MetricChartProps } from "./metric-chart";
 export { QuickStatCard, type QuickStatCardProps } from "./quick-stat-card";
 export { StatusDot, type StatusDotProps } from "./status-dot";
+export { DiseaseItem } from "./disease-item";
+export { GeneticRiskChart } from "./genetic-risk-chart";
+export { ActivationGauge } from "./activation-gauge";

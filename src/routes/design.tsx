@@ -8,6 +8,9 @@ import {
 	MetricChart,
 	QuickStatCard,
 	StatusDot,
+	DiseaseItem,
+	GeneticRiskChart,
+	ActivationGauge,
 } from "@design-system";
 import { BioAgeWidget } from "@design-system/widgets";
 import { Gauge, Sun, Zap } from "lucide-react";
@@ -375,6 +378,67 @@ function DesignSystem() {
 								placeholder="Default Input"
 								className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-200"
 							/>
+						</div>
+					</div>
+
+					<div className="sm:col-span-2">
+						<h3 className="text-lg font-medium mb-4">Disease Items</h3>
+						<p className="text-sm text-muted-foreground mb-6">
+							Rich collapsible cards for genetic propensity. Collapsed: mini progress bars for genetic risk + activation at a glance. Expands with smooth grid-row animation into a horizontal gradient risk track and activation gauge.
+						</p>
+						<div className="flex flex-col gap-3 max-w-sm">
+							<DiseaseItem
+								disease={{
+									id: "1",
+									name: "Atrial Fibrillation",
+									geneticMarker: "PITX2",
+									status: "red",
+									geneticRisk: 82,
+									geneticRiskDescription: "Your heart has a genetic tendency to follow an irregular rhythm. Your risk is above the average for this disease.",
+									activation: 78,
+									activationDescription: "These 'beat-skipping' genes are 78% active. Your lifestyle habits have huge room to shine.",
+								}}
+							/>
+							<DiseaseItem
+								disease={{
+									id: "2",
+									name: "Hypertension",
+									geneticMarker: "CYP11B2",
+									status: "yellow",
+									geneticRisk: 58,
+									geneticRiskDescription: "Slightly elevated genetic risk for salt sensitivity. Your body might hold on to sodium more than most.",
+									activation: 45,
+									activationDescription: "Low-moderate activation. Potassium-rich foods and daily movement are keeping this in check.",
+								}}
+							/>
+							<DiseaseItem
+								disease={{
+									id: "3",
+									name: "Heart Failure",
+									geneticMarker: "TTN",
+									status: "green",
+									geneticRisk: 32,
+									geneticRiskDescription: "Your genetic predisposition for structural heart weakness is below average.",
+									activation: 15,
+									activationDescription: "Minimal activation. Regular exercise and sleep quality are maintaining high resilience.",
+								}}
+							/>
+						</div>
+					</div>
+
+					<div className="sm:col-span-2">
+						<h3 className="text-lg font-medium mb-4">Disease Primitives</h3>
+						<div className="grid sm:grid-cols-2 gap-8">
+							<div className="glass-card p-6 rounded-3xl space-y-4">
+								<h4 className="text-sm font-bold uppercase tracking-widest text-muted-foreground">Genetic Risk Distribution</h4>
+								<p className="text-xs text-muted-foreground">Horizontal gradient track (green→amber→rose) with population bell curve and glowing diamond pin at user percentile.</p>
+								<GeneticRiskChart userRisk={75} />
+							</div>
+							<div className="glass-card p-6 rounded-3xl space-y-4">
+								<h4 className="text-sm font-bold uppercase tracking-widest text-muted-foreground">Epigenetic Activation Gauge</h4>
+								<p className="text-xs text-muted-foreground">Semi-circle arc gauge with tick ring, glowing needle and center value readout.</p>
+								<ActivationGauge level={62} />
+							</div>
 						</div>
 					</div>
 
