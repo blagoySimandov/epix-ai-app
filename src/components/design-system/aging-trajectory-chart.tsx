@@ -25,8 +25,13 @@ interface ChartPoint extends TrajectoryPoint {
 	bioAgeBelow: number | null;
 }
 
+// Standard-aging calibration in years:
+// - offset starts the reference line slightly below first observed bio age
+// - minimum increase keeps the line clearly upward-trending across the period
 const STANDARD_AGING_OFFSET = 0.5;
 const STANDARD_AGING_MIN_INCREASE = 2.4;
+const BIO_AGE_BELOW_COLOR = "var(--teal)";
+const BIO_AGE_ABOVE_COLOR = "#f43f5e";
 
 const TOOLTIP_STYLE = {
 	backgroundColor: "var(--card)",
@@ -126,7 +131,7 @@ function ChartLegend() {
 		<div className="flex gap-5 justify-center mt-1">
 			<div className="flex items-center gap-1.5">
 				<svg width="14" height="4" viewBox="0 0 14 4" aria-hidden="true">
-					<rect width="14" height="2" y="1" rx="1" fill="var(--teal)" />
+					<rect width="14" height="2" y="1" rx="1" fill={BIO_AGE_BELOW_COLOR} />
 				</svg>
 				<span className="text-[10px] font-medium text-muted-foreground">
 					Below standard
@@ -134,7 +139,7 @@ function ChartLegend() {
 			</div>
 			<div className="flex items-center gap-1.5">
 				<svg width="14" height="4" viewBox="0 0 14 4" aria-hidden="true">
-					<rect width="14" height="2" y="1" rx="1" fill="#f43f5e" />
+					<rect width="14" height="2" y="1" rx="1" fill={BIO_AGE_ABOVE_COLOR} />
 				</svg>
 				<span className="text-[10px] font-medium text-muted-foreground">
 					Above standard
@@ -164,7 +169,9 @@ function ChartArea({ data }: { data: TrajectoryPoint[] }) {
 	const chartData = buildChartData(data);
 	const latest = chartData[chartData.length - 1];
 	const latestColor =
-		latest && latest.bioAge >= latest.standardAging ? "#f43f5e" : "var(--teal)";
+		latest && latest.bioAge >= latest.standardAging
+			? BIO_AGE_ABOVE_COLOR
+			: BIO_AGE_BELOW_COLOR;
 
 	return (
 		<div className="h-44">
@@ -206,7 +213,7 @@ function ChartArea({ data }: { data: TrajectoryPoint[] }) {
 					<Line
 						type="monotone"
 						dataKey="bioAgeBelow"
-						stroke="var(--teal)"
+						stroke={BIO_AGE_BELOW_COLOR}
 						strokeWidth={2.5}
 						connectNulls={false}
 						dot={(props) => (
@@ -217,17 +224,24 @@ function ChartArea({ data }: { data: TrajectoryPoint[] }) {
 								dataLength={chartData.length}
 							/>
 						)}
-						activeDot={{ r: 5, fill: "var(--teal)", strokeWidth: 0 }}
+						activeDot={{ r: 5, fill: BIO_AGE_BELOW_COLOR, strokeWidth: 0 }}
 						name="Biological age"
 					/>
 					<Line
 						type="monotone"
 						dataKey="bioAgeAbove"
-						stroke="#f43f5e"
+						stroke={BIO_AGE_ABOVE_COLOR}
 						strokeWidth={2.5}
 						connectNulls={false}
-						dot={false}
-						activeDot={{ r: 5, fill: "#f43f5e", strokeWidth: 0 }}
+						dot={(props) => (
+							<GlowDot
+								key={`glow-${props.index}`}
+								{...props}
+								color={latestColor}
+								dataLength={chartData.length}
+							/>
+						)}
+						activeDot={{ r: 5, fill: BIO_AGE_ABOVE_COLOR, strokeWidth: 0 }}
 						name="Biological age"
 					/>
 					<Line
