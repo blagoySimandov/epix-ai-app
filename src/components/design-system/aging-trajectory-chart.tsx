@@ -25,6 +25,9 @@ interface ChartPoint extends TrajectoryPoint {
 	bioAgeBelow: number | null;
 }
 
+const STANDARD_AGING_OFFSET = 0.5;
+const STANDARD_AGING_MIN_INCREASE = 2.4;
+
 const TOOLTIP_STYLE = {
 	backgroundColor: "var(--card)",
 	borderColor: "var(--border)",
@@ -38,8 +41,11 @@ function buildChartData(data: TrajectoryPoint[]): ChartPoint[] {
 
 	const first = data[0];
 	const last = data[data.length - 1];
-	const standardStart = first.bioAge - 0.5;
-	const standardEnd = Math.max(standardStart + 2.4, last.bioAge + 0.5);
+	const standardStart = first.bioAge - STANDARD_AGING_OFFSET;
+	const standardEnd = Math.max(
+		standardStart + STANDARD_AGING_MIN_INCREASE,
+		last.bioAge + STANDARD_AGING_OFFSET,
+	);
 	const denominator = Math.max(data.length - 1, 1);
 
 	return data.map((point, index) => {
