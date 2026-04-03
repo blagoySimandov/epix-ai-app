@@ -114,9 +114,10 @@ function DesignSystem() {
 						AgingTrajectoryChart — Bio Age History
 					</h3>
 					<p className="text-sm text-muted-foreground mb-4">
-						Dark-card area chart showing bio age vs baseline over time. Computes
-						delta automatically from the data and shows a glowing dot on the
-						latest point.
+						Dark-card trend chart showing a diagonal standard-aging baseline and
+						a biological-age line that can cross above/below it with color-coded
+						segments. Computes delta automatically from the data and highlights
+						the latest point.
 					</p>
 					<AgingTrajectoryChart
 						data={[

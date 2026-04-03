@@ -1,7 +1,6 @@
 import {
-	Area,
-	AreaChart,
 	CartesianGrid,
+	LineChart,
 	Line,
 	ResponsiveContainer,
 	Tooltip,
@@ -20,6 +19,12 @@ export interface AgingTrajectoryChartProps {
 	data: TrajectoryPoint[];
 }
 
+interface ChartPoint extends TrajectoryPoint {
+	standardAging: number;
+	bioAgeAbove: number | null;
+	bioAgeBelow: number | null;
+}
+
 const TOOLTIP_STYLE = {
 	backgroundColor: "var(--card)",
 	borderColor: "var(--border)",
@@ -27,6 +32,29 @@ const TOOLTIP_STYLE = {
 	fontSize: 11,
 	color: "var(--card-foreground)",
 };
+
+function buildChartData(data: TrajectoryPoint[]): ChartPoint[] {
+	if (data.length === 0) return [];
+
+	const first = data[0];
+	const last = data[data.length - 1];
+	const standardStart = first.bioAge - 0.5;
+	const standardEnd = Math.max(standardStart + 2.4, last.bioAge + 0.5);
+	const denominator = Math.max(data.length - 1, 1);
+
+	return data.map((point, index) => {
+		const progress = index / denominator;
+		const standardAging =
+			standardStart + (standardEnd - standardStart) * progress;
+		const isAbove = point.bioAge >= standardAging;
+		return {
+			...point,
+			standardAging,
+			bioAgeAbove: isAbove ? point.bioAge : null,
+			bioAgeBelow: isAbove ? null : point.bioAge,
+		};
+	});
+}
 
 function computeDelta(data: TrajectoryPoint[]): number {
 	if (data.length < 2) return 0;
@@ -74,14 +102,15 @@ function GlowDot(props: {
 	cy?: number;
 	index?: number;
 	dataLength: number;
+	color: string;
 }) {
-	const { cx, cy, index, dataLength } = props;
+	const { cx, cy, index, dataLength, color } = props;
 	if (index !== dataLength - 1 || cx == null || cy == null) return null;
 	return (
 		<g>
-			<circle cx={cx} cy={cy} r={10} fill="var(--teal)" opacity={0.15} />
-			<circle cx={cx} cy={cy} r={5} fill="var(--teal)" opacity={0.35} />
-			<circle cx={cx} cy={cy} r={3} fill="var(--teal)" />
+			<circle cx={cx} cy={cy} r={10} fill={color} opacity={0.15} />
+			<circle cx={cx} cy={cy} r={5} fill={color} opacity={0.35} />
+			<circle cx={cx} cy={cy} r={3} fill={color} />
 		</g>
 	);
 }
@@ -94,7 +123,15 @@ function ChartLegend() {
 					<rect width="14" height="2" y="1" rx="1" fill="var(--teal)" />
 				</svg>
 				<span className="text-[10px] font-medium text-muted-foreground">
-					Bio Age
+					Below standard
+				</span>
+			</div>
+			<div className="flex items-center gap-1.5">
+				<svg width="14" height="4" viewBox="0 0 14 4" aria-hidden="true">
+					<rect width="14" height="2" y="1" rx="1" fill="#f43f5e" />
+				</svg>
+				<span className="text-[10px] font-medium text-muted-foreground">
+					Above standard
 				</span>
 			</div>
 			<div className="flex items-center gap-1.5">
@@ -110,7 +147,7 @@ function ChartLegend() {
 					/>
 				</svg>
 				<span className="text-[10px] font-medium text-muted-foreground">
-					Baseline
+					Standard aging
 				</span>
 			</div>
 		</div>
@@ -118,20 +155,18 @@ function ChartLegend() {
 }
 
 function ChartArea({ data }: { data: TrajectoryPoint[] }) {
+	const chartData = buildChartData(data);
+	const latest = chartData[chartData.length - 1];
+	const latestColor =
+		latest && latest.bioAge >= latest.standardAging ? "#f43f5e" : "var(--teal)";
+
 	return (
 		<div className="h-44">
 			<ResponsiveContainer width="100%" height="100%">
-				<AreaChart
-					data={data}
+				<LineChart
+					data={chartData}
 					margin={{ top: 4, right: 4, left: -28, bottom: 0 }}
 				>
-					<defs>
-						<linearGradient id="ageAreaGradient" x1="0" y1="0" x2="0" y2="1">
-							<stop offset="0%" stopColor="var(--teal)" stopOpacity={0.35} />
-							<stop offset="85%" stopColor="var(--teal)" stopOpacity={0.04} />
-							<stop offset="100%" stopColor="var(--teal)" stopOpacity={0} />
-						</linearGradient>
-					</defs>
 					<CartesianGrid
 						strokeDasharray="3 3"
 						vertical={false}
@@ -150,33 +185,55 @@ function ChartArea({ data }: { data: TrajectoryPoint[] }) {
 						tickLine={false}
 						domain={["dataMin - 1", "dataMax + 1"]}
 					/>
-					<Tooltip contentStyle={TOOLTIP_STYLE} />
-					<Area
+					<Tooltip
+						contentStyle={TOOLTIP_STYLE}
+						formatter={(value, name) => {
+							if (name === "standardAging") {
+								return [`${Number(value).toFixed(1)} yrs`, "Standard aging"];
+							}
+							if (name === "bioAgeAbove" || name === "bioAgeBelow") {
+								return [`${Number(value).toFixed(1)} yrs`, "Biological age"];
+							}
+							return [value, name];
+						}}
+					/>
+					<Line
 						type="monotone"
-						dataKey="bioAge"
+						dataKey="bioAgeBelow"
 						stroke="var(--teal)"
 						strokeWidth={2.5}
-						fill="url(#ageAreaGradient)"
+						connectNulls={false}
 						dot={(props) => (
 							<GlowDot
 								key={`glow-${props.index}`}
 								{...props}
-								dataLength={data.length}
+								color={latestColor}
+								dataLength={chartData.length}
 							/>
 						)}
 						activeDot={{ r: 5, fill: "var(--teal)", strokeWidth: 0 }}
-						name="Bio Age"
+						name="Biological age"
 					/>
 					<Line
 						type="monotone"
-						dataKey="baseline"
+						dataKey="bioAgeAbove"
+						stroke="#f43f5e"
+						strokeWidth={2.5}
+						connectNulls={false}
+						dot={false}
+						activeDot={{ r: 5, fill: "#f43f5e", strokeWidth: 0 }}
+						name="Biological age"
+					/>
+					<Line
+						type="monotone"
+						dataKey="standardAging"
 						stroke="var(--muted-foreground)"
 						strokeWidth={1.5}
 						strokeDasharray="5 4"
 						dot={false}
-						name="Baseline"
+						name="Standard aging"
 					/>
-				</AreaChart>
+				</LineChart>
 			</ResponsiveContainer>
 		</div>
 	);
