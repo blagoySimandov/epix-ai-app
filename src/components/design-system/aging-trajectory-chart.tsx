@@ -29,7 +29,7 @@ interface ChartPoint extends TrajectoryPoint {
 // - offset starts the reference line slightly below first observed bio age
 // - minimum increase keeps the line clearly upward-trending across the period
 const STANDARD_AGING_OFFSET = 0.5;
-const STANDARD_AGING_MIN_INCREASE = 2.4;
+const STANDARD_AGING_MIN_INCREASE = 12.3;
 const BIO_AGE_BELOW_COLOR = "var(--teal)";
 const BIO_AGE_ABOVE_COLOR = "#f43f5e";
 
@@ -53,16 +53,30 @@ function buildChartData(data: TrajectoryPoint[]): ChartPoint[] {
 	);
 	const denominator = Math.max(data.length - 1, 1);
 
-	return data.map((point, index) => {
+	const points = data.map((point, index) => {
 		const progress = index / denominator;
 		const standardAging =
 			standardStart + (standardEnd - standardStart) * progress;
 		const isAbove = point.bioAge >= standardAging;
+		return { ...point, standardAging, isAbove };
+	});
+
+	return points.map((point, index) => {
+		const prevAbove = index > 0 ? points[index - 1].isAbove : point.isAbove;
+		const nextAbove =
+			index < points.length - 1
+				? points[index + 1].isAbove
+				: point.isAbove;
+		// Include value in both series at transition points so the two
+		// colored segments share an endpoint and don't have a gap.
+		const isTransition = point.isAbove !== prevAbove || point.isAbove !== nextAbove;
 		return {
-			...point,
-			standardAging,
-			bioAgeAbove: isAbove ? point.bioAge : null,
-			bioAgeBelow: isAbove ? null : point.bioAge,
+			week: point.week,
+			bioAge: point.bioAge,
+			baseline: point.baseline,
+			standardAging: point.standardAging,
+			bioAgeAbove: point.isAbove || isTransition ? point.bioAge : null,
+			bioAgeBelow: !point.isAbove || isTransition ? point.bioAge : null,
 		};
 	});
 }

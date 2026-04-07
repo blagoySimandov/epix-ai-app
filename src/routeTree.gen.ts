@@ -9,12 +9,21 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ScanRouteImport } from './routes/scan'
 import { Route as EnvironmentRouteImport } from './routes/environment'
 import { Route as DesignRouteImport } from './routes/design'
 import { Route as ActivityRouteImport } from './routes/activity'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ScanAlertRouteImport } from './routes/scan.alert'
 import { Route as ReportDomainRouteImport } from './routes/report.$domain'
+import { Route as ScanAlertDetailsRouteImport } from './routes/scan.alert.details'
+import { Route as ScanAlertAlternativesRouteImport } from './routes/scan.alert.alternatives'
 
+const ScanRoute = ScanRouteImport.update({
+  id: '/scan',
+  path: '/scan',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EnvironmentRoute = EnvironmentRouteImport.update({
   id: '/environment',
   path: '/environment',
@@ -35,10 +44,25 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ScanAlertRoute = ScanAlertRouteImport.update({
+  id: '/alert',
+  path: '/alert',
+  getParentRoute: () => ScanRoute,
+} as any)
 const ReportDomainRoute = ReportDomainRouteImport.update({
   id: '/report/$domain',
   path: '/report/$domain',
   getParentRoute: () => rootRouteImport,
+} as any)
+const ScanAlertDetailsRoute = ScanAlertDetailsRouteImport.update({
+  id: '/details',
+  path: '/details',
+  getParentRoute: () => ScanAlertRoute,
+} as any)
+const ScanAlertAlternativesRoute = ScanAlertAlternativesRouteImport.update({
+  id: '/alternatives',
+  path: '/alternatives',
+  getParentRoute: () => ScanAlertRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -46,14 +70,22 @@ export interface FileRoutesByFullPath {
   '/activity': typeof ActivityRoute
   '/design': typeof DesignRoute
   '/environment': typeof EnvironmentRoute
+  '/scan': typeof ScanRouteWithChildren
   '/report/$domain': typeof ReportDomainRoute
+  '/scan/alert': typeof ScanAlertRouteWithChildren
+  '/scan/alert/alternatives': typeof ScanAlertAlternativesRoute
+  '/scan/alert/details': typeof ScanAlertDetailsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/activity': typeof ActivityRoute
   '/design': typeof DesignRoute
   '/environment': typeof EnvironmentRoute
+  '/scan': typeof ScanRouteWithChildren
   '/report/$domain': typeof ReportDomainRoute
+  '/scan/alert': typeof ScanAlertRouteWithChildren
+  '/scan/alert/alternatives': typeof ScanAlertAlternativesRoute
+  '/scan/alert/details': typeof ScanAlertDetailsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -61,20 +93,46 @@ export interface FileRoutesById {
   '/activity': typeof ActivityRoute
   '/design': typeof DesignRoute
   '/environment': typeof EnvironmentRoute
+  '/scan': typeof ScanRouteWithChildren
   '/report/$domain': typeof ReportDomainRoute
+  '/scan/alert': typeof ScanAlertRouteWithChildren
+  '/scan/alert/alternatives': typeof ScanAlertAlternativesRoute
+  '/scan/alert/details': typeof ScanAlertDetailsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/activity' | '/design' | '/environment' | '/report/$domain'
+  fullPaths:
+    | '/'
+    | '/activity'
+    | '/design'
+    | '/environment'
+    | '/scan'
+    | '/report/$domain'
+    | '/scan/alert'
+    | '/scan/alert/alternatives'
+    | '/scan/alert/details'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/activity' | '/design' | '/environment' | '/report/$domain'
+  to:
+    | '/'
+    | '/activity'
+    | '/design'
+    | '/environment'
+    | '/scan'
+    | '/report/$domain'
+    | '/scan/alert'
+    | '/scan/alert/alternatives'
+    | '/scan/alert/details'
   id:
     | '__root__'
     | '/'
     | '/activity'
     | '/design'
     | '/environment'
+    | '/scan'
     | '/report/$domain'
+    | '/scan/alert'
+    | '/scan/alert/alternatives'
+    | '/scan/alert/details'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -82,11 +140,19 @@ export interface RootRouteChildren {
   ActivityRoute: typeof ActivityRoute
   DesignRoute: typeof DesignRoute
   EnvironmentRoute: typeof EnvironmentRoute
+  ScanRoute: typeof ScanRouteWithChildren
   ReportDomainRoute: typeof ReportDomainRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/scan': {
+      id: '/scan'
+      path: '/scan'
+      fullPath: '/scan'
+      preLoaderRoute: typeof ScanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/environment': {
       id: '/environment'
       path: '/environment'
@@ -115,6 +181,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/scan/alert': {
+      id: '/scan/alert'
+      path: '/alert'
+      fullPath: '/scan/alert'
+      preLoaderRoute: typeof ScanAlertRouteImport
+      parentRoute: typeof ScanRoute
+    }
     '/report/$domain': {
       id: '/report/$domain'
       path: '/report/$domain'
@@ -122,14 +195,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReportDomainRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/scan/alert/details': {
+      id: '/scan/alert/details'
+      path: '/details'
+      fullPath: '/scan/alert/details'
+      preLoaderRoute: typeof ScanAlertDetailsRouteImport
+      parentRoute: typeof ScanAlertRoute
+    }
+    '/scan/alert/alternatives': {
+      id: '/scan/alert/alternatives'
+      path: '/alternatives'
+      fullPath: '/scan/alert/alternatives'
+      preLoaderRoute: typeof ScanAlertAlternativesRouteImport
+      parentRoute: typeof ScanAlertRoute
+    }
   }
 }
+
+interface ScanAlertRouteChildren {
+  ScanAlertAlternativesRoute: typeof ScanAlertAlternativesRoute
+  ScanAlertDetailsRoute: typeof ScanAlertDetailsRoute
+}
+
+const ScanAlertRouteChildren: ScanAlertRouteChildren = {
+  ScanAlertAlternativesRoute: ScanAlertAlternativesRoute,
+  ScanAlertDetailsRoute: ScanAlertDetailsRoute,
+}
+
+const ScanAlertRouteWithChildren = ScanAlertRoute._addFileChildren(
+  ScanAlertRouteChildren,
+)
+
+interface ScanRouteChildren {
+  ScanAlertRoute: typeof ScanAlertRouteWithChildren
+}
+
+const ScanRouteChildren: ScanRouteChildren = {
+  ScanAlertRoute: ScanAlertRouteWithChildren,
+}
+
+const ScanRouteWithChildren = ScanRoute._addFileChildren(ScanRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ActivityRoute: ActivityRoute,
   DesignRoute: DesignRoute,
   EnvironmentRoute: EnvironmentRoute,
+  ScanRoute: ScanRouteWithChildren,
   ReportDomainRoute: ReportDomainRoute,
 }
 export const routeTree = rootRouteImport
