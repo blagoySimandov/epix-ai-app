@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Camera, QrCode } from "lucide-react";
+import { Camera } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import useHotkeys from "use-hotkeys";
 
@@ -115,10 +115,6 @@ function ScanPage() {
 					</div>
 				)}
 
-				<div className="flex items-center gap-2 text-muted-foreground/60 mt-4">
-					<QrCode size={14} />
-					<p className="text-xs">Or enter a barcode manually</p>
-				</div>
 			</div>
 
 			<style>{`
