@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AlertTriangle, ArrowLeft, Dna, Info, Microscope, ShieldAlert } from "lucide-react";
 import { z } from "zod";
+import { useScanAlerts } from "#/integrations/tanstack-query/queries/use-scan-alerts";
+import type { ScanAlert } from "#/integrations/api/types";
 
 const alertDetailsSearchSchema = z.object({
 	type: z.enum(["food", "medication"]).optional().default("food"),
@@ -11,39 +13,7 @@ export const Route = createFileRoute("/scan/alert/details")({
 	component: AlertDetailsPage,
 });
 
-const FOOD_ALERT = {
-	item: "Grapefruit",
-	gene: "CYP3A4",
-	snp: "rs35599367",
-	genotype: "C/T",
-	impact: "Inhibits statin metabolism",
-	description: "A citrus fruit commonly eaten fresh or as juice.",
-	mechanism:
-		"Grapefruit inhibits CYP3A4 enzyme activity, reducing the body's ability to break down certain medications. The furanocoumarins present in grapefruit irreversibly bind to gut-wall CYP3A4 enzymes, dramatically decreasing first-pass metabolism of substrate drugs.",
-	risks: [
-		"Up to 15× increase in statin plasma concentration",
-		"Elevated risk of myopathy",
-		"Potential rhabdomyolysis in severe cases",
-	],
-};
-
-const MED_ALERT = {
-	item: "Simvastatin",
-	gene: "SLCO1B1",
-	snp: "rs4149056",
-	genotype: "C/C",
-	impact: "High risk of muscle toxicity",
-	description: "A lipid-lowering medication used to control cholesterol.",
-	mechanism:
-		"The SLCO1B1 gene variant decreases the transport of statins into the liver, leading to higher blood levels. This variant encodes for the OATP1B1 transporter; the 'C' allele results in significantly reduced transport capacity.",
-	risks: [
-		"4.5× increased risk of myopathy",
-		"Elevated creatinine kinase levels",
-		"Muscle pain and weakness",
-	],
-};
-
-type AlertData = typeof FOOD_ALERT | typeof MED_ALERT;
+type AlertData = ScanAlert;
 
 function SectionLabel({ icon: Icon, label }: { icon: React.ElementType; label: string }) {
 	return (
@@ -125,7 +95,10 @@ function GeneticContextCard({ data }: { data: AlertData }) {
 
 function AlertDetailsPage() {
 	const { type } = Route.useSearch();
-	const data = type === "food" ? FOOD_ALERT : MED_ALERT;
+	const { data: results } = useScanAlerts();
+	const data = results.alerts[type];
+
+	if (!data) return null;
 
 	return (
 		<main className="min-h-screen bg-background">

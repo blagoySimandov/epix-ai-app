@@ -14,3 +14,5 @@ export { StatusDot, type StatusDotProps } from "./status-dot";
 export { DiseaseItem } from "./disease-item";
 export { GeneticRiskChart } from "./genetic-risk-chart";
 export { ActivationGauge } from "./activation-gauge";
+export { PulsingAlertIcon, type PulsingAlertIconProps } from "./pulsing-alert-icon";
+export { GeneticProfileChip, type GeneticProfileChipProps } from "./genetic-profile-chip";

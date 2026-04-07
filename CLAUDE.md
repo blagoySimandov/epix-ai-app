@@ -24,6 +24,8 @@ The following components are part of the core design system:
 - **DiseaseItem**: A rich collapsible card for displaying a condition's genetic propensity. Collapsed state shows a status-colored dot, disease name, genetic marker chip, and two mini horizontal progress bars for genetic risk and activation. Expands via smooth CSS `grid-template-rows` animation to reveal full description text, a `GeneticRiskChart`, an `ActivationGauge`, and a CTA button.
 - **GeneticRiskChart**: An SVG horizontal gradient track (green→amber→rose) visualizing where the user's genetic risk falls in the population. Features a bell-curve population overlay, a dashed average marker, and a glowing diamond pin with "YOU" label at the user's percentile. Labels: Low / Average / High.
 - **ActivationGauge**: A beautiful semi-circle gauge featuring a glowing arc, decorative tick ring, and a central value display to visualize epigenetic activation levels (0-100%).
+- **PulsingAlertIcon**: A high-visibility warning icon featuring two concentric pulsing/fading rings and a glassmorphic center container. Used for genetic and health alerts.
+- **GeneticProfileChip**: A glassmorphic data chip used to display genetic context, including Gene, SNP, and Genotype, with a DNA icon. Used in alert and report screens.
 - **QuickStatCard**: A compact glanceable card for displaying a single health metric. Shows an icon, label, large value with optional unit, and a status label — all color-coded via `accentColor`. Designed for 2-column grids to give at-a-glance status of multiple metrics.
 
 ## Design System Widgets (`src/components/design-system/widgets/`)

@@ -72,3 +72,27 @@ export interface Report {
 	physicalActivity: PhysicalActivity;
 	environment: Environment;
 }
+
+export interface Alternative {
+	name: string;
+	reason: string;
+	emoji: string;
+}
+
+export interface ScanAlert {
+	id: string;
+	item: string;
+	type: "food" | "medication";
+	description: string;
+	gene: string;
+	snp: string;
+	genotype: string;
+	impact: string;
+	mechanism: string;
+	risks: string[];
+	alternatives: Alternative[];
+}
+
+export interface ScanAlerts {
+	alerts: Record<string, ScanAlert>;
+}

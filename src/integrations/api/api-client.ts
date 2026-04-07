@@ -25,6 +25,10 @@ export class ApiClient {
 	async getReport(): Promise<import("./types").Report> {
 		return this.fetchMockData<import("./types").Report>("report");
 	}
+
+	async getScanAlerts(): Promise<import("./types").ScanAlerts> {
+		return this.fetchMockData<import("./types").ScanAlerts>("scan-alerts");
+	}
 }
 
 // Export a singleton instance for use throughout the application

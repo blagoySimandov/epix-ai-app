@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, CheckCircle2, Leaf } from "lucide-react";
 import { z } from "zod";
+import { useScanAlerts } from "#/integrations/tanstack-query/queries/use-scan-alerts";
+import type { ScanAlert } from "#/integrations/api/types";
 
 const alertAlternativesSearchSchema = z.object({
 	type: z.enum(["food", "medication"]).optional().default("food"),
@@ -11,30 +13,7 @@ export const Route = createFileRoute("/scan/alert/alternatives")({
 	component: AlertAlternativesPage,
 });
 
-const FOOD_ALERT = {
-	item: "Grapefruit",
-	gene: "CYP3A4",
-	alternatives: [
-		{ name: "Apples", reason: "No CYP3A4 interaction", emoji: "🍎" },
-		{ name: "Berries", reason: "Safe with statins", emoji: "🫐" },
-		{ name: "Oranges", reason: "Different metabolic pathway", emoji: "🍊" },
-		{ name: "Pears", reason: "No known drug interactions", emoji: "🍐" },
-		{ name: "Watermelon", reason: "Hydrating and safe", emoji: "🍉" },
-	],
-};
-
-const MED_ALERT = {
-	item: "Simvastatin",
-	gene: "SLCO1B1",
-	alternatives: [
-		{ name: "Rosuvastatin", reason: "Lower SLCO1B1 dependence", emoji: "💊" },
-		{ name: "Pravastatin", reason: "Hydrophillic, safer profile", emoji: "🛡️" },
-		{ name: "Fluvastatin", reason: "Alternative metabolic path", emoji: "🧬" },
-		{ name: "Ezetimibe", reason: "Non-statin cholesterol control", emoji: "✅" },
-	],
-};
-
-type AlertData = typeof FOOD_ALERT | typeof MED_ALERT;
+type AlertData = ScanAlert;
 
 function AlternativeCard({
 	name,
@@ -49,7 +28,7 @@ function AlternativeCard({
 }) {
 	return (
 		<div
-			className="glass-card rounded-2xl p-4 border border-border/40 flex items-center gap-4"
+			className="glass-card rounded-2xl p-4 border border-border/40 flex items-center gap-4 animate-in fade-in slide-in-from-bottom-4 duration-500 fill-mode-both"
 			style={{ animationDelay: `${index * 60}ms` }}
 		>
 			{/* Emoji avatar */}
@@ -90,7 +69,10 @@ function SafetyNote({ data }: { data: AlertData }) {
 
 function AlertAlternativesPage() {
 	const { type } = Route.useSearch();
-	const data = type === "food" ? FOOD_ALERT : MED_ALERT;
+	const { data: results } = useScanAlerts();
+	const data = results.alerts[type];
+
+	if (!data) return null;
 
 	return (
 		<main className="min-h-screen bg-background">

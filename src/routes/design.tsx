@@ -11,9 +11,11 @@ import {
 	DiseaseItem,
 	GeneticRiskChart,
 	ActivationGauge,
+	PulsingAlertIcon,
+	GeneticProfileChip,
 } from "@design-system";
 import { BioAgeWidget } from "@design-system/widgets";
-import { Gauge, Sun, Zap } from "lucide-react";
+import { Gauge, Sun, Zap, AlertTriangle } from "lucide-react";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/design")({
@@ -439,6 +441,27 @@ function DesignSystem() {
 								<h4 className="text-sm font-bold uppercase tracking-widest text-muted-foreground">Epigenetic Activation Gauge</h4>
 								<p className="text-xs text-muted-foreground">Semi-circle arc gauge with tick ring, glowing needle and center value readout.</p>
 								<ActivationGauge level={62} />
+							</div>
+						</div>
+					</div>
+
+					<div className="sm:col-span-2">
+						<h3 className="text-lg font-medium mb-4">Scan &amp; Alert Elements</h3>
+						<div className="grid sm:grid-cols-2 gap-8 items-start">
+							<div className="bg-red-600 p-8 rounded-3xl space-y-4 overflow-hidden relative">
+								<div className="absolute inset-0 bg-gradient-to-br from-red-500 to-red-900 pointer-events-none" />
+								<div className="relative z-10 text-center space-y-4">
+									<h4 className="text-sm font-bold uppercase tracking-widest text-white/70">Pulsing Alert Icon</h4>
+									<div className="py-4">
+										<PulsingAlertIcon icon={AlertTriangle} />
+									</div>
+								</div>
+							</div>
+							<div className="bg-slate-900 p-8 rounded-3xl space-y-4">
+								<h4 className="text-sm font-bold uppercase tracking-widest text-slate-400">Genetic Profile Chip</h4>
+								<p className="text-xs text-slate-500 mb-4">Glassmorphic chip mapping a gene, SNP, and genotype.</p>
+								<GeneticProfileChip gene="CYP3A4" snp="rs35599367" genotype="C/T" />
+								<GeneticProfileChip gene="SLCO1B1" snp="rs4149056" genotype="C/C" className="bg-teal-900/40 border-teal-500/30" />
 							</div>
 						</div>
 					</div>
