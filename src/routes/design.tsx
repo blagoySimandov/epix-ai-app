@@ -13,6 +13,9 @@ import {
 	ActivationGauge,
 	PulsingAlertIcon,
 	GeneticProfileChip,
+	AlertBanner,
+	BottomSheet,
+	SheetRow,
 } from "@design-system";
 import { BioAgeWidget } from "@design-system/widgets";
 import { Gauge, Sun, Zap, AlertTriangle } from "lucide-react";
@@ -457,14 +460,64 @@ function DesignSystem() {
 									</div>
 								</div>
 							</div>
-							<div className="bg-slate-900 p-8 rounded-3xl space-y-4">
-								<h4 className="text-sm font-bold uppercase tracking-widest text-slate-400">Genetic Profile Chip</h4>
-								<p className="text-xs text-slate-500 mb-4">Glassmorphic chip mapping a gene, SNP, and genotype.</p>
-								<GeneticProfileChip gene="CYP3A4" snp="rs35599367" genotype="C/T" />
-								<GeneticProfileChip gene="SLCO1B1" snp="rs4149056" genotype="C/C" className="bg-teal-900/40 border-teal-500/30" />
+							<div className="bg-slate-900/40 p-8 rounded-3xl space-y-6">
+								<div>
+									<h4 className="text-sm font-bold uppercase tracking-widest text-slate-400 mb-4">Alert Banner</h4>
+									<AlertBanner
+										label="Action Required"
+										sublabel="Genetic risk detected for current environmental change."
+										onOpen={() => alert("Banner tapped")}
+									/>
+								</div>
+								<div>
+									<h4 className="text-sm font-bold uppercase tracking-widest text-slate-400 mb-4">Genetic Profile Chip</h4>
+									<div className="space-y-3">
+										<GeneticProfileChip gene="CYP3A4" snp="rs35599367" genotype="C/T" />
+										<GeneticProfileChip gene="SLCO1B1" snp="rs4149056" genotype="C/C" className="bg-teal-900/40 border-teal-500/30" />
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
+
+					<div className="sm:col-span-2">
+						<h3 className="text-lg font-medium mb-4">Bottom Sheet (Detailed Alert)</h3>
+						<p className="text-sm text-muted-foreground mb-6">
+							A slide-up modal used for detailed health briefings. Features a blurred overlay, handle, and scrollable content area with consistent spacing.
+						</p>
+						<div className="flex gap-4">
+							<button
+								onClick={() => {
+									const el = document.getElementById("demo-sheet");
+									if (el) el.style.display = "block";
+								}}
+								className="bg-primary text-primary-foreground px-4 py-2 rounded-xl text-sm font-medium"
+							>
+								Preview Bottom Sheet
+							</button>
+						</div>
+						{/* Inline demo for BottomSheet (simulated open state) */}
+						<div id="demo-sheet" style={{ display: "none" }}>
+							<BottomSheet title="Design System Preview" onClose={() => {
+								const el = document.getElementById("demo-sheet");
+								if (el) el.style.display = "none";
+							}}>
+								<SheetRow icon={Zap} accent="var(--rose)" title="Demo Metric">
+									<div className="p-4 rounded-xl bg-rose-500/5 border border-rose-500/10">
+										<p className="text-sm text-muted-foreground">This is a preview of the sheet content scrolling behavior and Row styling.</p>
+									</div>
+								</SheetRow>
+								<div className="h-px bg-border" />
+								<SheetRow icon={Sun} accent="var(--teal)" title="Another Row">
+									<p className="text-sm text-muted-foreground">The sheet handles scrolling automatically when content exceeds 90vh.</p>
+									<div className="h-32 bg-muted/20 rounded-xl" />
+									<div className="h-32 bg-muted/20 rounded-xl" />
+									<div className="h-32 bg-muted/20 rounded-xl" />
+								</SheetRow>
+							</BottomSheet>
+						</div>
+					</div>
+
 
 					<div className="sm:col-span-2">
 						<h3 className="text-lg font-medium mb-4">Badges & Status</h3>

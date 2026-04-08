@@ -1,8 +1,18 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Activity, ArrowLeft, Heart, Zap } from "lucide-react";
-import { QuickStatCard } from "@design-system";
+import {
+	Activity,
+	ArrowLeft,
+	Dna,
+	Heart,
+	Zap,
+} from "lucide-react";
+import * as React from "react";
+import { QuickStatCard, AlertBanner, BottomSheet, SheetRow } from "@design-system";
 import { MetricTrendCard } from "@design-system/widgets";
-import type { PhysicalActivity } from "#/integrations/api/types";
+import type {
+	PhysicalActivity,
+	PhysicalEnvironmentAlerts,
+} from "#/integrations/api/types";
 import {
 	reportQueryOptions,
 	useReport,
@@ -14,24 +24,115 @@ export const Route = createFileRoute("/activity")({
 	component: ActivityPage,
 });
 
+// ─── Helpers ──────────────────────────────────────────────────────────────────
 function stepsStatus(steps: number) {
-	if (steps >= 8000) return { label: "On Track", color: "var(--green-text)" };
+	if (steps >= 8000) return { label: "On Track",   color: "var(--green-text)" };
 	if (steps >= 5000) return { label: "Below Goal", color: "var(--amber)" };
-	return { label: "Low", color: "var(--rose)" };
+	return               { label: "Low",             color: "var(--rose)" };
 }
-
 function hrStatus(hr: number) {
-	if (hr <= 80) return { label: "Normal", color: "var(--teal)" };
+	if (hr <= 80)  return { label: "Normal",   color: "var(--teal)" };
 	if (hr <= 100) return { label: "Elevated", color: "var(--amber)" };
-	return { label: "High", color: "var(--rose)" };
+	return               { label: "High",      color: "var(--rose)" };
 }
-
 function hrvStatus(hrv: number) {
 	if (hrv >= 50) return { label: "Good", color: "var(--violet)" };
 	if (hrv >= 30) return { label: "Fair", color: "var(--amber)" };
-	return { label: "Low", color: "var(--rose)" };
+	return               { label: "Low",  color: "var(--rose)" };
 }
 
+// ─── Activity alert sheet ─────────────────────────────────────────────────────
+function ActivityAlertSheet({
+	alerts,
+	onClose,
+}: {
+	alerts: PhysicalEnvironmentAlerts;
+	onClose: () => void;
+}) {
+	const { activity } = alerts;
+
+	return (
+		<BottomSheet title="Activity Alert" onClose={onClose}>
+			<SheetRow icon={Activity} accent="var(--rose)" title="Step Deficit">
+				<div
+					className="p-3 rounded-xl space-y-2"
+					style={{
+						background: "rgba(244,63,94,0.06)",
+						border: "1px solid rgba(244,63,94,0.18)",
+					}}
+				>
+					<div className="flex items-baseline gap-2">
+						<span
+							className="font-headline font-extrabold text-2xl"
+							style={{ color: "var(--rose)" }}
+						>
+							{activity.steps.current.toLocaleString()}
+						</span>
+						<span className="text-xs text-muted-foreground">
+							/ {activity.steps.goal.toLocaleString()} steps
+						</span>
+					</div>
+					<p className="text-xs text-muted-foreground leading-relaxed">
+						You're{" "}
+						<span className="font-semibold text-foreground">
+							{activity.steps.deficit.toLocaleString()} steps below target
+						</span>
+						. Your <span className="font-semibold">ACE (II)</span> variant elevates
+						cardiovascular endurance requirement, compounding this deficit's risk.
+					</p>
+				</div>
+				<div
+					className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-xs"
+					style={{
+						background: "rgba(0,103,126,0.08)",
+						border: "1px solid rgba(0,103,126,0.2)",
+					}}
+				>
+					<Zap size={13} className="shrink-0 text-teal" />
+					<span className="text-muted-foreground">
+						<span className="font-semibold text-teal">
+							{activity.recommendation.steps.toLocaleString()} more steps
+						</span>{" "}
+						≈ {activity.recommendation.estimatedMinutes} min walking
+					</span>
+				</div>
+			</SheetRow>
+
+			<div className="h-px bg-border" />
+
+			<SheetRow icon={Dna} accent="var(--teal)" title="Relevant Variants">
+				<div className="space-y-2">
+					{activity.genes.map((g) => (
+						<div
+							key={g.name}
+							className="flex items-start gap-3 p-2.5 rounded-xl"
+							style={{
+								background: "rgba(0,103,126,0.06)",
+								border: "1px solid rgba(0,103,126,0.15)",
+							}}
+						>
+							<span
+								className="font-headline font-extrabold text-[11px] px-2 py-1 rounded-lg shrink-0"
+								style={{ background: "rgba(0,103,126,0.15)", color: "var(--teal)" }}
+							>
+								{g.name}
+							</span>
+							<div className="min-w-0">
+								<p className="text-xs font-semibold">
+									{g.variant}{" "}
+									<span className="text-muted-foreground font-normal">{g.snp}</span>
+								</p>
+								<p className="text-[11px] text-muted-foreground mt-0.5">{g.impact}</p>
+							</div>
+						</div>
+					))}
+				</div>
+			</SheetRow>
+		</BottomSheet>
+	);
+}
+
+// ─── Original page sections (unchanged) ──────────────────────────────────────
 function PageHeader() {
 	return (
 		<div className="flex items-center gap-3">
@@ -47,8 +148,8 @@ function PageHeader() {
 
 function QuickStatsGrid({ pa }: { pa: PhysicalActivity }) {
 	const steps = stepsStatus(pa.steps);
-	const hr = hrStatus(pa.restingHR);
-	const hrv = hrvStatus(pa.hrv);
+	const hr    = hrStatus(pa.restingHR);
+	const hrv   = hrvStatus(pa.hrv);
 
 	return (
 		<div className="grid grid-cols-3 gap-3">
@@ -81,8 +182,8 @@ function QuickStatsGrid({ pa }: { pa: PhysicalActivity }) {
 
 function TrendsSection({ pa }: { pa: PhysicalActivity }) {
 	const steps = stepsStatus(pa.steps);
-	const hr = hrStatus(pa.restingHR);
-	const hrv = hrvStatus(pa.hrv);
+	const hr    = hrStatus(pa.restingHR);
+	const hrv   = hrvStatus(pa.hrv);
 
 	return (
 		<div className="flex flex-col gap-4">
@@ -119,17 +220,32 @@ function TrendsSection({ pa }: { pa: PhysicalActivity }) {
 	);
 }
 
+// ─── Page ─────────────────────────────────────────────────────────────────────
 function ActivityPage() {
 	const { data } = useReport();
-	const { physicalActivity: pa } = data;
+	const { physicalActivity: pa, physicalEnvironmentAlerts: alerts } = data;
+	const [activitySheet, setActivitySheet] = React.useState(false);
 
 	return (
-		<main className="min-h-screen bg-background">
-			<div className="mx-auto max-w-[390px] px-4 pt-10 pb-32 flex flex-col gap-6">
-				<PageHeader />
-				<QuickStatsGrid pa={pa} />
-				<TrendsSection pa={pa} />
-			</div>
-		</main>
+		<>
+			<main className="min-h-screen bg-background">
+				<div className="mx-auto max-w-[390px] px-4 pt-10 pb-32 flex flex-col gap-6">
+					<PageHeader />
+					<AlertBanner
+						label="Activity deficit detected"
+						sublabel={`${alerts.activity.steps.deficit.toLocaleString()} steps below target · ACE gene risk`}
+						onOpen={() => setActivitySheet(true)}
+					/>
+					<QuickStatsGrid pa={pa} />
+					<TrendsSection pa={pa} />
+				</div>
+			</main>
+			{activitySheet && (
+				<ActivityAlertSheet
+					alerts={alerts}
+					onClose={() => setActivitySheet(false)}
+				/>
+			)}
+		</>
 	);
 }

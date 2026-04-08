@@ -343,5 +343,31 @@
 				{ "day": "Sun", "value": 2 }
 			]
 		}
+	},
+	"physicalEnvironmentAlerts": {
+		"activity": {
+			"steps": { "current": 4800, "goal": 8000, "deficit": 3200 },
+			"recommendation": { "steps": 3200, "estimatedMinutes": 25 },
+			"genes": [
+				{ "name": "ACE",   "variant": "II genotype", "snp": "rs4646994", "impact": "Elevated cardiovascular endurance requirement" },
+				{ "name": "ACTN3", "variant": "RR",          "snp": "rs1815739", "impact": "Power-oriented muscle profile" }
+			]
+		},
+		"location": {
+			"current":  { "city": "Los Angeles", "country": "US", "timezone": "PST", "flag": "🇺🇸" },
+			"previous": { "city": "Sofia",       "country": "BG", "timezone": "EET", "flag": "🇧🇬" },
+			"jetLagHours": 10
+		},
+		"environment": {
+			"uv": {
+				"current": 9,
+				"previous": 4,
+				"recommendation": "SPF 50+, limit midday exposure"
+			},
+			"airQuality": {
+				"current":  { "aqi": 78, "label": "Moderate" },
+				"previous": { "aqi": 32, "label": "Good" }
+			}
+		}
 	}
 }

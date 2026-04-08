@@ -65,12 +65,47 @@ export interface Environment {
 	};
 }
 
+export interface AlertGene {
+	name: string;
+	variant: string;
+	snp: string;
+	impact: string;
+}
+
+export interface LocationInfo {
+	city: string;
+	country: string;
+	timezone: string;
+	flag: string;
+}
+
+export interface PhysicalEnvironmentAlerts {
+	activity: {
+		steps: { current: number; goal: number; deficit: number };
+		recommendation: { steps: number; estimatedMinutes: number };
+		genes: AlertGene[];
+	};
+	location: {
+		current: LocationInfo;
+		previous: LocationInfo;
+		jetLagHours: number;
+	};
+	environment: {
+		uv: { current: number; previous: number; recommendation: string };
+		airQuality: {
+			current: { aqi: number; label: string };
+			previous: { aqi: number; label: string };
+		};
+	};
+}
+
 export interface Report {
 	bioAge: BioAge;
 	bioAgeHistory: WeekPoint[];
 	domains: Domain[];
 	physicalActivity: PhysicalActivity;
 	environment: Environment;
+	physicalEnvironmentAlerts: PhysicalEnvironmentAlerts;
 }
 
 export interface Alternative {

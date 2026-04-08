@@ -1,8 +1,21 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, Cloud, Gauge, Mountain, Sun, Zap } from "lucide-react";
-import { QuickStatCard } from "@design-system";
+import {
+	ArrowLeft,
+	ArrowRight,
+	Cloud,
+	Gauge,
+	MapPin,
+	Moon,
+	Mountain,
+	Shield,
+	Sun,
+	Wind,
+	Zap,
+} from "lucide-react";
+import * as React from "react";
+import { QuickStatCard, AlertBanner, BottomSheet, SheetRow } from "@design-system";
 import { MetricTrendCard } from "@design-system/widgets";
-import type { Environment } from "#/integrations/api/types";
+import type { Environment, PhysicalEnvironmentAlerts } from "#/integrations/api/types";
 import {
 	reportQueryOptions,
 	useReport,
@@ -14,6 +27,7 @@ export const Route = createFileRoute("/environment")({
 	component: EnvironmentPage,
 });
 
+// ─── Helpers ──────────────────────────────────────────────────────────────────
 function aqiStatus(aqi: number) {
 	if (aqi <= 50) return { label: "Good", color: "var(--green-text)" };
 	if (aqi <= 100) return { label: "Moderate", color: "#f59e0b" };
@@ -33,6 +47,118 @@ function kpStatus(active: boolean) {
 		: { label: "Quiet", color: "var(--green-text)" };
 }
 
+function uvColor(uv: number) {
+	if (uv <= 2) return "var(--green-text)";
+	if (uv <= 5) return "var(--amber)";
+	if (uv <= 7) return "#f97316";
+	return "var(--rose)";
+}
+
+function aqiColor(aqi: number) {
+	if (aqi <= 50) return "var(--green-text)";
+	if (aqi <= 100) return "var(--amber)";
+	return "var(--rose)";
+}
+
+// ─── Local UI Components ──────────────────────────────────────────────────────
+function CompBar({
+	lhs,
+	rhs,
+}: {
+	lhs: { name: string; value: number; max: number; color: string };
+	rhs: { name: string; value: number; max: number; color: string };
+}) {
+	return (
+		<div className="space-y-2">
+			{[lhs, rhs].map((side) => (
+				<div key={side.name} className="flex items-center gap-2">
+					<span className="text-[11px] w-16 text-muted-foreground truncate shrink-0">
+						{side.name}
+					</span>
+					<div className="flex-1 h-2 bg-border/50 rounded-full overflow-hidden">
+						<div
+							className="h-full rounded-full"
+							style={{ width: `${(side.value / side.max) * 100}%`, background: side.color }}
+						/>
+					</div>
+					<span className="text-xs font-bold w-6 text-right shrink-0" style={{ color: side.color }}>
+						{side.value}
+					</span>
+				</div>
+			))}
+		</div>
+	);
+}
+
+function EnvironmentAlertSheet({
+	alerts,
+	onClose,
+}: {
+	alerts: PhysicalEnvironmentAlerts;
+	onClose: () => void;
+}) {
+	const { location, environment } = alerts;
+	const uvCurrent = uvColor(environment.uv.current);
+	const uvPrev = uvColor(environment.uv.previous);
+	const aqiCurrent = aqiColor(environment.airQuality.current.aqi);
+	const aqiPrev = aqiColor(environment.airQuality.previous.aqi);
+
+	return (
+		<BottomSheet title="Environment Alert" onClose={onClose}>
+			<SheetRow icon={MapPin} accent="var(--amber)" title="Location Change">
+				<div className="flex items-center gap-3">
+					<div className="flex-1 p-2.5 rounded-xl text-center" style={{ background: "var(--muted)", border: "1px solid var(--border)" }}>
+						<div className="text-xl mb-0.5">{location.previous.flag}</div>
+						<p className="font-semibold text-xs">{location.previous.city}</p>
+						<p className="text-[10px] text-muted-foreground mt-0.5">{location.previous.timezone}</p>
+					</div>
+					<div className="flex flex-col items-center gap-1 shrink-0">
+						<ArrowRight size={15} className="text-muted-foreground" />
+						<span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: "rgba(245,158,11,0.15)", color: "var(--amber)" }}>
+							{location.jetLagHours}h
+						</span>
+					</div>
+					<div className="flex-1 p-2.5 rounded-xl text-center" style={{ background: "rgba(245,158,11,0.07)", border: "1px solid rgba(245,158,11,0.25)" }}>
+						<div className="text-xl mb-0.5">{location.current.flag}</div>
+						<p className="font-semibold text-xs" style={{ color: "var(--amber)" }}>{location.current.city}</p>
+						<p className="text-[10px] text-muted-foreground mt-0.5">{location.current.timezone}</p>
+					</div>
+				</div>
+				<div className="flex items-start gap-2 p-2.5 rounded-xl text-xs" style={{ background: "rgba(245,158,11,0.07)", border: "1px solid rgba(245,158,11,0.18)" }}>
+					<Moon size={13} className="mt-0.5 shrink-0" style={{ color: "var(--amber)" }} />
+					<span className="text-muted-foreground leading-relaxed">
+						<span className="font-semibold" style={{ color: "var(--amber)" }}>Jet-lag risk ({location.jetLagHours}h shift). </span>
+						Rest, avoid strain for 24–48h, stay hydrated.
+					</span>
+				</div>
+			</SheetRow>
+			<div className="h-px bg-border" />
+			<SheetRow icon={Sun} accent="#f97316" title="UV Index">
+				<CompBar
+					lhs={{ name: location.previous.city, value: environment.uv.previous, max: 12, color: uvPrev }}
+					rhs={{ name: location.current.city, value: environment.uv.current, max: 12, color: uvCurrent }}
+				/>
+				<div className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs" style={{ background: "rgba(249,115,22,0.07)", border: "1px solid rgba(249,115,22,0.18)" }}>
+					<Shield size={13} style={{ color: "#f97316" }} className="shrink-0" />
+					<span className="text-muted-foreground">
+						<span className="font-semibold" style={{ color: "#f97316" }}>Rec: </span>
+						{environment.uv.recommendation}
+					</span>
+				</div>
+			</SheetRow>
+			<div className="h-px bg-border" />
+			<SheetRow icon={Wind} accent="var(--violet)" title="Air Quality">
+				<CompBar
+					lhs={{ name: location.previous.city, value: environment.airQuality.previous.aqi, max: 150, color: aqiPrev }}
+					rhs={{ name: location.current.city, value: environment.airQuality.current.aqi, max: 150, color: aqiCurrent }}
+				/>
+
+			</SheetRow>
+		</BottomSheet>
+	);
+}
+
+// ─── Page Sections ────────────────────────────────────────────────────────────
 function PageHeader() {
 	return (
 		<div className="flex items-center gap-3">
@@ -160,16 +286,30 @@ function TrendsSection({ env }: { env: Environment }) {
 
 function EnvironmentPage() {
 	const { data } = useReport();
-	const { environment: env } = data;
+	const { environment: env, physicalEnvironmentAlerts: alerts } = data;
+	const [envSheet, setEnvSheet] = React.useState(false);
 
 	return (
-		<main className="min-h-screen bg-background">
-			<div className="mx-auto max-w-[390px] px-4 pt-10 pb-32 flex flex-col gap-6">
-				<PageHeader />
-				<QuickStatsGrid env={env} />
-				<WeatherCard env={env} />
-				<TrendsSection env={env} />
-			</div>
-		</main>
+		<>
+			<main className="min-h-screen bg-background">
+				<div className="mx-auto max-w-[390px] px-4 pt-10 pb-32 flex flex-col gap-6">
+					<PageHeader />
+					<AlertBanner
+						label="Location & environment change"
+						sublabel={`${alerts.location.previous.city} → ${alerts.location.current.city} · UV ${alerts.environment.uv.current} (Very High)`}
+						onOpen={() => setEnvSheet(true)}
+					/>
+					<QuickStatsGrid env={env} />
+					<WeatherCard env={env} />
+					<TrendsSection env={env} />
+				</div>
+			</main>
+			{envSheet && (
+				<EnvironmentAlertSheet
+					alerts={alerts}
+					onClose={() => setEnvSheet(false)}
+				/>
+			)}
+		</>
 	);
 }

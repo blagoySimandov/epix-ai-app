@@ -16,3 +16,5 @@ export { GeneticRiskChart } from "./genetic-risk-chart";
 export { ActivationGauge } from "./activation-gauge";
 export { PulsingAlertIcon, type PulsingAlertIconProps } from "./pulsing-alert-icon";
 export { GeneticProfileChip, type GeneticProfileChipProps } from "./genetic-profile-chip";
+export { AlertBanner } from "./AlertBanner";
+export { BottomSheet, SheetRow } from "./BottomSheet";

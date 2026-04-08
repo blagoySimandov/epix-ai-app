@@ -26,6 +26,8 @@ The following components are part of the core design system:
 - **ActivationGauge**: A beautiful semi-circle gauge featuring a glowing arc, decorative tick ring, and a central value display to visualize epigenetic activation levels (0-100%).
 - **PulsingAlertIcon**: A high-visibility warning icon featuring two concentric pulsing/fading rings and a glassmorphic center container. Used for genetic and health alerts.
 - **GeneticProfileChip**: A glassmorphic data chip used to display genetic context, including Gene, SNP, and Genotype, with a DNA icon. Used in alert and report screens.
+- **AlertBanner**: A slim, high-visibility warning bar used to surface urgent environmental or health alerts. Features a red/amber gradient and a pulsing icon.
+- **BottomSheet**: A slide-up detailed information modal with a blurred background overlay and scrollable content area. Includes a handle for visual affordance and a header with a close button.
 - **QuickStatCard**: A compact glanceable card for displaying a single health metric. Shows an icon, label, large value with optional unit, and a status label — all color-coded via `accentColor`. Designed for 2-column grids to give at-a-glance status of multiple metrics.
 
 ## Design System Widgets (`src/components/design-system/widgets/`)
