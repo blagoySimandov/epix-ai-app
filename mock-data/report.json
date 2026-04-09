@@ -1,373 +1,393 @@
 {
-	"bioAge": {
-		"chrono": 28,
-		"bio": 24,
-		"delta": -4,
-		"status": "Slower aging"
-	},
-	"bioAgeHistory": [
-		{ "week": "W1", "bioAge": 28.2, "baseline": 28 },
-		{ "week": "W2", "bioAge": 28.4, "baseline": 28 },
-		{ "week": "W3", "bioAge": 28.1, "baseline": 28 },
-		{ "week": "W4", "bioAge": 27.2, "baseline": 28 },
-		{ "week": "W5", "bioAge": 26.1, "baseline": 28 },
-		{ "week": "W6", "bioAge": 25.2, "baseline": 28 },
-		{ "week": "W7", "bioAge": 24.7, "baseline": 28 },
-		{ "week": "W8", "bioAge": 24.3, "baseline": 28 },
-		{ "week": "W9", "bioAge": 24.1, "baseline": 28 },
-		{ "week": "W10", "bioAge": 24.0, "baseline": 28 },
-		{ "week": "W11", "bioAge": 24.1, "baseline": 28 },
-		{ "week": "W12", "bioAge": 24.0, "baseline": 28 }
-	],
-	"domains": [
-		{
-			"id": "cardio",
-			"name": "Cardio",
-			"score": 72,
-			"activation": "Moderate",
-			"risk": "yellow",
-			"geneticRisk": 68,
-			"geneticActivation": 45,
-			"diseases": [
-				{
-					"id": "afib",
-					"name": "Atrial Fibrillation",
-					"status": "red",
-					"geneticRisk": 82,
-					"geneticRiskDescription": "Your heart has a genetic tendency to follow an irregular rhythm. Your risk is above the average for this disease, but here's the exciting part: this is only the starting line, not the finish line!",
-					"activation": 78,
-					"activationDescription": "Right now these 'beat-skipping' genes are more awake than asleep (78% active). This simply means your lifestyle habits have huge room to shine!",
-					"geneticMarker": "PITX2"
-				},
-				{
-					"id": "cad",
-					"name": "Coronary Artery Disease",
-					"status": "red",
-					"geneticRisk": 75,
-					"geneticRiskDescription": "Genetic markers indicate a moderate-high risk for plaque accumulation. However, epigenetics can override this via high-quality fats and antioxidant-rich diet.",
-					"activation": 62,
-					"activationDescription": "Activation level is moderate, indicating your current lipid metabolism is coping, but requires focused optimization.",
-					"geneticMarker": "9p21.3"
-				},
-				{
-					"id": "htn",
-					"name": "Hypertension",
-					"status": "yellow",
-					"geneticRisk": 58,
-					"geneticRiskDescription": "Slightly elevated genetic risk for salt sensitivity. Your body might hold on to sodium more than most.",
-					"activation": 45,
-					"activationDescription": "Low-moderate activation. Potassium-rich foods and daily movement are currently keeping this risk in check.",
-					"geneticMarker": "CYP11B2"
-				},
-				{
-					"id": "hf",
-					"name": "Heart Failure",
-					"status": "green",
-					"geneticRisk": 32,
-					"geneticRiskDescription": "Your genetic predisposition for structural heart weakness is below average. You have a robust baseline.",
-					"activation": 15,
-					"activationDescription": "Minimal activation. Your regular exercise and sleep quality are maintaining high cardiovascular resilience.",
-					"geneticMarker": "TTN"
-				},
-				{
-					"id": "pad",
-					"name": "Peripheral Artery Disease",
-					"status": "green",
-					"geneticRisk": 28,
-					"geneticRiskDescription": "Lower than average risk for peripheral circulatory issues. Your genetic baseline is strong.",
-					"activation": 12,
-					"activationDescription": "Your low inflammatory load means these genetic pathways are largely dormant.",
-					"geneticMarker": "CHRNA3"
-				}
-			]
-		},
-		{
-			"id": "metabolic",
-			"name": "Metabolic",
-			"score": 31,
-			"activation": "Low",
-			"risk": "green",
-			"geneticRisk": 28,
-			"geneticActivation": 22,
-			"diseases": [
-				{
-					"id": "t2d",
-					"name": "Type 2 Diabetes",
-					"status": "green",
-					"geneticRisk": 35,
-					"geneticRiskDescription": "Moderate genetic baseline for insulin sensitivity. You have a good foundation.",
-					"activation": 22,
-					"activationDescription": "Low activation. Your low-glycemic habits are successfully silencing these metabolic risk genes.",
-					"geneticMarker": "TCF7L2"
-				},
-				{
-					"id": "obesity",
-					"name": "Genetic Obesity",
-					"status": "green",
-					"geneticRisk": 42,
-					"geneticRiskDescription": "Your genes for satiety and fat storage are near the population average. No major genetic hurdles here.",
-					"activation": 18,
-					"activationDescription": "Activation is minimal, suggesting your caloric balance and protein intake are highly optimized.",
-					"geneticMarker": "FTO"
-				},
-				{
-					"id": "naFLD",
-					"name": "Liver Steatosis",
-					"status": "green",
-					"geneticRisk": 25,
-					"geneticRiskDescription": "Very low genetic risk for non-alcoholic liver fat accumulation. You have high hepatic resilience.",
-					"activation": 8,
-					"activationDescription": "These pathways are almost completely asleep due to your high fiber intake.",
-					"geneticMarker": "PNPLA3"
-				},
-				{
-					"id": "metS",
-					"name": "Metabolic Syndrome",
-					"status": "yellow",
-					"geneticRisk": 51,
-					"geneticRiskDescription": "Moderate genetic risk for clustering of metabolic conditions. Requires consistent monitoring.",
-					"activation": 35,
-					"activationDescription": "Low-moderate activation. Your current lifestyle is effectively managing these predispositions.",
-					"geneticMarker": "APOA5"
-				},
-				{
-					"id": "pcos",
-					"name": "PCOS Risk",
-					"status": "green",
-					"geneticRisk": 18,
-					"geneticRiskDescription": "Strong genetic protection against hormonal metabolic imbalances.",
-					"activation": 5,
-					"activationDescription": "Activation is at basal levels. Your endocrine health is excellent.",
-					"geneticMarker": "DENND1A"
-				}
-			]
-		},
-		{
-			"id": "neuro",
-			"name": "Neuro",
-			"score": 55,
-			"activation": "Moderate",
-			"risk": "yellow",
-			"geneticRisk": 52,
-			"geneticActivation": 38,
-			"diseases": [
-				{
-					"id": "ad",
-					"name": "Alzheimer's Disease",
-					"status": "red",
-					"geneticRisk": 72,
-					"geneticRiskDescription": "You carry markers that correlate with faster cognitive decline if left unmanaged.",
-					"activation": 58,
-					"activationDescription": "Moderate activation. Deep sleep and brain-derived neurotrophic factor (BDNF) stimulation through exercise are critical now.",
-					"geneticMarker": "APOE-ε4"
-				},
-				{
-					"id": "pd",
-					"name": "Parkinson's Disease",
-					"status": "green",
-					"geneticRisk": 24,
-					"geneticRiskDescription": "Genetic risk for dopaminergic neuron degeneration is significantly below average.",
-					"activation": 12,
-					"activationDescription": "Your low environmental toxin exposure is keeping these pathways dormant.",
-					"geneticMarker": "LRRK2"
-				},
-				{
-					"id": "ms",
-					"name": "Multiple Sclerosis",
-					"status": "yellow",
-					"geneticRisk": 48,
-					"geneticRiskDescription": "Average genetic risk for neuro-immune conditions. No specific alarm, but worth observing.",
-					"activation": 32,
-					"activationDescription": "Moderate activation. Managing systemic inflammation and Vitamin D levels is key to cooling these genes.",
-					"geneticMarker": "HLA-DRB1"
-				},
-				{
-					"id": "stroke",
-					"name": "Ischemic Stroke",
-					"status": "yellow",
-					"geneticRisk": 55,
-					"geneticRiskDescription": "Moderate genetic tendency for vascular-neuro events. Strong interaction with blood pressure markers.",
-					"activation": 41,
-					"activationDescription": "Current activation is stable. Consistent omega-3 intake is helping maintain neurovascular integrity.",
-					"geneticMarker": "PHACTR1"
-				},
-				{
-					"id": "migraine",
-					"name": "Chronic Migraine",
-					"status": "red",
-					"geneticRisk": 85,
-					"geneticRiskDescription": "Highly sensitive genetic neurological profile. Your brain reacts strongly to environmental triggers.",
-					"activation": 74,
-					"activationDescription": "High activation. Stress-melting activities and hydration are the 'remote control' to turn this volume down.",
-					"geneticMarker": "TRPM8"
-				}
-			]
-		},
-		{
-			"id": "onco",
-			"name": "Onco",
-			"score": 18,
-			"activation": "Low",
-			"risk": "green",
-			"geneticRisk": 15,
-			"geneticActivation": 12,
-			"diseases": [
-				{
-					"id": "breast",
-					"name": "Breast Cancer",
-					"status": "green",
-					"geneticRisk": 12,
-					"geneticRiskDescription": "Genetic baseline for cell repair and tumor suppression is exceptionally strong in this area.",
-					"activation": 5,
-					"activationDescription": "Low activation. Your cellular health is optimal.",
-					"geneticMarker": "BRCA1/2"
-				},
-				{
-					"id": "prostate",
-					"name": "Prostate Cancer",
-					"status": "green",
-					"geneticRisk": 18,
-					"geneticRiskDescription": "Genetic indicators for oncological risk here are significantly lower than population average.",
-					"activation": 10,
-					"activationDescription": "Almost no epigenetic activation in these risk pathways.",
-					"geneticMarker": "HOXB13"
-				},
-				{
-					"id": "crc",
-					"name": "Colorectal Cancer",
-					"status": "green",
-					"geneticRisk": 22,
-					"geneticRiskDescription": "Genetic foundation for gut mucosal integrity and immune surveillance is robust.",
-					"activation": 14,
-					"activationDescription": "Very low activation. Your diverse microbiome is a key protective factor here.",
-					"geneticMarker": "APC"
-				},
-				{
-					"id": "melanoma",
-					"name": "Melanoma",
-					"status": "yellow",
-					"geneticRisk": 45,
-					"geneticRiskDescription": "Moderate genetic sensitivity to UV radiation and DNA damage repair speed.",
-					"activation": 38,
-					"activationDescription": "Moderate activation. Increasing antioxidant-rich greens can help cool these sensitive pathways.",
-					"geneticMarker": "MC1R"
-				},
-				{
-					"id": "lung",
-					"name": "Lung Cancer",
-					"status": "green",
-					"geneticRisk": 15,
-					"geneticRiskDescription": "Genetic risk for pulmonary cell mutation is very low. High detoxification resilience.",
-					"activation": 9,
-					"activationDescription": "Low activation. Your focus on air quality and non-exposure is paying off.",
-					"geneticMarker": "CHRNA5"
-				}
-			]
-		}
-	],
-	"physicalActivity": {
-		"steps": 9243,
-		"restingHR": 58,
-		"hrv": 62,
-		"history": {
-			"steps": [
-				{ "day": "Mon", "value": 7800 },
-				{ "day": "Tue", "value": 11200 },
-				{ "day": "Wed", "value": 8500 },
-				{ "day": "Thu", "value": 6300 },
-				{ "day": "Fri", "value": 10100 },
-				{ "day": "Sat", "value": 12400 },
-				{ "day": "Sun", "value": 9243 }
-			],
-			"restingHR": [
-				{ "day": "Mon", "value": 61 },
-				{ "day": "Tue", "value": 59 },
-				{ "day": "Wed", "value": 62 },
-				{ "day": "Thu", "value": 60 },
-				{ "day": "Fri", "value": 58 },
-				{ "day": "Sat", "value": 57 },
-				{ "day": "Sun", "value": 58 }
-			],
-			"hrv": [
-				{ "day": "Mon", "value": 54 },
-				{ "day": "Tue", "value": 61 },
-				{ "day": "Wed", "value": 58 },
-				{ "day": "Thu", "value": 55 },
-				{ "day": "Fri", "value": 63 },
-				{ "day": "Sat", "value": 66 },
-				{ "day": "Sun", "value": 62 }
-			]
-		}
-	},
-	"environment": {
-		"airQuality": { "aqi": 42, "label": "Good" },
-		"uvIndex": 6,
-		"meteorological": { "condition": "Partly Cloudy", "temp": 18 },
-		"elevation": 320,
-		"magneticStorms": { "level": "Kp2", "active": false },
-		"history": {
-			"airQuality": [
-				{ "day": "Mon", "value": 55 },
-				{ "day": "Tue", "value": 48 },
-				{ "day": "Wed", "value": 62 },
-				{ "day": "Thu", "value": 71 },
-				{ "day": "Fri", "value": 45 },
-				{ "day": "Sat", "value": 38 },
-				{ "day": "Sun", "value": 42 }
-			],
-			"uvIndex": [
-				{ "day": "Mon", "value": 5 },
-				{ "day": "Tue", "value": 7 },
-				{ "day": "Wed", "value": 8 },
-				{ "day": "Thu", "value": 4 },
-				{ "day": "Fri", "value": 6 },
-				{ "day": "Sat", "value": 9 },
-				{ "day": "Sun", "value": 6 }
-			],
-			"elevation": [
-				{ "day": "Mon", "value": 305 },
-				{ "day": "Tue", "value": 320 },
-				{ "day": "Wed", "value": 280 },
-				{ "day": "Thu", "value": 295 },
-				{ "day": "Fri", "value": 310 },
-				{ "day": "Sat", "value": 340 },
-				{ "day": "Sun", "value": 320 }
-			],
-			"magneticStorms": [
-				{ "day": "Mon", "value": 1 },
-				{ "day": "Tue", "value": 2 },
-				{ "day": "Wed", "value": 3 },
-				{ "day": "Thu", "value": 4 },
-				{ "day": "Fri", "value": 2 },
-				{ "day": "Sat", "value": 1 },
-				{ "day": "Sun", "value": 2 }
-			]
-		}
-	},
-	"physicalEnvironmentAlerts": {
-		"activity": {
-			"steps": { "current": 4800, "goal": 8000, "deficit": 3200 },
-			"recommendation": { "steps": 3200, "estimatedMinutes": 25 },
-			"genes": [
-				{ "name": "ACE",   "variant": "II genotype", "snp": "rs4646994", "impact": "Elevated cardiovascular endurance requirement" },
-				{ "name": "ACTN3", "variant": "RR",          "snp": "rs1815739", "impact": "Power-oriented muscle profile" }
-			]
-		},
-		"location": {
-			"current":  { "city": "Los Angeles", "country": "US", "timezone": "PST", "flag": "🇺🇸" },
-			"previous": { "city": "Sofia",       "country": "BG", "timezone": "EET", "flag": "🇧🇬" },
-			"jetLagHours": 10
-		},
-		"environment": {
-			"uv": {
-				"current": 9,
-				"previous": 4,
-				"recommendation": "SPF 50+, limit midday exposure"
-			},
-			"airQuality": {
-				"current":  { "aqi": 78, "label": "Moderate" },
-				"previous": { "aqi": 32, "label": "Good" }
-			}
-		}
-	}
+  "bioAge": {
+    "chrono": 28,
+    "bio": 24,
+    "delta": -4,
+    "status": "Slower aging"
+  },
+  "bioAgeHistory": [
+    { "week": "W1", "bioAge": 28.2, "baseline": 28 },
+    { "week": "W2", "bioAge": 28.4, "baseline": 28 },
+    { "week": "W3", "bioAge": 28.1, "baseline": 28 },
+    { "week": "W4", "bioAge": 27.2, "baseline": 28 },
+    { "week": "W5", "bioAge": 26.1, "baseline": 28 },
+    { "week": "W6", "bioAge": 25.2, "baseline": 28 },
+    { "week": "W7", "bioAge": 24.7, "baseline": 28 },
+    { "week": "W8", "bioAge": 24.3, "baseline": 28 },
+    { "week": "W9", "bioAge": 24.1, "baseline": 28 },
+    { "week": "W10", "bioAge": 24.0, "baseline": 28 },
+    { "week": "W11", "bioAge": 24.1, "baseline": 28 },
+    { "week": "W12", "bioAge": 24.0, "baseline": 28 }
+  ],
+  "domains": [
+    {
+      "id": "cardio",
+      "name": "Cardio",
+      "score": 72,
+      "activation": "Moderate",
+      "risk": "yellow",
+      "geneticRisk": 68,
+      "geneticActivation": 45,
+      "diseases": [
+        {
+          "id": "afib",
+          "name": "Atrial Fibrillation",
+          "status": "red",
+          "geneticRisk": 82,
+          "geneticRiskDescription": "Your heart has a genetic tendency to follow an irregular rhythm. Your risk is above the average for this disease, but here's the exciting part: this is only the starting line, not the finish line!",
+          "activation": 78,
+          "activationDescription": "Right now these 'beat-skipping' genes are more awake than asleep (78% active). This simply means your lifestyle habits have huge room to shine!",
+          "geneticMarker": "PITX2"
+        },
+        {
+          "id": "cad",
+          "name": "Coronary Artery Disease",
+          "status": "red",
+          "geneticRisk": 75,
+          "geneticRiskDescription": "Genetic markers indicate a moderate-high risk for plaque accumulation. However, epigenetics can override this via high-quality fats and antioxidant-rich diet.",
+          "activation": 62,
+          "activationDescription": "Activation level is moderate, indicating your current lipid metabolism is coping, but requires focused optimization.",
+          "geneticMarker": "9p21.3"
+        },
+        {
+          "id": "htn",
+          "name": "Hypertension",
+          "status": "yellow",
+          "geneticRisk": 58,
+          "geneticRiskDescription": "Slightly elevated genetic risk for salt sensitivity. Your body might hold on to sodium more than most.",
+          "activation": 45,
+          "activationDescription": "Low-moderate activation. Potassium-rich foods and daily movement are currently keeping this risk in check.",
+          "geneticMarker": "CYP11B2"
+        },
+        {
+          "id": "hf",
+          "name": "Heart Failure",
+          "status": "green",
+          "geneticRisk": 32,
+          "geneticRiskDescription": "Your genetic predisposition for structural heart weakness is below average. You have a robust baseline.",
+          "activation": 15,
+          "activationDescription": "Minimal activation. Your regular exercise and sleep quality are maintaining high cardiovascular resilience.",
+          "geneticMarker": "TTN"
+        },
+        {
+          "id": "pad",
+          "name": "Peripheral Artery Disease",
+          "status": "green",
+          "geneticRisk": 28,
+          "geneticRiskDescription": "Lower than average risk for peripheral circulatory issues. Your genetic baseline is strong.",
+          "activation": 12,
+          "activationDescription": "Your low inflammatory load means these genetic pathways are largely dormant.",
+          "geneticMarker": "CHRNA3"
+        }
+      ]
+    },
+    {
+      "id": "metabolic",
+      "name": "Metabolic",
+      "score": 31,
+      "activation": "Low",
+      "risk": "green",
+      "geneticRisk": 28,
+      "geneticActivation": 22,
+      "diseases": [
+        {
+          "id": "t2d",
+          "name": "Type 2 Diabetes",
+          "status": "green",
+          "geneticRisk": 35,
+          "geneticRiskDescription": "Moderate genetic baseline for insulin sensitivity. You have a good foundation.",
+          "activation": 22,
+          "activationDescription": "Low activation. Your low-glycemic habits are successfully silencing these metabolic risk genes.",
+          "geneticMarker": "TCF7L2"
+        },
+        {
+          "id": "obesity",
+          "name": "Genetic Obesity",
+          "status": "green",
+          "geneticRisk": 42,
+          "geneticRiskDescription": "Your genes for satiety and fat storage are near the population average. No major genetic hurdles here.",
+          "activation": 18,
+          "activationDescription": "Activation is minimal, suggesting your caloric balance and protein intake are highly optimized.",
+          "geneticMarker": "FTO"
+        },
+        {
+          "id": "naFLD",
+          "name": "Liver Steatosis",
+          "status": "green",
+          "geneticRisk": 25,
+          "geneticRiskDescription": "Very low genetic risk for non-alcoholic liver fat accumulation. You have high hepatic resilience.",
+          "activation": 8,
+          "activationDescription": "These pathways are almost completely asleep due to your high fiber intake.",
+          "geneticMarker": "PNPLA3"
+        },
+        {
+          "id": "metS",
+          "name": "Metabolic Syndrome",
+          "status": "yellow",
+          "geneticRisk": 51,
+          "geneticRiskDescription": "Moderate genetic risk for clustering of metabolic conditions. Requires consistent monitoring.",
+          "activation": 35,
+          "activationDescription": "Low-moderate activation. Your current lifestyle is effectively managing these predispositions.",
+          "geneticMarker": "APOA5"
+        },
+        {
+          "id": "pcos",
+          "name": "PCOS Risk",
+          "status": "green",
+          "geneticRisk": 18,
+          "geneticRiskDescription": "Strong genetic protection against hormonal metabolic imbalances.",
+          "activation": 5,
+          "activationDescription": "Activation is at basal levels. Your endocrine health is excellent.",
+          "geneticMarker": "DENND1A"
+        }
+      ]
+    },
+    {
+      "id": "neuro",
+      "name": "Neuro",
+      "score": 55,
+      "activation": "Moderate",
+      "risk": "yellow",
+      "geneticRisk": 52,
+      "geneticActivation": 38,
+      "diseases": [
+        {
+          "id": "ad",
+          "name": "Alzheimer's Disease",
+          "status": "red",
+          "geneticRisk": 72,
+          "geneticRiskDescription": "You carry markers that correlate with faster cognitive decline if left unmanaged.",
+          "activation": 58,
+          "activationDescription": "Moderate activation. Deep sleep and brain-derived neurotrophic factor (BDNF) stimulation through exercise are critical now.",
+          "geneticMarker": "APOE-ε4"
+        },
+        {
+          "id": "pd",
+          "name": "Parkinson's Disease",
+          "status": "green",
+          "geneticRisk": 24,
+          "geneticRiskDescription": "Genetic risk for dopaminergic neuron degeneration is significantly below average.",
+          "activation": 12,
+          "activationDescription": "Your low environmental toxin exposure is keeping these pathways dormant.",
+          "geneticMarker": "LRRK2"
+        },
+        {
+          "id": "ms",
+          "name": "Multiple Sclerosis",
+          "status": "yellow",
+          "geneticRisk": 48,
+          "geneticRiskDescription": "Average genetic risk for neuro-immune conditions. No specific alarm, but worth observing.",
+          "activation": 32,
+          "activationDescription": "Moderate activation. Managing systemic inflammation and Vitamin D levels is key to cooling these genes.",
+          "geneticMarker": "HLA-DRB1"
+        },
+        {
+          "id": "stroke",
+          "name": "Ischemic Stroke",
+          "status": "yellow",
+          "geneticRisk": 55,
+          "geneticRiskDescription": "Moderate genetic tendency for vascular-neuro events. Strong interaction with blood pressure markers.",
+          "activation": 41,
+          "activationDescription": "Current activation is stable. Consistent omega-3 intake is helping maintain neurovascular integrity.",
+          "geneticMarker": "PHACTR1"
+        },
+        {
+          "id": "migraine",
+          "name": "Chronic Migraine",
+          "status": "red",
+          "geneticRisk": 85,
+          "geneticRiskDescription": "Highly sensitive genetic neurological profile. Your brain reacts strongly to environmental triggers.",
+          "activation": 74,
+          "activationDescription": "High activation. Stress-melting activities and hydration are the 'remote control' to turn this volume down.",
+          "geneticMarker": "TRPM8"
+        }
+      ]
+    },
+    {
+      "id": "onco",
+      "name": "Onco",
+      "score": 18,
+      "activation": "Low",
+      "risk": "green",
+      "geneticRisk": 15,
+      "geneticActivation": 12,
+      "diseases": [
+        {
+          "id": "breast",
+          "name": "Breast Cancer",
+          "status": "green",
+          "geneticRisk": 12,
+          "geneticRiskDescription": "Genetic baseline for cell repair and tumor suppression is exceptionally strong in this area.",
+          "activation": 5,
+          "activationDescription": "Low activation. Your cellular health is optimal.",
+          "geneticMarker": "BRCA1/2"
+        },
+        {
+          "id": "prostate",
+          "name": "Prostate Cancer",
+          "status": "green",
+          "geneticRisk": 18,
+          "geneticRiskDescription": "Genetic indicators for oncological risk here are significantly lower than population average.",
+          "activation": 10,
+          "activationDescription": "Almost no epigenetic activation in these risk pathways.",
+          "geneticMarker": "HOXB13"
+        },
+        {
+          "id": "crc",
+          "name": "Colorectal Cancer",
+          "status": "green",
+          "geneticRisk": 22,
+          "geneticRiskDescription": "Genetic foundation for gut mucosal integrity and immune surveillance is robust.",
+          "activation": 14,
+          "activationDescription": "Very low activation. Your diverse microbiome is a key protective factor here.",
+          "geneticMarker": "APC"
+        },
+        {
+          "id": "melanoma",
+          "name": "Melanoma",
+          "status": "yellow",
+          "geneticRisk": 45,
+          "geneticRiskDescription": "Moderate genetic sensitivity to UV radiation and DNA damage repair speed.",
+          "activation": 38,
+          "activationDescription": "Moderate activation. Increasing antioxidant-rich greens can help cool these sensitive pathways.",
+          "geneticMarker": "MC1R"
+        },
+        {
+          "id": "lung",
+          "name": "Lung Cancer",
+          "status": "green",
+          "geneticRisk": 15,
+          "geneticRiskDescription": "Genetic risk for pulmonary cell mutation is very low. High detoxification resilience.",
+          "activation": 9,
+          "activationDescription": "Low activation. Your focus on air quality and non-exposure is paying off.",
+          "geneticMarker": "CHRNA5"
+        }
+      ]
+    }
+  ],
+  "physicalActivity": {
+    "steps": 9243,
+    "restingHR": 58,
+    "hrv": 62,
+    "history": {
+      "steps": [
+        { "day": "Mon", "value": 7800 },
+        { "day": "Tue", "value": 11200 },
+        { "day": "Wed", "value": 8500 },
+        { "day": "Thu", "value": 6300 },
+        { "day": "Fri", "value": 10100 },
+        { "day": "Sat", "value": 12400 },
+        { "day": "Sun", "value": 9243 }
+      ],
+      "restingHR": [
+        { "day": "Mon", "value": 61 },
+        { "day": "Tue", "value": 59 },
+        { "day": "Wed", "value": 62 },
+        { "day": "Thu", "value": 60 },
+        { "day": "Fri", "value": 58 },
+        { "day": "Sat", "value": 57 },
+        { "day": "Sun", "value": 58 }
+      ],
+      "hrv": [
+        { "day": "Mon", "value": 54 },
+        { "day": "Tue", "value": 61 },
+        { "day": "Wed", "value": 58 },
+        { "day": "Thu", "value": 55 },
+        { "day": "Fri", "value": 63 },
+        { "day": "Sat", "value": 66 },
+        { "day": "Sun", "value": 62 }
+      ]
+    }
+  },
+  "environment": {
+    "airQuality": { "aqi": 42, "label": "Good" },
+    "uvIndex": 6,
+    "meteorological": { "condition": "Partly Cloudy", "temp": 18 },
+    "elevation": 320,
+    "magneticStorms": { "level": "Kp2", "active": false },
+    "history": {
+      "airQuality": [
+        { "day": "Mon", "value": 55 },
+        { "day": "Tue", "value": 48 },
+        { "day": "Wed", "value": 62 },
+        { "day": "Thu", "value": 71 },
+        { "day": "Fri", "value": 45 },
+        { "day": "Sat", "value": 38 },
+        { "day": "Sun", "value": 42 }
+      ],
+      "uvIndex": [
+        { "day": "Mon", "value": 5 },
+        { "day": "Tue", "value": 7 },
+        { "day": "Wed", "value": 8 },
+        { "day": "Thu", "value": 4 },
+        { "day": "Fri", "value": 6 },
+        { "day": "Sat", "value": 9 },
+        { "day": "Sun", "value": 6 }
+      ],
+      "elevation": [
+        { "day": "Mon", "value": 305 },
+        { "day": "Tue", "value": 320 },
+        { "day": "Wed", "value": 280 },
+        { "day": "Thu", "value": 295 },
+        { "day": "Fri", "value": 310 },
+        { "day": "Sat", "value": 340 },
+        { "day": "Sun", "value": 320 }
+      ],
+      "magneticStorms": [
+        { "day": "Mon", "value": 1 },
+        { "day": "Tue", "value": 2 },
+        { "day": "Wed", "value": 3 },
+        { "day": "Thu", "value": 4 },
+        { "day": "Fri", "value": 2 },
+        { "day": "Sat", "value": 1 },
+        { "day": "Sun", "value": 2 }
+      ]
+    }
+  },
+  "physicalEnvironmentAlerts": {
+    "activity": {
+      "steps": { "current": 4800, "goal": 8000, "deficit": 3200 },
+      "recommendation": { "steps": 3200, "estimatedMinutes": 25 },
+      "genes": [
+        {
+          "name": "ACE",
+          "variant": "II genotype",
+          "snp": "rs4646994",
+          "impact": "Elevated cardiovascular endurance requirement"
+        },
+        {
+          "name": "ACTN3",
+          "variant": "RR",
+          "snp": "rs1815739",
+          "impact": "Power-oriented muscle profile"
+        }
+      ]
+    },
+    "location": {
+      "current": {
+        "city": "San Franciso",
+        "country": "US",
+        "timezone": "PST",
+        "flag": "🇺🇸"
+      },
+      "previous": {
+        "city": "Sofia",
+        "country": "BG",
+        "timezone": "EET",
+        "flag": "🇧🇬"
+      },
+      "jetLagHours": 10
+    },
+    "environment": {
+      "uv": {
+        "current": 9,
+        "previous": 4,
+        "recommendation": "SPF 50+, limit midday exposure"
+      },
+      "airQuality": {
+        "current": { "aqi": 78, "label": "Moderate" },
+        "previous": { "aqi": 32, "label": "Good" }
+      }
+    }
+  }
 }
