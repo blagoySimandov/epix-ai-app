@@ -16,6 +16,8 @@ import {
 	AlertBanner,
 	BottomSheet,
 	SheetRow,
+	ChatBubble,
+	ChatInput,
 } from "@design-system";
 import { BioAgeWidget } from "@design-system/widgets";
 import { Gauge, Sun, Zap, AlertTriangle } from "lucide-react";
@@ -571,6 +573,50 @@ function DesignSystem() {
 									</p>
 								</div>
 							))}
+						</div>
+					</div>
+
+					<div className="sm:col-span-2">
+						<h3 className="text-lg font-medium mb-4">
+							Chat Interface
+						</h3>
+						<p className="text-sm text-muted-foreground mb-6">
+							Unified chat bubble component for both bot and user messages. Supports both plain text and rich React content.
+						</p>
+						<div className="bg-muted p-6 rounded-3xl space-y-2 max-w-sm">
+							<ChatBubble variant="bot">
+								Hello! How can I help you with your health data today?
+							</ChatBubble>
+							<ChatBubble variant="user">
+								I'm traveling to the Mojave Desert soon.
+							</ChatBubble>
+							<ChatBubble variant="bot">
+								<div className="flex items-center gap-2">
+									<Badge variant="outline" color="var(--rose)">Alert</Badge>
+									<span className="font-bold text-rose">High UV Detected</span>
+								</div>
+								<p className="mt-2 text-sm">Based on your genomic risk, please apply SPF 50+.</p>
+							</ChatBubble>
+						</div>
+					</div>
+
+					<div className="sm:col-span-2">
+						<h3 className="text-lg font-medium mb-4">
+							Chat Input
+						</h3>
+						<p className="text-sm text-muted-foreground mb-6">
+							Reusable input component with glassmorphism and send button. Note: This component is absolutely positioned at the bottom of the viewport by default.
+						</p>
+						<div className="relative h-48 bg-muted/30 rounded-3xl border border-dashed border-muted-foreground/30 overflow-hidden">
+							<div className="absolute inset-0 flex items-center justify-center text-xs text-muted-foreground uppercase tracking-widest pointer-events-none">
+								Viewport Mock
+							</div>
+							<ChatInput 
+								value="" 
+								onChange={() => {}} 
+								onSend={() => alert("Message sent!")} 
+								className="absolute bottom-4 translate-y-0!" // Override fixed position for demo
+							/>
 						</div>
 					</div>
 				</div>

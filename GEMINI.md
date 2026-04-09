@@ -27,3 +27,5 @@ The following components are part of the core design system:
 - **GeneticProfileChip**: A glassmorphic data chip used to display genetic context, including Gene, SNP, and Genotype, with a DNA icon. Used in alert and report screens.
 - **AlertBanner**: A slim, high-visibility warning bar used to surface urgent environmental or health alerts. Features a red/amber gradient and a pulsing icon.
 - **BottomSheet**: A slide-up detailed information modal with a blurred background overlay and scrollable content area. Includes a handle for visual affordance and a header with a close button.
+- **ChatBubble**: A flexible message container for bot and user interactions. Supports plain text or rich React content, automatically handles alignment and consistent styling (teal/white for user, glassmorphic for bot).
+- **ChatInput**: A glassmorphic bottom-docked input field with a send button. Features automatic gradient background for readability over content and smooth focus states.

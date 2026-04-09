@@ -18,3 +18,5 @@ export { PulsingAlertIcon, type PulsingAlertIconProps } from "./pulsing-alert-ic
 export { GeneticProfileChip, type GeneticProfileChipProps } from "./genetic-profile-chip";
 export { AlertBanner } from "./AlertBanner";
 export { BottomSheet, SheetRow } from "./BottomSheet";
+export { ChatBubble } from "./chat-bubble";
+export { ChatInput } from "./chat-input";

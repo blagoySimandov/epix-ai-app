@@ -1,12 +1,12 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { FileText, Home, QrCode, User } from "lucide-react";
+import { FileText, Home, QrCode, MessageSquare } from "lucide-react";
 import { cn } from "#/lib/utils";
 
 const NAV_ITEMS = [
 	{ to: "/", icon: Home, label: "Home" },
 	{ to: "/design", icon: FileText, label: "Report" },
 	{ to: "/scan", icon: QrCode, label: "Scan" },
-	{ to: "/", icon: User, label: "Profile" },
+	{ to: "/chat", icon: MessageSquare, label: "Chat" },
 ] as const;
 
 function NavItem({ to, icon: Icon, label, isAlert }: (typeof NAV_ITEMS)[number] & { isAlert: boolean }) {

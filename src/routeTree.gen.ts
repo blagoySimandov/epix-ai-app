@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ScanRouteImport } from './routes/scan'
 import { Route as EnvironmentRouteImport } from './routes/environment'
 import { Route as DesignRouteImport } from './routes/design'
+import { Route as ChatRouteImport } from './routes/chat'
 import { Route as ActivityRouteImport } from './routes/activity'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ScanIndexRouteImport } from './routes/scan.index'
@@ -34,6 +35,11 @@ const EnvironmentRoute = EnvironmentRouteImport.update({
 const DesignRoute = DesignRouteImport.update({
   id: '/design',
   path: '/design',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChatRoute = ChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ActivityRoute = ActivityRouteImport.update({
@@ -80,6 +86,7 @@ const ScanAlertAlternativesRoute = ScanAlertAlternativesRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/activity': typeof ActivityRoute
+  '/chat': typeof ChatRoute
   '/design': typeof DesignRoute
   '/environment': typeof EnvironmentRoute
   '/scan': typeof ScanRouteWithChildren
@@ -93,6 +100,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/activity': typeof ActivityRoute
+  '/chat': typeof ChatRoute
   '/design': typeof DesignRoute
   '/environment': typeof EnvironmentRoute
   '/report/$domain': typeof ReportDomainRoute
@@ -105,6 +113,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/activity': typeof ActivityRoute
+  '/chat': typeof ChatRoute
   '/design': typeof DesignRoute
   '/environment': typeof EnvironmentRoute
   '/scan': typeof ScanRouteWithChildren
@@ -120,6 +129,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/activity'
+    | '/chat'
     | '/design'
     | '/environment'
     | '/scan'
@@ -133,6 +143,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/activity'
+    | '/chat'
     | '/design'
     | '/environment'
     | '/report/$domain'
@@ -144,6 +155,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/activity'
+    | '/chat'
     | '/design'
     | '/environment'
     | '/scan'
@@ -158,6 +170,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ActivityRoute: typeof ActivityRoute
+  ChatRoute: typeof ChatRoute
   DesignRoute: typeof DesignRoute
   EnvironmentRoute: typeof EnvironmentRoute
   ScanRoute: typeof ScanRouteWithChildren
@@ -185,6 +198,13 @@ declare module '@tanstack/react-router' {
       path: '/design'
       fullPath: '/design'
       preLoaderRoute: typeof DesignRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chat': {
+      id: '/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof ChatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/activity': {
@@ -277,6 +297,7 @@ const ScanRouteWithChildren = ScanRoute._addFileChildren(ScanRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ActivityRoute: ActivityRoute,
+  ChatRoute: ChatRoute,
   DesignRoute: DesignRoute,
   EnvironmentRoute: EnvironmentRoute,
   ScanRoute: ScanRouteWithChildren,
