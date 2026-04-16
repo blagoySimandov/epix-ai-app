@@ -13,6 +13,7 @@ import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
 import TanStackQueryProvider from "../integrations/tanstack-query/root-provider";
 import appCss from "../styles.css?url";
 import { BottomNav } from "../components/report/bottom-nav";
+import { registerServiceWorker } from "../lib/register-sw";
 
 interface MyRouterContext {
 	queryClient: QueryClient;
@@ -37,16 +38,61 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 			},
 			{
 				name: "viewport",
-				content: "width=device-width, initial-scale=1",
+				content: "width=device-width, initial-scale=1, viewport-fit=cover",
 			},
 			{
-				title: "TanStack Start Starter",
+				title: "Epix AI — Genomic Health Intelligence",
+			},
+			{
+				name: "description",
+				content: "Personalised health intelligence powered by your genetic and epigenetic data.",
+			},
+			// PWA / mobile meta
+			{
+				name: "theme-color",
+				content: "#0A192F",
+			},
+			{
+				name: "mobile-web-app-capable",
+				content: "yes",
+			},
+			{
+				name: "apple-mobile-web-app-capable",
+				content: "yes",
+			},
+			{
+				name: "apple-mobile-web-app-status-bar-style",
+				content: "black-translucent",
+			},
+			{
+				name: "apple-mobile-web-app-title",
+				content: "Epix AI",
+			},
+			{
+				name: "application-name",
+				content: "Epix AI",
+			},
+			{
+				name: "msapplication-TileColor",
+				content: "#0A192F",
 			},
 		],
 		links: [
 			{
 				rel: "stylesheet",
 				href: appCss,
+			},
+			{
+				rel: "manifest",
+				href: "/manifest.json",
+			},
+			{
+				rel: "apple-touch-icon",
+				href: "/logo192.png",
+			},
+			{
+				rel: "icon",
+				href: "/favicon.ico",
 			},
 		],
 	}),
@@ -95,6 +141,10 @@ function ThemeToggle() {
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+	React.useEffect(() => {
+		registerServiceWorker();
+	}, []);
+
 	return (
 		<html lang="en" suppressHydrationWarning>
 			<head>

@@ -1,6 +1,15 @@
 {
-  "short_name": "TanStack App",
-  "name": "Create TanStack App Sample",
+  "name": "Epix AI — Genomic Health Intelligence",
+  "short_name": "Epix AI",
+  "description": "Personalised health intelligence powered by your genetic and epigenetic data.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#0A192F",
+  "background_color": "#0A192F",
+  "lang": "en",
+  "categories": ["health", "medical", "lifestyle"],
   "icons": [
     {
       "src": "favicon.ico",
@@ -10,16 +19,29 @@
     {
       "src": "logo192.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "any maskable"
     },
     {
       "src": "logo512.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "any maskable"
     }
   ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "shortcuts": [
+    {
+      "name": "Genomic Report",
+      "short_name": "Report",
+      "url": "/",
+      "icons": [{ "src": "logo192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Scan Food & Meds",
+      "short_name": "Scan",
+      "url": "/scan",
+      "icons": [{ "src": "logo192.png", "sizes": "192x192" }]
+    }
+  ],
+  "prefer_related_applications": false
 }
