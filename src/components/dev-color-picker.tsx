@@ -69,7 +69,7 @@ export function DevColorPicker() {
 		navigator.clipboard.writeText(text);
 	};
 
-	if (import.meta.env.PROD) return null;
+
 
 	return (
 		<>

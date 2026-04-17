@@ -1,6 +1,7 @@
 import {
-	Area,
-	AreaChart,
+	Bar,
+	BarChart,
+	LabelList,
 	ResponsiveContainer,
 	Tooltip,
 	XAxis,
@@ -24,7 +25,7 @@ export function MetricChart({ data, color, unit = "" }: MetricChartProps) {
 	return (
 		<div className="h-28 w-full">
 			<ResponsiveContainer width="100%" height="100%">
-				<AreaChart data={data} margin={{ top: 4, right: 4, left: -32, bottom: 0 }}>
+				<BarChart data={data} margin={{ top: 16, right: 4, left: 4, bottom: 0 }}>
 					<XAxis
 						dataKey="day"
 						tick={{ fontSize: 10, fill: "var(--muted-foreground)" }}
@@ -34,18 +35,22 @@ export function MetricChart({ data, color, unit = "" }: MetricChartProps) {
 					<Tooltip
 						contentStyle={TOOLTIP_STYLE}
 						formatter={(v) => [`${v}${unit}`, ""]}
+						cursor={{ fill: "var(--muted)", opacity: 0.2 }}
 					/>
-					<Area
-						type="monotone"
+					<Bar
 						dataKey="value"
-						stroke={color}
-						strokeWidth={2}
 						fill={color}
-						fillOpacity={0.12}
-						dot={false}
-						activeDot={{ r: 4, fill: color }}
-					/>
-				</AreaChart>
+						radius={[4, 4, 0, 0]}
+					>
+						<LabelList 
+							dataKey="value" 
+							position="top" 
+							fill="var(--muted-foreground)" 
+							fontSize={10} 
+							formatter={(v: number) => `${v}${unit}`} 
+						/>
+					</Bar>
+				</BarChart>
 			</ResponsiveContainer>
 		</div>
 	);
