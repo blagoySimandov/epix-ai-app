@@ -18,7 +18,14 @@ const config = defineConfig({
 		VitePWA({
 			registerType: "autoUpdate",
 			outDir: "dist/client",
-			includeAssets: ["favicon.ico", "logo192.png", "logo512.png", "robots.txt"],
+			includeAssets: [
+				"favicon_io/favicon.ico",
+				"favicon_io/favicon-16x16.png",
+				"favicon_io/favicon-32x32.png",
+				"favicon_io/apple-touch-icon.png",
+				"logo-nobg.png",
+				"robots.txt",
+			],
 			manifest: {
 				name: "Epix AI — Genomic Health Intelligence",
 				short_name: "Epix AI",
@@ -33,18 +40,12 @@ const config = defineConfig({
 				categories: ["health", "medical", "lifestyle"],
 				icons: [
 					{
-						src: "favicon.ico",
+						src: "favicon_io/favicon.ico",
 						sizes: "64x64 32x32 24x24 16x16",
 						type: "image/x-icon",
 					},
 					{
-						src: "logo192.png",
-						type: "image/png",
-						sizes: "192x192",
-						purpose: "any maskable",
-					},
-					{
-						src: "logo512.png",
+						src: "logo-nobg.png",
 						type: "image/png",
 						sizes: "512x512",
 						purpose: "any maskable",

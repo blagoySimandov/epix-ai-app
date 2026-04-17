@@ -108,7 +108,7 @@ function DomainDetailPage() {
               </span>
             </div>
             <div className="flex flex-col items-end gap-1">
-              <span>Epigenetic Load</span>
+              <span>Epigenetic Activity</span>
               <span className="text-teal text-xs">
                 {domain.geneticActivation}%
               </span>

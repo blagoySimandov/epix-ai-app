@@ -12,18 +12,12 @@
   "categories": ["health", "medical", "lifestyle"],
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "favicon_io/favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
-      "type": "image/png",
-      "sizes": "192x192",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "logo512.png",
+      "src": "logo-nobg.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "any maskable"
@@ -34,13 +28,13 @@
       "name": "Genomic Report",
       "short_name": "Report",
       "url": "/",
-      "icons": [{ "src": "logo192.png", "sizes": "192x192" }]
+      "icons": [{ "src": "logo-nobg.png", "sizes": "512x512" }]
     },
     {
       "name": "Scan Food & Meds",
       "short_name": "Scan",
       "url": "/scan",
-      "icons": [{ "src": "logo192.png", "sizes": "192x192" }]
+      "icons": [{ "src": "logo-nobg.png", "sizes": "512x512" }]
     }
   ],
   "prefer_related_applications": false

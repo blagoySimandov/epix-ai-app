@@ -24,14 +24,14 @@ const STATUS_CONFIG: Record<
 		text: "text-amber",
 		bg: "bg-amber/10",
 		dot: "bg-amber",
-		label: "Moderate",
+		label: "Moderate Activation",
 	},
 	green: {
 		bar: "bg-green-glow",
 		text: "text-green-text",
 		bg: "bg-green-glow/10",
 		dot: "bg-green-glow",
-		label: "Low Risk",
+		label: "Low Activation",
 	},
 };
 

@@ -44,10 +44,12 @@ export interface PhysicalActivity {
 	steps: number;
 	restingHR: number;
 	hrv: number;
+	sleepQuality: number;
 	history: {
 		steps: DayValue[];
 		restingHR: DayValue[];
 		hrv: DayValue[];
+		sleepQuality: DayValue[];
 	};
 }
 

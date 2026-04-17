@@ -4,6 +4,7 @@ import {
 	ArrowLeft,
 	Dna,
 	Heart,
+	Moon,
 	Zap,
 } from "lucide-react";
 import * as React from "react";
@@ -39,6 +40,11 @@ function hrvStatus(hrv: number) {
 	if (hrv >= 50) return { label: "Good", color: "var(--violet)" };
 	if (hrv >= 30) return { label: "Fair", color: "var(--amber)" };
 	return               { label: "Low",  color: "var(--rose)" };
+}
+function sleepStatus(score: number) {
+	if (score >= 70) return { label: "Good",  color: "var(--teal)" };
+	if (score >= 50) return { label: "Fair",  color: "var(--amber)" };
+	return               { label: "Poor",  color: "var(--rose)" };
 }
 
 // ─── Activity alert sheet ─────────────────────────────────────────────────────
@@ -184,6 +190,7 @@ function TrendsSection({ pa }: { pa: PhysicalActivity }) {
 	const steps = stepsStatus(pa.steps);
 	const hr    = hrStatus(pa.restingHR);
 	const hrv   = hrvStatus(pa.hrv);
+	const sleep = sleepStatus(pa.sleepQuality);
 
 	return (
 		<div className="flex flex-col gap-4">
@@ -215,6 +222,15 @@ function TrendsSection({ pa }: { pa: PhysicalActivity }) {
 				data={pa.history.hrv}
 				color={hrv.color}
 				statusLabel={hrv.label}
+			/>
+			<MetricTrendCard
+				icon={Moon}
+				title="Sleep Quality"
+				currentValue={pa.sleepQuality}
+				unit="%"
+				data={pa.history.sleepQuality}
+				color={sleep.color}
+				statusLabel={sleep.label}
 			/>
 		</div>
 	);
