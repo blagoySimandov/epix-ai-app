@@ -17,8 +17,10 @@ import { Route as BloodTestRouteImport } from './routes/blood-test'
 import { Route as ActivityRouteImport } from './routes/activity'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ScanIndexRouteImport } from './routes/scan.index'
+import { Route as BloodTestIndexRouteImport } from './routes/blood-test.index'
 import { Route as ScanAlertRouteImport } from './routes/scan.alert'
 import { Route as ReportDomainRouteImport } from './routes/report.$domain'
+import { Route as BloodTestIdRouteImport } from './routes/blood-test.$id'
 import { Route as ScanAlertIndexRouteImport } from './routes/scan.alert.index'
 import { Route as ScanAlertDetailsRouteImport } from './routes/scan.alert.details'
 import { Route as ScanAlertAlternativesRouteImport } from './routes/scan.alert.alternatives'
@@ -63,6 +65,11 @@ const ScanIndexRoute = ScanIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ScanRoute,
 } as any)
+const BloodTestIndexRoute = BloodTestIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => BloodTestRoute,
+} as any)
 const ScanAlertRoute = ScanAlertRouteImport.update({
   id: '/alert',
   path: '/alert',
@@ -72,6 +79,11 @@ const ReportDomainRoute = ReportDomainRouteImport.update({
   id: '/report/$domain',
   path: '/report/$domain',
   getParentRoute: () => rootRouteImport,
+} as any)
+const BloodTestIdRoute = BloodTestIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => BloodTestRoute,
 } as any)
 const ScanAlertIndexRoute = ScanAlertIndexRouteImport.update({
   id: '/',
@@ -92,13 +104,15 @@ const ScanAlertAlternativesRoute = ScanAlertAlternativesRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/activity': typeof ActivityRoute
-  '/blood-test': typeof BloodTestRoute
+  '/blood-test': typeof BloodTestRouteWithChildren
   '/chat': typeof ChatRoute
   '/design': typeof DesignRoute
   '/environment': typeof EnvironmentRoute
   '/scan': typeof ScanRouteWithChildren
+  '/blood-test/$id': typeof BloodTestIdRoute
   '/report/$domain': typeof ReportDomainRoute
   '/scan/alert': typeof ScanAlertRouteWithChildren
+  '/blood-test/': typeof BloodTestIndexRoute
   '/scan/': typeof ScanIndexRoute
   '/scan/alert/alternatives': typeof ScanAlertAlternativesRoute
   '/scan/alert/details': typeof ScanAlertDetailsRoute
@@ -107,11 +121,12 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/activity': typeof ActivityRoute
-  '/blood-test': typeof BloodTestRoute
   '/chat': typeof ChatRoute
   '/design': typeof DesignRoute
   '/environment': typeof EnvironmentRoute
+  '/blood-test/$id': typeof BloodTestIdRoute
   '/report/$domain': typeof ReportDomainRoute
+  '/blood-test': typeof BloodTestIndexRoute
   '/scan': typeof ScanIndexRoute
   '/scan/alert/alternatives': typeof ScanAlertAlternativesRoute
   '/scan/alert/details': typeof ScanAlertDetailsRoute
@@ -121,13 +136,15 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/activity': typeof ActivityRoute
-  '/blood-test': typeof BloodTestRoute
+  '/blood-test': typeof BloodTestRouteWithChildren
   '/chat': typeof ChatRoute
   '/design': typeof DesignRoute
   '/environment': typeof EnvironmentRoute
   '/scan': typeof ScanRouteWithChildren
+  '/blood-test/$id': typeof BloodTestIdRoute
   '/report/$domain': typeof ReportDomainRoute
   '/scan/alert': typeof ScanAlertRouteWithChildren
+  '/blood-test/': typeof BloodTestIndexRoute
   '/scan/': typeof ScanIndexRoute
   '/scan/alert/alternatives': typeof ScanAlertAlternativesRoute
   '/scan/alert/details': typeof ScanAlertDetailsRoute
@@ -143,8 +160,10 @@ export interface FileRouteTypes {
     | '/design'
     | '/environment'
     | '/scan'
+    | '/blood-test/$id'
     | '/report/$domain'
     | '/scan/alert'
+    | '/blood-test/'
     | '/scan/'
     | '/scan/alert/alternatives'
     | '/scan/alert/details'
@@ -153,11 +172,12 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/activity'
-    | '/blood-test'
     | '/chat'
     | '/design'
     | '/environment'
+    | '/blood-test/$id'
     | '/report/$domain'
+    | '/blood-test'
     | '/scan'
     | '/scan/alert/alternatives'
     | '/scan/alert/details'
@@ -171,8 +191,10 @@ export interface FileRouteTypes {
     | '/design'
     | '/environment'
     | '/scan'
+    | '/blood-test/$id'
     | '/report/$domain'
     | '/scan/alert'
+    | '/blood-test/'
     | '/scan/'
     | '/scan/alert/alternatives'
     | '/scan/alert/details'
@@ -182,7 +204,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ActivityRoute: typeof ActivityRoute
-  BloodTestRoute: typeof BloodTestRoute
+  BloodTestRoute: typeof BloodTestRouteWithChildren
   ChatRoute: typeof ChatRoute
   DesignRoute: typeof DesignRoute
   EnvironmentRoute: typeof EnvironmentRoute
@@ -248,6 +270,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ScanIndexRouteImport
       parentRoute: typeof ScanRoute
     }
+    '/blood-test/': {
+      id: '/blood-test/'
+      path: '/'
+      fullPath: '/blood-test/'
+      preLoaderRoute: typeof BloodTestIndexRouteImport
+      parentRoute: typeof BloodTestRoute
+    }
     '/scan/alert': {
       id: '/scan/alert'
       path: '/alert'
@@ -261,6 +290,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/report/$domain'
       preLoaderRoute: typeof ReportDomainRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/blood-test/$id': {
+      id: '/blood-test/$id'
+      path: '/$id'
+      fullPath: '/blood-test/$id'
+      preLoaderRoute: typeof BloodTestIdRouteImport
+      parentRoute: typeof BloodTestRoute
     }
     '/scan/alert/': {
       id: '/scan/alert/'
@@ -285,6 +321,20 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface BloodTestRouteChildren {
+  BloodTestIdRoute: typeof BloodTestIdRoute
+  BloodTestIndexRoute: typeof BloodTestIndexRoute
+}
+
+const BloodTestRouteChildren: BloodTestRouteChildren = {
+  BloodTestIdRoute: BloodTestIdRoute,
+  BloodTestIndexRoute: BloodTestIndexRoute,
+}
+
+const BloodTestRouteWithChildren = BloodTestRoute._addFileChildren(
+  BloodTestRouteChildren,
+)
 
 interface ScanAlertRouteChildren {
   ScanAlertAlternativesRoute: typeof ScanAlertAlternativesRoute
@@ -317,7 +367,7 @@ const ScanRouteWithChildren = ScanRoute._addFileChildren(ScanRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ActivityRoute: ActivityRoute,
-  BloodTestRoute: BloodTestRoute,
+  BloodTestRoute: BloodTestRouteWithChildren,
   ChatRoute: ChatRoute,
   DesignRoute: DesignRoute,
   EnvironmentRoute: EnvironmentRoute,
