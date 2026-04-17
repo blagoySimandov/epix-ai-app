@@ -14,6 +14,7 @@ import TanStackQueryProvider from "../integrations/tanstack-query/root-provider"
 import appCss from "../styles.css?url";
 import { BottomNav } from "../components/report/bottom-nav";
 import { registerServiceWorker } from "../lib/register-sw";
+import { DevColorPicker } from "../components/dev-color-picker";
 
 interface MyRouterContext {
 	queryClient: QueryClient;
@@ -167,6 +168,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			<body className="font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(79,184,178,0.24)]">
 				<TanStackQueryProvider>
 					<ThemeToggle />
+					<DevColorPicker />
 					{children}
 					<BottomNav />
 					<TanStackDevtools
