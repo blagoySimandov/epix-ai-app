@@ -13,6 +13,7 @@ import { Route as ScanRouteImport } from './routes/scan'
 import { Route as EnvironmentRouteImport } from './routes/environment'
 import { Route as DesignRouteImport } from './routes/design'
 import { Route as ChatRouteImport } from './routes/chat'
+import { Route as BloodTestRouteImport } from './routes/blood-test'
 import { Route as ActivityRouteImport } from './routes/activity'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ScanIndexRouteImport } from './routes/scan.index'
@@ -40,6 +41,11 @@ const DesignRoute = DesignRouteImport.update({
 const ChatRoute = ChatRouteImport.update({
   id: '/chat',
   path: '/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BloodTestRoute = BloodTestRouteImport.update({
+  id: '/blood-test',
+  path: '/blood-test',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ActivityRoute = ActivityRouteImport.update({
@@ -86,6 +92,7 @@ const ScanAlertAlternativesRoute = ScanAlertAlternativesRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/activity': typeof ActivityRoute
+  '/blood-test': typeof BloodTestRoute
   '/chat': typeof ChatRoute
   '/design': typeof DesignRoute
   '/environment': typeof EnvironmentRoute
@@ -100,6 +107,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/activity': typeof ActivityRoute
+  '/blood-test': typeof BloodTestRoute
   '/chat': typeof ChatRoute
   '/design': typeof DesignRoute
   '/environment': typeof EnvironmentRoute
@@ -113,6 +121,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/activity': typeof ActivityRoute
+  '/blood-test': typeof BloodTestRoute
   '/chat': typeof ChatRoute
   '/design': typeof DesignRoute
   '/environment': typeof EnvironmentRoute
@@ -129,6 +138,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/activity'
+    | '/blood-test'
     | '/chat'
     | '/design'
     | '/environment'
@@ -143,6 +153,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/activity'
+    | '/blood-test'
     | '/chat'
     | '/design'
     | '/environment'
@@ -155,6 +166,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/activity'
+    | '/blood-test'
     | '/chat'
     | '/design'
     | '/environment'
@@ -170,6 +182,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ActivityRoute: typeof ActivityRoute
+  BloodTestRoute: typeof BloodTestRoute
   ChatRoute: typeof ChatRoute
   DesignRoute: typeof DesignRoute
   EnvironmentRoute: typeof EnvironmentRoute
@@ -205,6 +218,13 @@ declare module '@tanstack/react-router' {
       path: '/chat'
       fullPath: '/chat'
       preLoaderRoute: typeof ChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blood-test': {
+      id: '/blood-test'
+      path: '/blood-test'
+      fullPath: '/blood-test'
+      preLoaderRoute: typeof BloodTestRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/activity': {
@@ -297,6 +317,7 @@ const ScanRouteWithChildren = ScanRoute._addFileChildren(ScanRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ActivityRoute: ActivityRoute,
+  BloodTestRoute: BloodTestRoute,
   ChatRoute: ChatRoute,
   DesignRoute: DesignRoute,
   EnvironmentRoute: EnvironmentRoute,

@@ -4,7 +4,7 @@ import { cn } from "#/lib/utils";
 
 const NAV_ITEMS = [
 	{ to: "/", icon: Home, label: "Home" },
-	{ to: "/design", icon: FileText, label: "Report" },
+	{ to: "/blood-test", icon: FileText, label: "Report" },
 	{ to: "/scan", icon: QrCode, label: "Scan" },
 	{ to: "/chat", icon: MessageSquare, label: "Chat" },
 ] as const;
