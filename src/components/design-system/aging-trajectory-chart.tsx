@@ -1,11 +1,13 @@
 import {
-	CartesianGrid,
-	LineChart,
-	Line,
+	BarChart,
+	Bar,
+	Cell,
+	ReferenceLine,
 	ResponsiveContainer,
 	Tooltip,
 	XAxis,
 	YAxis,
+	CartesianGrid,
 } from "recharts";
 import { TrendingDown, TrendingUp } from "lucide-react";
 
@@ -19,66 +21,22 @@ export interface AgingTrajectoryChartProps {
 	data: TrajectoryPoint[];
 }
 
-interface ChartPoint extends TrajectoryPoint {
-	standardAging: number;
-	bioAgeAbove: number | null;
-	bioAgeBelow: number | null;
+
+
+// Theme colors
+const COLOR_GOOD = "var(--green-text)";
+const COLOR_BAD = "var(--rose)";
+
+interface DeltaPoint {
+	week: string;
+	delta: number; // bioAge − standardAging  (<0 = good, >0 = bad)
 }
 
-// Standard-aging calibration in years:
-// - offset starts the reference line slightly below first observed bio age
-// - minimum increase keeps the line clearly upward-trending across the period
-const STANDARD_AGING_OFFSET = 0.5;
-const STANDARD_AGING_MIN_INCREASE = 12.3;
-const BIO_AGE_BELOW_COLOR = "var(--teal)";
-const BIO_AGE_ABOVE_COLOR = "#f43f5e";
-
-const TOOLTIP_STYLE = {
-	backgroundColor: "var(--card)",
-	borderColor: "var(--border)",
-	borderRadius: "0.5rem",
-	fontSize: 11,
-	color: "var(--card-foreground)",
-};
-
-function buildChartData(data: TrajectoryPoint[]): ChartPoint[] {
-	if (data.length === 0) return [];
-
-	const first = data[0];
-	const last = data[data.length - 1];
-	const standardStart = first.bioAge - STANDARD_AGING_OFFSET;
-	const standardEnd = Math.max(
-		standardStart + STANDARD_AGING_MIN_INCREASE,
-		last.bioAge + STANDARD_AGING_OFFSET,
-	);
-	const denominator = Math.max(data.length - 1, 1);
-
-	const points = data.map((point, index) => {
-		const progress = index / denominator;
-		const standardAging =
-			standardStart + (standardEnd - standardStart) * progress;
-		const isAbove = point.bioAge >= standardAging;
-		return { ...point, standardAging, isAbove };
-	});
-
-	return points.map((point, index) => {
-		const prevAbove = index > 0 ? points[index - 1].isAbove : point.isAbove;
-		const nextAbove =
-			index < points.length - 1
-				? points[index + 1].isAbove
-				: point.isAbove;
-		// Include value in both series at transition points so the two
-		// colored segments share an endpoint and don't have a gap.
-		const isTransition = point.isAbove !== prevAbove || point.isAbove !== nextAbove;
-		return {
-			week: point.week,
-			bioAge: point.bioAge,
-			baseline: point.baseline,
-			standardAging: point.standardAging,
-			bioAgeAbove: point.isAbove || isTransition ? point.bioAge : null,
-			bioAgeBelow: !point.isAbove || isTransition ? point.bioAge : null,
-		};
-	});
+function buildDeltaData(data: TrajectoryPoint[]): DeltaPoint[] {
+	return data.map((p) => ({
+		week: p.week,
+		delta: parseFloat((p.bioAge - p.baseline).toFixed(2)),
+	}));
 }
 
 function computeDelta(data: TrajectoryPoint[]): number {
@@ -89,8 +47,7 @@ function computeDelta(data: TrajectoryPoint[]): number {
 function DeltaBadge({ delta }: { delta: number }) {
 	const isImproving = delta < 0;
 	const Icon = isImproving ? TrendingDown : TrendingUp;
-	const color = isImproving ? "var(--green-text)" : "#f43f5e";
-
+	const color = isImproving ? "var(--green-text)" : COLOR_BAD;
 	return (
 		<div style={{ color }} className="flex items-center gap-1.5">
 			<Icon size={13} strokeWidth={2.5} />
@@ -108,9 +65,9 @@ function ChartHeader({ delta }: { delta: number }) {
 		<div className="flex items-start justify-between">
 			<div>
 				<p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-					Aging Trajectory
+					Aging Velocity
 				</p>
-				<p className="text-xs text-muted-foreground mt-0.5">12-week trend</p>
+				<p className="text-xs text-muted-foreground mt-0.5">vs. standard aging baseline</p>
 			</div>
 			<div className="text-right space-y-0.5">
 				<DeltaBadge delta={delta} />
@@ -122,82 +79,72 @@ function ChartHeader({ delta }: { delta: number }) {
 	);
 }
 
-function GlowDot(props: {
-	cx?: number;
-	cy?: number;
-	index?: number;
-	dataLength: number;
-	color: string;
-}) {
-	const { cx, cy, index, dataLength, color } = props;
-	if (index !== dataLength - 1 || cx == null || cy == null) return null;
-	return (
-		<g>
-			<circle cx={cx} cy={cy} r={10} fill={color} opacity={0.15} />
-			<circle cx={cx} cy={cy} r={5} fill={color} opacity={0.35} />
-			<circle cx={cx} cy={cy} r={3} fill={color} />
-		</g>
-	);
+
+
+interface TooltipPayload {
+	payload?: DeltaPoint;
 }
 
-function ChartLegend() {
+function CustomTooltip({ active, payload }: { active?: boolean; payload?: TooltipPayload[] }) {
+	if (!active || !payload?.length) return null;
+	const d = payload[0]?.payload;
+	if (!d) return null;
+	const isGood = d.delta <= 0;
 	return (
-		<div className="flex gap-5 justify-center mt-1">
-			<div className="flex items-center gap-1.5">
-				<svg width="14" height="4" viewBox="0 0 14 4" aria-hidden="true">
-					<rect width="14" height="2" y="1" rx="1" fill={BIO_AGE_BELOW_COLOR} />
-				</svg>
-				<span className="text-[10px] font-medium text-muted-foreground">
-					Below standard
-				</span>
-			</div>
-			<div className="flex items-center gap-1.5">
-				<svg width="14" height="4" viewBox="0 0 14 4" aria-hidden="true">
-					<rect width="14" height="2" y="1" rx="1" fill={BIO_AGE_ABOVE_COLOR} />
-				</svg>
-				<span className="text-[10px] font-medium text-muted-foreground">
-					Above standard
-				</span>
-			</div>
-			<div className="flex items-center gap-1.5">
-				<svg width="14" height="4" viewBox="0 0 14 4" aria-hidden="true">
-					<line
-						x1="0"
-						y1="2"
-						x2="14"
-						y2="2"
-						stroke="var(--muted-foreground)"
-						strokeWidth="1.5"
-						strokeDasharray="3 2"
-					/>
-				</svg>
-				<span className="text-[10px] font-medium text-muted-foreground">
-					Standard aging
-				</span>
-			</div>
+		<div
+			style={{
+				background: "var(--card)",
+				border: "1px solid var(--border)",
+				borderRadius: "0.75rem",
+				padding: "8px 12px",
+				fontSize: 11,
+			}}
+		>
+			<p className="font-bold text-foreground mb-1">{d.week}</p>
+			<p style={{ color: isGood ? COLOR_GOOD : COLOR_BAD }}>
+				{isGood ? "" : "+"}
+				{d.delta.toFixed(1)} yrs vs baseline
+			</p>
+			<p className="text-muted-foreground text-[10px] mt-0.5">
+				{isGood ? "Aging slower ✓" : "Aging faster ✗"}
+			</p>
 		</div>
 	);
 }
 
 function ChartArea({ data }: { data: TrajectoryPoint[] }) {
-	const chartData = buildChartData(data);
-	const latest = chartData[chartData.length - 1];
-	const latestColor =
-		latest && latest.bioAge >= latest.standardAging
-			? BIO_AGE_ABOVE_COLOR
-			: BIO_AGE_BELOW_COLOR;
+	const deltaData = buildDeltaData(data);
+	const minVal = Math.min(0, ...deltaData.map((d) => d.delta));
+	const maxVal = Math.max(0, ...deltaData.map((d) => d.delta));
+	const lastIdx = deltaData.length - 1;
+	
+	// Ensure baseline is visually balanced. Give the top part (max) at least 1/3 of the bottom part (min) space.
+	const yMin = Math.floor(minVal - 1);
+	const yMax = Math.max(Math.ceil(maxVal + 1), Math.ceil(Math.abs(minVal) * 0.4));
 
 	return (
 		<div className="h-44">
 			<ResponsiveContainer width="100%" height="100%">
-				<LineChart
-					data={chartData}
-					margin={{ top: 4, right: 4, left: -28, bottom: 0 }}
+				<BarChart
+					data={deltaData}
+					margin={{ top: 8, right: 10, left: -24, bottom: 0 }}
+					barCategoryGap="30%"
 				>
+					<defs>
+						<linearGradient id="barGood" x1="0" y1="0" x2="0" y2="1">
+							<stop offset="0%" stopColor={COLOR_GOOD} stopOpacity={0.9} />
+							<stop offset="100%" stopColor={COLOR_GOOD} stopOpacity={0.5} />
+						</linearGradient>
+						<linearGradient id="barBad" x1="0" y1="1" x2="0" y2="0">
+							<stop offset="0%" stopColor={COLOR_BAD} stopOpacity={0.9} />
+							<stop offset="100%" stopColor={COLOR_BAD} stopOpacity={0.5} />
+						</linearGradient>
+					</defs>
 					<CartesianGrid
 						strokeDasharray="3 3"
 						vertical={false}
 						stroke="var(--border)"
+						opacity={0.5}
 					/>
 					<XAxis
 						dataKey="week"
@@ -210,65 +157,88 @@ function ChartArea({ data }: { data: TrajectoryPoint[] }) {
 						tick={{ fontSize: 10, fill: "var(--muted-foreground)" }}
 						axisLine={false}
 						tickLine={false}
-						domain={["dataMin - 1", "dataMax + 1"]}
+						tickFormatter={(v) => `${v > 0 ? "+" : ""}${v}`}
+						domain={[yMin, yMax]}
 					/>
-					<Tooltip
-						contentStyle={TOOLTIP_STYLE}
-						formatter={(value, name) => {
-							if (name === "standardAging") {
-								return [`${Number(value).toFixed(1)} yrs`, "Standard aging"];
-							}
-							if (name === "bioAgeAbove" || name === "bioAgeBelow") {
-								return [`${Number(value).toFixed(1)} yrs`, "Biological age"];
-							}
-							return [value, name];
-						}}
-					/>
-					<Line
-						type="monotone"
-						dataKey="bioAgeBelow"
-						stroke={BIO_AGE_BELOW_COLOR}
-						strokeWidth={2.5}
-						connectNulls={false}
-						dot={(props) => (
-							<GlowDot
-								key={`glow-${props.index}`}
-								{...props}
-								color={latestColor}
-								dataLength={chartData.length}
-							/>
-						)}
-						activeDot={{ r: 5, fill: BIO_AGE_BELOW_COLOR, strokeWidth: 0 }}
-						name="Biological age"
-					/>
-					<Line
-						type="monotone"
-						dataKey="bioAgeAbove"
-						stroke={BIO_AGE_ABOVE_COLOR}
-						strokeWidth={2.5}
-						connectNulls={false}
-						dot={(props) => (
-							<GlowDot
-								key={`glow-${props.index}`}
-								{...props}
-								color={latestColor}
-								dataLength={chartData.length}
-							/>
-						)}
-						activeDot={{ r: 5, fill: BIO_AGE_ABOVE_COLOR, strokeWidth: 0 }}
-						name="Biological age"
-					/>
-					<Line
-						type="monotone"
-						dataKey="standardAging"
+					<ReferenceLine
+						y={0}
 						stroke="var(--muted-foreground)"
 						strokeWidth={1.5}
 						strokeDasharray="5 4"
-						dot={false}
-						name="Standard aging"
+						label={{
+							value: "Baseline",
+							position: "insideTopRight",
+							fontSize: 9,
+							fill: "var(--muted-foreground)",
+							dy: -4,
+						}}
 					/>
-				</LineChart>
+					<Tooltip
+						content={<CustomTooltip />}
+						cursor={{ fill: "var(--muted)", opacity: 0.3, radius: 4 }}
+					/>
+					<Bar
+						dataKey="delta"
+						radius={[4, 4, 4, 4]}
+						maxBarSize={28}
+						isAnimationActive
+						animationDuration={700}
+						animationEasing="ease-out"
+					>
+						{deltaData.map((entry, index) => {
+							const isGood = entry.delta <= 0;
+							const isLast = index === lastIdx;
+							const fill = isGood ? "url(#barGood)" : "url(#barBad)";
+							return (
+								<Cell
+									key={`cell-${index}`}
+									fill={fill}
+									opacity={isLast ? 1 : 0.7}
+									stroke={isLast ? (isGood ? COLOR_GOOD : COLOR_BAD) : "none"}
+									strokeWidth={isLast ? 1.5 : 0}
+								/>
+							);
+						})}
+					</Bar>
+				</BarChart>
 			</ResponsiveContainer>
+		</div>
+	);
+}
+
+function ChartLegend() {
+	return (
+		<div className="flex gap-5 justify-center mt-1">
+			<div className="flex items-center gap-1.5">
+				<span
+					style={{
+						display: "inline-block",
+						width: 10,
+						height: 10,
+						borderRadius: 3,
+						background: COLOR_GOOD,
+						opacity: 0.8,
+					}}
+				/>
+				<span className="text-[10px] font-medium text-muted-foreground">
+					Slower than baseline
+				</span>
+			</div>
+			<div className="flex items-center gap-1.5">
+				<span
+					style={{
+						display: "inline-block",
+						width: 10,
+						height: 10,
+						borderRadius: 3,
+						background: COLOR_BAD,
+						opacity: 0.8,
+					}}
+				/>
+				<span className="text-[10px] font-medium text-muted-foreground">
+					Faster than baseline
+				</span>
+			</div>
 		</div>
 	);
 }
