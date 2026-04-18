@@ -312,7 +312,7 @@
   "environment": {
     "airQuality": { "aqi": 42, "label": "Good" },
     "uvIndex": 6,
-    "meteorological": { "condition": "Partly Cloudy", "temp": 18 },
+    "meteorological": { "condition": "Clear Sky", "temp": 9 },
     "elevation": 320,
     "magneticStorms": { "level": "Kp2", "active": false },
     "history": {
