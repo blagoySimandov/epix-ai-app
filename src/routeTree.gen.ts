@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WorkoutRouteImport } from './routes/workout'
 import { Route as ScanRouteImport } from './routes/scan'
 import { Route as EnvironmentRouteImport } from './routes/environment'
 import { Route as DesignRouteImport } from './routes/design'
@@ -16,8 +17,10 @@ import { Route as ChatRouteImport } from './routes/chat'
 import { Route as BloodTestRouteImport } from './routes/blood-test'
 import { Route as ActivityRouteImport } from './routes/activity'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as WorkoutIndexRouteImport } from './routes/workout.index'
 import { Route as ScanIndexRouteImport } from './routes/scan.index'
 import { Route as BloodTestIndexRouteImport } from './routes/blood-test.index'
+import { Route as WorkoutActiveRouteImport } from './routes/workout.active'
 import { Route as ScanAlertRouteImport } from './routes/scan.alert'
 import { Route as ReportDomainRouteImport } from './routes/report.$domain'
 import { Route as BloodTestIdRouteImport } from './routes/blood-test.$id'
@@ -25,6 +28,11 @@ import { Route as ScanAlertIndexRouteImport } from './routes/scan.alert.index'
 import { Route as ScanAlertDetailsRouteImport } from './routes/scan.alert.details'
 import { Route as ScanAlertAlternativesRouteImport } from './routes/scan.alert.alternatives'
 
+const WorkoutRoute = WorkoutRouteImport.update({
+  id: '/workout',
+  path: '/workout',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ScanRoute = ScanRouteImport.update({
   id: '/scan',
   path: '/scan',
@@ -60,6 +68,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WorkoutIndexRoute = WorkoutIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => WorkoutRoute,
+} as any)
 const ScanIndexRoute = ScanIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -69,6 +82,11 @@ const BloodTestIndexRoute = BloodTestIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => BloodTestRoute,
+} as any)
+const WorkoutActiveRoute = WorkoutActiveRouteImport.update({
+  id: '/active',
+  path: '/active',
+  getParentRoute: () => WorkoutRoute,
 } as any)
 const ScanAlertRoute = ScanAlertRouteImport.update({
   id: '/alert',
@@ -109,11 +127,14 @@ export interface FileRoutesByFullPath {
   '/design': typeof DesignRoute
   '/environment': typeof EnvironmentRoute
   '/scan': typeof ScanRouteWithChildren
+  '/workout': typeof WorkoutRouteWithChildren
   '/blood-test/$id': typeof BloodTestIdRoute
   '/report/$domain': typeof ReportDomainRoute
   '/scan/alert': typeof ScanAlertRouteWithChildren
+  '/workout/active': typeof WorkoutActiveRoute
   '/blood-test/': typeof BloodTestIndexRoute
   '/scan/': typeof ScanIndexRoute
+  '/workout/': typeof WorkoutIndexRoute
   '/scan/alert/alternatives': typeof ScanAlertAlternativesRoute
   '/scan/alert/details': typeof ScanAlertDetailsRoute
   '/scan/alert/': typeof ScanAlertIndexRoute
@@ -126,8 +147,10 @@ export interface FileRoutesByTo {
   '/environment': typeof EnvironmentRoute
   '/blood-test/$id': typeof BloodTestIdRoute
   '/report/$domain': typeof ReportDomainRoute
+  '/workout/active': typeof WorkoutActiveRoute
   '/blood-test': typeof BloodTestIndexRoute
   '/scan': typeof ScanIndexRoute
+  '/workout': typeof WorkoutIndexRoute
   '/scan/alert/alternatives': typeof ScanAlertAlternativesRoute
   '/scan/alert/details': typeof ScanAlertDetailsRoute
   '/scan/alert': typeof ScanAlertIndexRoute
@@ -141,11 +164,14 @@ export interface FileRoutesById {
   '/design': typeof DesignRoute
   '/environment': typeof EnvironmentRoute
   '/scan': typeof ScanRouteWithChildren
+  '/workout': typeof WorkoutRouteWithChildren
   '/blood-test/$id': typeof BloodTestIdRoute
   '/report/$domain': typeof ReportDomainRoute
   '/scan/alert': typeof ScanAlertRouteWithChildren
+  '/workout/active': typeof WorkoutActiveRoute
   '/blood-test/': typeof BloodTestIndexRoute
   '/scan/': typeof ScanIndexRoute
+  '/workout/': typeof WorkoutIndexRoute
   '/scan/alert/alternatives': typeof ScanAlertAlternativesRoute
   '/scan/alert/details': typeof ScanAlertDetailsRoute
   '/scan/alert/': typeof ScanAlertIndexRoute
@@ -160,11 +186,14 @@ export interface FileRouteTypes {
     | '/design'
     | '/environment'
     | '/scan'
+    | '/workout'
     | '/blood-test/$id'
     | '/report/$domain'
     | '/scan/alert'
+    | '/workout/active'
     | '/blood-test/'
     | '/scan/'
+    | '/workout/'
     | '/scan/alert/alternatives'
     | '/scan/alert/details'
     | '/scan/alert/'
@@ -177,8 +206,10 @@ export interface FileRouteTypes {
     | '/environment'
     | '/blood-test/$id'
     | '/report/$domain'
+    | '/workout/active'
     | '/blood-test'
     | '/scan'
+    | '/workout'
     | '/scan/alert/alternatives'
     | '/scan/alert/details'
     | '/scan/alert'
@@ -191,11 +222,14 @@ export interface FileRouteTypes {
     | '/design'
     | '/environment'
     | '/scan'
+    | '/workout'
     | '/blood-test/$id'
     | '/report/$domain'
     | '/scan/alert'
+    | '/workout/active'
     | '/blood-test/'
     | '/scan/'
+    | '/workout/'
     | '/scan/alert/alternatives'
     | '/scan/alert/details'
     | '/scan/alert/'
@@ -209,11 +243,19 @@ export interface RootRouteChildren {
   DesignRoute: typeof DesignRoute
   EnvironmentRoute: typeof EnvironmentRoute
   ScanRoute: typeof ScanRouteWithChildren
+  WorkoutRoute: typeof WorkoutRouteWithChildren
   ReportDomainRoute: typeof ReportDomainRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/workout': {
+      id: '/workout'
+      path: '/workout'
+      fullPath: '/workout'
+      preLoaderRoute: typeof WorkoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/scan': {
       id: '/scan'
       path: '/scan'
@@ -263,6 +305,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/workout/': {
+      id: '/workout/'
+      path: '/'
+      fullPath: '/workout/'
+      preLoaderRoute: typeof WorkoutIndexRouteImport
+      parentRoute: typeof WorkoutRoute
+    }
     '/scan/': {
       id: '/scan/'
       path: '/'
@@ -276,6 +325,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/blood-test/'
       preLoaderRoute: typeof BloodTestIndexRouteImport
       parentRoute: typeof BloodTestRoute
+    }
+    '/workout/active': {
+      id: '/workout/active'
+      path: '/active'
+      fullPath: '/workout/active'
+      preLoaderRoute: typeof WorkoutActiveRouteImport
+      parentRoute: typeof WorkoutRoute
     }
     '/scan/alert': {
       id: '/scan/alert'
@@ -364,6 +420,19 @@ const ScanRouteChildren: ScanRouteChildren = {
 
 const ScanRouteWithChildren = ScanRoute._addFileChildren(ScanRouteChildren)
 
+interface WorkoutRouteChildren {
+  WorkoutActiveRoute: typeof WorkoutActiveRoute
+  WorkoutIndexRoute: typeof WorkoutIndexRoute
+}
+
+const WorkoutRouteChildren: WorkoutRouteChildren = {
+  WorkoutActiveRoute: WorkoutActiveRoute,
+  WorkoutIndexRoute: WorkoutIndexRoute,
+}
+
+const WorkoutRouteWithChildren =
+  WorkoutRoute._addFileChildren(WorkoutRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ActivityRoute: ActivityRoute,
@@ -372,6 +441,7 @@ const rootRouteChildren: RootRouteChildren = {
   DesignRoute: DesignRoute,
   EnvironmentRoute: EnvironmentRoute,
   ScanRoute: ScanRouteWithChildren,
+  WorkoutRoute: WorkoutRouteWithChildren,
   ReportDomainRoute: ReportDomainRoute,
 }
 export const routeTree = rootRouteImport
