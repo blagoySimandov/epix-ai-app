@@ -50,24 +50,24 @@ function QuickStats() {
 			<QuickStatCard
 				icon={Dumbbell}
 				label="Total"
-				value={48}
+				value={52}
 				statusLabel="All time"
 				accentColor="var(--teal)"
 			/>
 			<QuickStatCard
 				icon={Calendar}
 				label="This Week"
-				value={4}
-				statusLabel="On track"
-				accentColor="var(--green-text)"
+				value={1}
+				statusLabel="Travel week"
+				accentColor="var(--amber)"
 			/>
 			<QuickStatCard
 				icon={Flame}
 				label="Streak"
-				value={8}
+				value={1}
 				unit="d"
-				statusLabel="Best: 14d"
-				accentColor="var(--amber)"
+				statusLabel="Best: 21d"
+				accentColor="var(--rose)"
 			/>
 		</div>
 	);

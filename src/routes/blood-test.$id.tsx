@@ -211,7 +211,7 @@ function BloodTestPage() {
 
         <div className="p-4 rounded-3xl bg-teal/5 border border-teal/20">
           <p className="text-xs text-teal leading-relaxed font-medium">
-            Reference ranges adjusted for your genetic profile. MCHC elevation is mild — possible dehydration. Hematuria warrants clinical investigation.
+            Reference ranges adjusted for your genetic profile. MCHC elevation is mild — consistent with dehydration from long-haul travel (Sofia → SF, 11h flight). Hematuria warrants clinical follow-up before Apr 25 presentation.
           </p>
         </div>
       </div>

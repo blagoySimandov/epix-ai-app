@@ -296,7 +296,7 @@ function EnvironmentPage() {
 					<PageHeader />
 					<AlertBanner
 						label="Location & environment change"
-						sublabel={`${alerts.location.previous.city} → ${alerts.location.current.city} · UV ${alerts.environment.uv.current} (Very High)`}
+						sublabel={`${alerts.location.previous.city} → ${alerts.location.current.city} · UV ${alerts.environment.uv.current} (High) · Kp6 storm active`}
 						onOpen={() => setEnvSheet(true)}
 					/>
 					<QuickStatsGrid env={env} />

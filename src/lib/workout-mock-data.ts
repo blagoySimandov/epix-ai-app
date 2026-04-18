@@ -26,52 +26,82 @@ export const EXERCISE_LIST = [
 ];
 
 export const WEEKLY_FREQUENCY = [
-	{ week: "12/4", count: 4 },
-	{ week: "19/4", count: 5 },
-	{ week: "26/4", count: 3 },
-	{ week: "3/5", count: 5 },
-	{ week: "10/5", count: 4 },
-	{ week: "17/5", count: 2 },
-	{ week: "24/5", count: 4 },
-	{ week: "31/5", count: 1 },
+	{ week: "3/3",  count: 4 },
+	{ week: "10/3", count: 5 },
+	{ week: "17/3", count: 5 },
+	{ week: "24/3", count: 4 },
+	{ week: "31/3", count: 5 },
+	{ week: "7/4",  count: 4 },
+	{ week: "14/4", count: 1 },
 ];
 
 export const PR_EXERCISES = ["Bench Press", "Squat", "Deadlift"] as const;
 
 export const PR_PROGRESSION: Record<string, PRDataPoint[]> = {
 	"Bench Press": [
-		{ date: "Apr", value: 75 },
-		{ date: "Apr 2", value: 77.5 },
-		{ date: "May", value: 80 },
-		{ date: "May 2", value: 82.5 },
-		{ date: "Jun", value: 85 },
+		{ date: "Jan", value: 70 },
+		{ date: "Feb", value: 75 },
+		{ date: "Mar", value: 80 },
+		{ date: "Apr 6", value: 85 },
 	],
 	Squat: [
-		{ date: "Apr", value: 100 },
-		{ date: "Apr 2", value: 105 },
-		{ date: "May", value: 107.5 },
-		{ date: "May 2", value: 112.5 },
-		{ date: "Jun", value: 115 },
+		{ date: "Jan", value: 95 },
+		{ date: "Feb", value: 100 },
+		{ date: "Mar", value: 107.5 },
+		{ date: "Apr 6", value: 115 },
 	],
 	Deadlift: [
-		{ date: "Apr", value: 120 },
-		{ date: "Apr 2", value: 125 },
-		{ date: "May", value: 127.5 },
-		{ date: "May 2", value: 132.5 },
-		{ date: "Jun", value: 137.5 },
+		{ date: "Jan", value: 115 },
+		{ date: "Feb", value: 122.5 },
+		{ date: "Mar", value: 130 },
+		{ date: "Apr 6", value: 137.5 },
 	],
 };
 
 export const WORKOUT_HISTORY: Workout[] = [
 	{
 		id: "1",
-		name: "Push Day",
+		name: "Hotel Gym · Recovery",
 		date: "Today",
+		duration: 32,
+		volume: 2640,
+		exercises: [
+			{
+				id: "e1",
+				name: "Bench Press",
+				sets: [
+					{ weight: 70, reps: 10, completed: true },
+					{ weight: 72.5, reps: 8, completed: true },
+					{ weight: 75, reps: 6, completed: true },
+				],
+			},
+			{
+				id: "e2",
+				name: "Overhead Press",
+				sets: [
+					{ weight: 45, reps: 10, completed: true },
+					{ weight: 47.5, reps: 8, completed: true },
+				],
+			},
+			{
+				id: "e3",
+				name: "Incline Press",
+				sets: [
+					{ weight: 55, reps: 10, completed: true },
+					{ weight: 55, reps: 8, completed: true },
+				],
+			},
+		],
+	},
+	{
+		id: "2",
+		name: "Push Day",
+		date: "5 days ago",
 		duration: 62,
 		volume: 4850,
 		exercises: [
 			{
-				id: "e1",
+				id: "e4",
 				name: "Bench Press",
 				sets: [
 					{ weight: 80, reps: 8, completed: true },
@@ -80,7 +110,7 @@ export const WORKOUT_HISTORY: Workout[] = [
 				],
 			},
 			{
-				id: "e2",
+				id: "e5",
 				name: "Overhead Press",
 				sets: [
 					{ weight: 55, reps: 8, completed: true },
@@ -88,7 +118,7 @@ export const WORKOUT_HISTORY: Workout[] = [
 				],
 			},
 			{
-				id: "e3",
+				id: "e6",
 				name: "Incline Press",
 				sets: [
 					{ weight: 65, reps: 10, completed: true },
@@ -98,43 +128,9 @@ export const WORKOUT_HISTORY: Workout[] = [
 		],
 	},
 	{
-		id: "2",
-		name: "Pull Day",
-		date: "Yesterday",
-		duration: 55,
-		volume: 5200,
-		exercises: [
-			{
-				id: "e4",
-				name: "Deadlift",
-				sets: [
-					{ weight: 130, reps: 5, completed: true },
-					{ weight: 135, reps: 3, completed: true },
-				],
-			},
-			{
-				id: "e5",
-				name: "Barbell Row",
-				sets: [
-					{ weight: 75, reps: 8, completed: true },
-					{ weight: 77.5, reps: 8, completed: true },
-				],
-			},
-			{
-				id: "e6",
-				name: "Pull-up",
-				sets: [
-					{ weight: 0, reps: 10, completed: true },
-					{ weight: 0, reps: 9, completed: true },
-					{ weight: 0, reps: 8, completed: true },
-				],
-			},
-		],
-	},
-	{
 		id: "3",
 		name: "Leg Day",
-		date: "2 days ago",
+		date: "6 days ago",
 		duration: 70,
 		volume: 7800,
 		exercises: [
@@ -167,25 +163,34 @@ export const WORKOUT_HISTORY: Workout[] = [
 	},
 	{
 		id: "4",
-		name: "Upper Body",
-		date: "4 days ago",
-		duration: 58,
-		volume: 4200,
+		name: "Pull Day",
+		date: "8 days ago",
+		duration: 55,
+		volume: 5200,
 		exercises: [
 			{
 				id: "e10",
-				name: "Bench Press",
+				name: "Deadlift",
 				sets: [
-					{ weight: 77.5, reps: 8, completed: true },
-					{ weight: 80, reps: 6, completed: true },
+					{ weight: 130, reps: 5, completed: true },
+					{ weight: 135, reps: 3, completed: true },
 				],
 			},
 			{
 				id: "e11",
 				name: "Barbell Row",
 				sets: [
-					{ weight: 72.5, reps: 8, completed: true },
 					{ weight: 75, reps: 8, completed: true },
+					{ weight: 77.5, reps: 8, completed: true },
+				],
+			},
+			{
+				id: "e12",
+				name: "Pull-up",
+				sets: [
+					{ weight: 0, reps: 10, completed: true },
+					{ weight: 0, reps: 9, completed: true },
+					{ weight: 0, reps: 8, completed: true },
 				],
 			},
 		],
@@ -193,12 +198,12 @@ export const WORKOUT_HISTORY: Workout[] = [
 	{
 		id: "5",
 		name: "Full Body",
-		date: "6 days ago",
+		date: "10 days ago",
 		duration: 75,
 		volume: 6100,
 		exercises: [
 			{
-				id: "e12",
+				id: "e13",
 				name: "Squat",
 				sets: [
 					{ weight: 107.5, reps: 5, completed: true },
@@ -206,7 +211,7 @@ export const WORKOUT_HISTORY: Workout[] = [
 				],
 			},
 			{
-				id: "e13",
+				id: "e14",
 				name: "Bench Press",
 				sets: [
 					{ weight: 77.5, reps: 8, completed: true },
@@ -214,7 +219,7 @@ export const WORKOUT_HISTORY: Workout[] = [
 				],
 			},
 			{
-				id: "e14",
+				id: "e15",
 				name: "Deadlift",
 				sets: [
 					{ weight: 127.5, reps: 5, completed: true },

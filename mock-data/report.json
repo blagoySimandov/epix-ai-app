@@ -1,33 +1,33 @@
 {
   "bioAge": {
     "chrono": 28,
-    "bio": 24,
-    "delta": -4,
+    "bio": 27,
+    "delta": -1,
     "status": "Slower aging"
   },
   "bioAgeHistory": [
-    { "week": "Jan 12", "bioAge": 27.5, "baseline": 28 },
-    { "week": "Jan 26", "bioAge": 28.1, "baseline": 28 },
-    { "week": "Feb 09", "bioAge": 29.5, "baseline": 28 },
-    { "week": "Feb 23", "bioAge": 29.8, "baseline": 28 },
-    { "week": "Mar 09", "bioAge": 29.1, "baseline": 28 },
-    { "week": "Mar 23", "bioAge": 28.4, "baseline": 28 },
-    { "week": "Apr 06", "bioAge": 27.2, "baseline": 28 },
-    { "week": "Apr 20", "bioAge": 26.8, "baseline": 28 },
-    { "week": "May 04", "bioAge": 26.5, "baseline": 28 },
-    { "week": "May 18", "bioAge": 25.9, "baseline": 28 },
-    { "week": "Jun 01", "bioAge": 25.5, "baseline": 28 },
-    { "week": "Jun 15", "bioAge": 24.8, "baseline": 28 }
+    { "week": "Jan 5", "bioAge": 30.2, "baseline": 28 },
+    { "week": "Jan 19", "bioAge": 29.6, "baseline": 28 },
+    { "week": "Feb 2", "bioAge": 29.0, "baseline": 28 },
+    { "week": "Feb 16", "bioAge": 28.4, "baseline": 28 },
+    { "week": "Mar 2", "bioAge": 27.8, "baseline": 28 },
+    { "week": "Mar 16", "bioAge": 27.2, "baseline": 28 },
+    { "week": "Mar 30", "bioAge": 26.7, "baseline": 28 },
+    { "week": "Apr 6", "bioAge": 26.5, "baseline": 28 },
+    { "week": "Apr 9", "bioAge": 27.3, "baseline": 28 },
+    { "week": "Apr 13", "bioAge": 28.6, "baseline": 28 },
+    { "week": "Apr 16", "bioAge": 29.2, "baseline": 28 },
+    { "week": "Apr 18", "bioAge": 29.1, "baseline": 28 }
   ],
   "domains": [
     {
       "id": "cardio",
       "name": "Cardio",
-      "score": 72,
+      "score": 65,
       "activation": "High",
       "risk": "red",
       "geneticRisk": 78,
-      "geneticActivation": 44,
+      "geneticActivation": 56,
       "diseases": [
         {
           "id": "afib",
@@ -35,8 +35,8 @@
           "status": "red",
           "geneticRisk": 84,
           "geneticRiskDescription": "Your heart has a genetic tendency to follow an irregular rhythm. Your risk is above the average for this disease, but here's the exciting part: this is only the starting line, not the finish line!",
-          "activation": 42,
-          "activationDescription": "Right now these 'beat-skipping' genes are partially awake (42% active). This means your lifestyle habits have significant room to positively influence outcomes!",
+          "activation": 54,
+          "activationDescription": "Right now these 'beat-skipping' genes are notably awake (54% active), elevated by jet lag-induced autonomic stress and sleep deprivation. Restoring sleep is the fastest lever to quiet them.",
           "geneticMarker": "PITX2"
         },
         {
@@ -45,8 +45,8 @@
           "status": "red",
           "geneticRisk": 79,
           "geneticRiskDescription": "Genetic markers indicate a high risk for plaque accumulation. However, epigenetics can override this via high-quality fats and antioxidant-rich diet.",
-          "activation": 38,
-          "activationDescription": "Activation level is moderate, indicating your current lipid metabolism is coping, but requires focused optimization.",
+          "activation": 49,
+          "activationDescription": "Activation elevated from baseline. Cortisol from travel stress and poor sleep is amplifying lipid metabolism gene expression. Hydration and rest will help.",
           "geneticMarker": "9p21.3"
         },
         {
@@ -55,8 +55,8 @@
           "status": "yellow",
           "geneticRisk": 71,
           "geneticRiskDescription": "Elevated genetic risk for salt sensitivity. Your body holds onto sodium more than most.",
-          "activation": 47,
-          "activationDescription": "Moderate activation. Potassium-rich foods and daily movement are partially keeping this risk in check.",
+          "activation": 58,
+          "activationDescription": "Significantly elevated. Dehydration from long-haul travel and elevated cortisol are directly activating salt-retention pathways. Rehydrating aggressively is critical.",
           "geneticMarker": "CYP11B2"
         },
         {
@@ -65,8 +65,8 @@
           "status": "yellow",
           "geneticRisk": 68,
           "geneticRiskDescription": "Your genetic predisposition for structural heart weakness is above average. Consistent aerobic exercise is critical.",
-          "activation": 35,
-          "activationDescription": "Moderate activation. Your regular exercise is partially mitigating risk but more is needed.",
+          "activation": 45,
+          "activationDescription": "Moderately elevated. Reduced exercise volume this week and elevated resting HR are nudging these pathways upward. Returning to routine will reverse this quickly.",
           "geneticMarker": "TTN"
         },
         {
@@ -75,8 +75,8 @@
           "status": "red",
           "geneticRisk": 76,
           "geneticRiskDescription": "Above average risk for peripheral circulatory issues. Your genetic baseline requires attentive lifestyle management.",
-          "activation": 41,
-          "activationDescription": "Moderate inflammatory load means these genetic pathways are partially active.",
+          "activation": 53,
+          "activationDescription": "Elevated by prolonged sitting during long-haul flight and reduced daily movement. Getting steps in will directly cool these pathways.",
           "geneticMarker": "CHRNA3"
         }
       ]
@@ -84,11 +84,11 @@
     {
       "id": "metabolic",
       "name": "Metabolic",
-      "score": 64,
-      "activation": "Moderate",
+      "score": 59,
+      "activation": "High",
       "risk": "yellow",
       "geneticRisk": 72,
-      "geneticActivation": 39,
+      "geneticActivation": 51,
       "diseases": [
         {
           "id": "t2d",
@@ -96,8 +96,8 @@
           "status": "red",
           "geneticRisk": 81,
           "geneticRiskDescription": "High genetic baseline for insulin resistance. Dietary and lifestyle optimization are critical to prevent manifestation.",
-          "activation": 44,
-          "activationDescription": "Moderate activation. Reducing refined carbohydrates can meaningfully silence these metabolic risk genes.",
+          "activation": 55,
+          "activationDescription": "Jet lag disrupts circadian insulin secretion, spiking this activation above your normal baseline. Avoiding late-night eating and restoring sleep rhythm is essential.",
           "geneticMarker": "TCF7L2"
         },
         {
@@ -106,8 +106,8 @@
           "status": "yellow",
           "geneticRisk": 74,
           "geneticRiskDescription": "Your genes for satiety and fat storage are above population average. Structured caloric strategy is key.",
-          "activation": 48,
-          "activationDescription": "Moderate activation, suggesting your caloric balance requires tighter control.",
+          "activation": 55,
+          "activationDescription": "Elevated. Disrupted circadian rhythm suppresses leptin (satiety hormone) and increases ghrelin (hunger). Travel snacking compounds this effect.",
           "geneticMarker": "FTO"
         },
         {
@@ -116,8 +116,8 @@
           "status": "red",
           "geneticRisk": 78,
           "geneticRiskDescription": "Elevated genetic risk for non-alcoholic liver fat accumulation. High-fiber diet is essential.",
-          "activation": 37,
-          "activationDescription": "These pathways are moderately active. Omega-3 and fiber intake are somewhat protective.",
+          "activation": 44,
+          "activationDescription": "Moderately elevated. Erratic meal timing during travel and airport food choices are stressing these metabolic pathways. Returning to routine diet will help.",
           "geneticMarker": "PNPLA3"
         },
         {
@@ -126,8 +126,8 @@
           "status": "yellow",
           "geneticRisk": 69,
           "geneticRiskDescription": "High genetic risk for clustering of metabolic conditions. Consistent monitoring is essential.",
-          "activation": 43,
-          "activationDescription": "Moderate activation. Your current lifestyle is partially managing these predispositions.",
+          "activation": 53,
+          "activationDescription": "Elevated across-the-board metabolic stress from jet lag is pushing this into high territory. Recovery week is the priority.",
           "geneticMarker": "APOA5"
         },
         {
@@ -136,8 +136,8 @@
           "status": "yellow",
           "geneticRisk": 66,
           "geneticRiskDescription": "Above average genetic risk for hormonal metabolic imbalances. Regular hormonal screening recommended.",
-          "activation": 36,
-          "activationDescription": "Moderate activation. Endocrine health requires active attention.",
+          "activation": 44,
+          "activationDescription": "Moderately elevated. Cortisol from travel stress is mildly activating hormonal imbalance pathways.",
           "geneticMarker": "DENND1A"
         }
       ]
@@ -145,11 +145,11 @@
     {
       "id": "neuro",
       "name": "Neuro",
-      "score": 68,
+      "score": 61,
       "activation": "High",
       "risk": "red",
       "geneticRisk": 76,
-      "geneticActivation": 45,
+      "geneticActivation": 60,
       "diseases": [
         {
           "id": "ad",
@@ -157,8 +157,8 @@
           "status": "red",
           "geneticRisk": 83,
           "geneticRiskDescription": "You carry strong markers that correlate with faster cognitive decline if left unmanaged.",
-          "activation": 51,
-          "activationDescription": "Moderate activation. Deep sleep and BDNF stimulation through exercise are critical now.",
+          "activation": 65,
+          "activationDescription": "Significantly elevated. Sleep deprivation is the single biggest activator of APOE-ε4 risk — amyloid clearance only happens during deep sleep. Five nights of disrupted sleep has measurably spiked this pathway.",
           "geneticMarker": "APOE-ε4"
         },
         {
@@ -167,8 +167,8 @@
           "status": "red",
           "geneticRisk": 77,
           "geneticRiskDescription": "Genetic risk for dopaminergic neuron degeneration is above average. Antioxidant-rich nutrition is vital.",
-          "activation": 46,
-          "activationDescription": "Moderate activation. Reducing environmental toxin exposure is critical to dampen these pathways.",
+          "activation": 56,
+          "activationDescription": "Elevated. Travel-related oxidative stress and circadian misalignment are known LRRK2 pathway triggers. Prioritise antioxidant foods and sleep.",
           "geneticMarker": "LRRK2"
         },
         {
@@ -177,8 +177,8 @@
           "status": "yellow",
           "geneticRisk": 65,
           "geneticRiskDescription": "Above average genetic risk for neuro-immune conditions. Active monitoring recommended.",
-          "activation": 40,
-          "activationDescription": "Moderate activation. Managing systemic inflammation and Vitamin D levels is key to cooling these genes.",
+          "activation": 49,
+          "activationDescription": "Moderately elevated. Immune function is suppressed from poor sleep, which can activate these neuro-immune markers.",
           "geneticMarker": "HLA-DRB1"
         },
         {
@@ -187,8 +187,8 @@
           "status": "yellow",
           "geneticRisk": 72,
           "geneticRiskDescription": "High genetic tendency for vascular-neuro events. Strong interaction with blood pressure markers.",
-          "activation": 44,
-          "activationDescription": "Moderate activation. Consistent omega-3 intake is helping maintain neurovascular integrity.",
+          "activation": 55,
+          "activationDescription": "Elevated. Dehydration from travel raises blood viscosity, directly interacting with this genetic variant. Rehydrate urgently.",
           "geneticMarker": "PHACTR1"
         },
         {
@@ -197,8 +197,8 @@
           "status": "red",
           "geneticRisk": 88,
           "geneticRiskDescription": "Highly sensitive genetic neurological profile. Your brain reacts strongly to environmental triggers.",
-          "activation": 53,
-          "activationDescription": "Moderate activation. Stress-melting activities and hydration are the 'remote control' to turn this volume down.",
+          "activation": 68,
+          "activationDescription": "Very high. Jet lag is a clinically documented TRPM8 trigger — circadian disruption, dehydration, and barometric pressure change from Sofia (550m) to SF (52m) are all firing this pathway simultaneously.",
           "geneticMarker": "TRPM8"
         }
       ]
@@ -206,11 +206,11 @@
     {
       "id": "onco",
       "name": "Onco",
-      "score": 62,
+      "score": 58,
       "activation": "Moderate",
       "risk": "yellow",
       "geneticRisk": 67,
-      "geneticActivation": 38,
+      "geneticActivation": 46,
       "diseases": [
         {
           "id": "breast",
@@ -218,8 +218,8 @@
           "status": "red",
           "geneticRisk": 82,
           "geneticRiskDescription": "Elevated genetic risk in cell repair and tumor suppression pathways. Annual screening strongly recommended.",
-          "activation": 41,
-          "activationDescription": "Moderate activation. Anti-inflammatory diet and regular exercise can significantly reduce expression.",
+          "activation": 48,
+          "activationDescription": "Mildly elevated. Sleep deprivation reduces DNA repair efficiency, which nudges these pathways upward temporarily.",
           "geneticMarker": "BRCA1/2"
         },
         {
@@ -228,8 +228,8 @@
           "status": "red",
           "geneticRisk": 76,
           "geneticRiskDescription": "Genetic indicators for oncological risk are above population average. PSA monitoring warranted.",
-          "activation": 44,
-          "activationDescription": "Moderate epigenetic activation in these risk pathways. Lycopene-rich diet and stress reduction help.",
+          "activation": 50,
+          "activationDescription": "Moderately elevated. Chronic stress and cortisol elevation from travel are mildly activating these oncological pathways.",
           "geneticMarker": "HOXB13"
         },
         {
@@ -238,8 +238,8 @@
           "status": "yellow",
           "geneticRisk": 68,
           "geneticRiskDescription": "Elevated genetic risk for gut mucosal compromise. High-fiber diet is a strong epigenetic lever.",
-          "activation": 39,
-          "activationDescription": "Moderate activation. Your microbiome health is partially protective.",
+          "activation": 44,
+          "activationDescription": "Mildly elevated. Airport food and disrupted gut microbiome rhythm from travel are activating these markers.",
           "geneticMarker": "APC"
         },
         {
@@ -248,8 +248,8 @@
           "status": "yellow",
           "geneticRisk": 71,
           "geneticRiskDescription": "High genetic sensitivity to UV radiation and DNA damage repair speed. Sunscreen is non-negotiable.",
-          "activation": 45,
-          "activationDescription": "Moderate activation. Increasing antioxidant-rich greens and consistent SPF can cool these sensitive pathways.",
+          "activation": 50,
+          "activationDescription": "Elevated. SF's UV index (7) is meaningfully higher than Sofia's (4) in April. Your MC1R sensitivity makes this transition particularly relevant — SPF 30+ daily.",
           "geneticMarker": "MC1R"
         },
         {
@@ -258,106 +258,106 @@
           "status": "green",
           "geneticRisk": 18,
           "geneticRiskDescription": "Genetic risk for pulmonary cell mutation is low. High detoxification resilience.",
-          "activation": 11,
-          "activationDescription": "Low activation. Your focus on air quality and non-exposure is paying off.",
+          "activation": 12,
+          "activationDescription": "Low. SF air quality is good (AQI 40). No concern.",
           "geneticMarker": "CHRNA5"
         }
       ]
     }
   ],
   "physicalActivity": {
-    "steps": 9243,
-    "restingHR": 58,
-    "hrv": 62,
-    "sleepQuality": 54,
+    "steps": 2847,
+    "restingHR": 71,
+    "hrv": 29,
+    "sleepQuality": 42,
     "history": {
       "steps": [
-        { "day": "Mon", "value": 7800 },
-        { "day": "Tue", "value": 11200 },
-        { "day": "Wed", "value": 8500 },
-        { "day": "Thu", "value": 6300 },
-        { "day": "Fri", "value": 10100 },
-        { "day": "Sat", "value": 3200 },
-        { "day": "Sun", "value": 2100 }
+        { "day": "Sat", "value": 11200 },
+        { "day": "Sun", "value": 5500 },
+        { "day": "Mon", "value": 3200 },
+        { "day": "Tue", "value": 4400 },
+        { "day": "Wed", "value": 5800 },
+        { "day": "Thu", "value": 6200 },
+        { "day": "Fri", "value": 2847 }
       ],
       "restingHR": [
-        { "day": "Mon", "value": 61 },
-        { "day": "Tue", "value": 59 },
-        { "day": "Wed", "value": 62 },
-        { "day": "Thu", "value": 60 },
-        { "day": "Fri", "value": 58 },
-        { "day": "Sat", "value": 74 },
-        { "day": "Sun", "value": 79 }
+        { "day": "Sat", "value": 56 },
+        { "day": "Sun", "value": 64 },
+        { "day": "Mon", "value": 74 },
+        { "day": "Tue", "value": 76 },
+        { "day": "Wed", "value": 73 },
+        { "day": "Thu", "value": 70 },
+        { "day": "Fri", "value": 71 }
       ],
       "hrv": [
-        { "day": "Mon", "value": 54 },
-        { "day": "Tue", "value": 61 },
-        { "day": "Wed", "value": 58 },
-        { "day": "Thu", "value": 55 },
-        { "day": "Fri", "value": 63 },
-        { "day": "Sat", "value": 28 },
-        { "day": "Sun", "value": 22 }
+        { "day": "Sat", "value": 68 },
+        { "day": "Sun", "value": 43 },
+        { "day": "Mon", "value": 27 },
+        { "day": "Tue", "value": 23 },
+        { "day": "Wed", "value": 31 },
+        { "day": "Thu", "value": 27 },
+        { "day": "Fri", "value": 29 }
       ],
       "sleepQuality": [
-        { "day": "Mon", "value": 82 },
-        { "day": "Tue", "value": 78 },
-        { "day": "Wed", "value": 85 },
-        { "day": "Thu", "value": 80 },
-        { "day": "Fri", "value": 76 },
-        { "day": "Sat", "value": 41 },
-        { "day": "Sun", "value": 34 }
+        { "day": "Sat", "value": 88 },
+        { "day": "Sun", "value": 24 },
+        { "day": "Mon", "value": 22 },
+        { "day": "Tue", "value": 37 },
+        { "day": "Wed", "value": 46 },
+        { "day": "Thu", "value": 41 },
+        { "day": "Fri", "value": 42 }
       ]
     }
   },
   "environment": {
-    "airQuality": { "aqi": 42, "label": "Good" },
-    "uvIndex": 6,
+    "airQuality": { "aqi": 40, "label": "Good" },
+    "uvIndex": 7,
     "meteorological": { "condition": "Clear Sky", "temp": 9 },
-    "elevation": 320,
-    "magneticStorms": { "level": "Kp2", "active": false },
+    "elevation": 52,
+    "magneticStorms": { "level": "Kp6", "active": true },
     "history": {
       "airQuality": [
-        { "day": "Mon", "value": 55 },
-        { "day": "Tue", "value": 48 },
-        { "day": "Wed", "value": 62 },
-        { "day": "Thu", "value": 71 },
-        { "day": "Fri", "value": 45 },
-        { "day": "Sat", "value": 38 },
-        { "day": "Sun", "value": 42 }
+        { "day": "Sat", "value": 28 },
+        { "day": "Sun", "value": 35 },
+        { "day": "Mon", "value": 38 },
+        { "day": "Tue", "value": 41 },
+        { "day": "Wed", "value": 44 },
+        { "day": "Thu", "value": 42 },
+        { "day": "Fri", "value": 40 }
       ],
       "uvIndex": [
-        { "day": "Mon", "value": 5 },
+        { "day": "Sat", "value": 4 },
+        { "day": "Sun", "value": 3 },
+        { "day": "Mon", "value": 7 },
         { "day": "Tue", "value": 7 },
-        { "day": "Wed", "value": 8 },
-        { "day": "Thu", "value": 4 },
-        { "day": "Fri", "value": 6 },
-        { "day": "Sat", "value": 9 },
-        { "day": "Sun", "value": 6 }
+        { "day": "Wed", "value": 7 },
+        { "day": "Thu", "value": 7 },
+        { "day": "Fri", "value": 7 }
       ],
       "elevation": [
-        { "day": "Mon", "value": 305 },
-        { "day": "Tue", "value": 320 },
-        { "day": "Wed", "value": 280 },
-        { "day": "Thu", "value": 295 },
-        { "day": "Fri", "value": 310 },
-        { "day": "Sat", "value": 340 },
-        { "day": "Sun", "value": 320 }
+        { "day": "Sat", "value": 550 },
+        { "day": "Sun", "value": 52 },
+        { "day": "Mon", "value": 52 },
+        { "day": "Tue", "value": 52 },
+        { "day": "Wed", "value": 52 },
+        { "day": "Thu", "value": 52 },
+        { "day": "Fri", "value": 52 }
       ],
       "magneticStorms": [
-        { "day": "Mon", "value": 1 },
+        { "day": "Sat", "value": 1 },
+        { "day": "Sun", "value": 1 },
+        { "day": "Mon", "value": 2 },
         { "day": "Tue", "value": 2 },
         { "day": "Wed", "value": 3 },
-        { "day": "Thu", "value": 4 },
-        { "day": "Fri", "value": 2 },
-        { "day": "Sat", "value": 1 },
-        { "day": "Sun", "value": 2 }
+        { "day": "Thu", "value": 3 },
+        { "day": "Fri", "value": 6 }
       ]
     }
   },
   "physicalEnvironmentAlerts": {
     "activity": {
-      "steps": { "current": 4800, "goal": 8000, "deficit": 3200 },
-      "recommendation": { "steps": 3200, "estimatedMinutes": 25 },
+      "steps": { "current": 2847, "goal": 8000, "deficit": 5153 },
+      "recommendation": { "steps": 5153, "estimatedMinutes": 40 },
       "genes": [
         {
           "name": "ACE",
@@ -375,7 +375,7 @@
     },
     "location": {
       "current": {
-        "city": "San Franciso",
+        "city": "San Francisco",
         "country": "US",
         "timezone": "PST",
         "flag": "🇺🇸"
@@ -390,13 +390,13 @@
     },
     "environment": {
       "uv": {
-        "current": 9,
+        "current": 7,
         "previous": 4,
-        "recommendation": "SPF 50+, limit midday exposure"
+        "recommendation": "SPF 30+, wear a hat during midday exposure"
       },
       "airQuality": {
-        "current": { "aqi": 78, "label": "Moderate" },
-        "previous": { "aqi": 32, "label": "Good" }
+        "current": { "aqi": 40, "label": "Good" },
+        "previous": { "aqi": 28, "label": "Good" }
       }
     }
   }
