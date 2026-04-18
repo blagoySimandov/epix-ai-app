@@ -34,25 +34,28 @@ function ScanPage() {
 		}
 	}, [isScanning]);
 
-	// Listen for f and m keys when scanning
 	useHotkeys(
 		(key) => {
 			if (!isScanning) return;
-			if (key === "f") {
-				navigate({ to: "/scan/alert", search: { type: "food" } });
-			} else if (key === "m") {
-				navigate({ to: "/scan/alert", search: { type: "medication" } });
-			}
+			if (key === "f") navigate({ to: "/scan/alert", search: { type: "food" } });
+			else if (key === "m") navigate({ to: "/scan/alert", search: { type: "medication" } });
 		},
 		["f", "m"],
 		[isScanning, navigate]
 	)
 
+	function handleViewportTap(e: React.MouseEvent<HTMLDivElement>) {
+		if (!isScanning) return;
+		const { left, width } = e.currentTarget.getBoundingClientRect();
+		const isLeft = e.clientX - left < width / 2;
+		navigate({ to: "/scan/alert", search: { type: isLeft ? "food" : "medication" } });
+	}
+
 	return (
 		<main className="min-h-screen bg-background relative">
 			<div className="mx-auto max-w-[390px] px-4 pt-10 pb-32 flex flex-col gap-6 items-center justify-center min-h-screen">
 				{/* Scanner viewport */}
-				<div className="relative w-full aspect-square max-w-[280px] rounded-3xl overflow-hidden border-2 border-teal/40 bg-muted/30 flex items-center justify-center">
+				<div onClick={handleViewportTap} className="relative w-full aspect-square max-w-[340px] rounded-3xl overflow-hidden border-2 border-teal/40 bg-muted/30 flex items-center justify-center">
 					{isScanning ? (
 						<video
 							ref={videoRef}
@@ -110,7 +113,7 @@ function ScanPage() {
 					<div className="text-center">
 						<p className="text-teal font-semibold animate-pulse">Scanning...</p>
 						<p className="text-xs text-muted-foreground mt-2">
-							Press 'f' to scan food, 'm' for medicine
+							Tap to scan
 						</p>
 					</div>
 				)}
