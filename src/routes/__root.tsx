@@ -160,7 +160,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 	}, []);
 
 	return (
-		<html lang="en" suppressHydrationWarning>
+		<html lang="en" translate="no" suppressHydrationWarning>
 			<head>
 				<script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
 				<HeadContent />
