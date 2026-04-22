@@ -53,7 +53,7 @@ function DeltaBadge({ delta }: { delta: number }) {
 			<Icon size={13} strokeWidth={2.5} />
 			<span className="font-headline font-extrabold text-xl leading-none">
 				{isImproving ? "" : "+"}
-				{delta.toFixed(1)} yrs
+				{delta.toFixed(1)}h
 			</span>
 		</div>
 	);
@@ -103,7 +103,7 @@ function CustomTooltip({ active, payload }: { active?: boolean; payload?: Toolti
 			<p className="font-bold text-foreground mb-1">{d.week}</p>
 			<p style={{ color: isGood ? COLOR_GOOD : COLOR_BAD }}>
 				{isGood ? "" : "+"}
-				{d.delta.toFixed(1)} yrs vs baseline
+				{d.delta.toFixed(1)}h vs baseline
 			</p>
 			<p className="text-muted-foreground text-[10px] mt-0.5">
 				{isGood ? "Aging slower ✓" : "Aging faster ✗"}
@@ -127,7 +127,7 @@ function ChartArea({ data }: { data: TrajectoryPoint[] }) {
 			<ResponsiveContainer width="100%" height="100%">
 				<BarChart
 					data={deltaData}
-					margin={{ top: 8, right: 10, left: -24, bottom: 0 }}
+					margin={{ top: 8, right: 10, left: -8, bottom: 0 }}
 					barCategoryGap="30%"
 				>
 					<defs>
@@ -157,8 +157,20 @@ function ChartArea({ data }: { data: TrajectoryPoint[] }) {
 						tick={{ fontSize: 10, fill: "var(--muted-foreground)" }}
 						axisLine={false}
 						tickLine={false}
-						tickFormatter={(v) => `${v > 0 ? "+" : ""}${v}`}
+						tickFormatter={(v) => `${v > 0 ? "+" : ""}${v}h`}
 						domain={[yMin, yMax]}
+						label={{
+							value: "HOURS",
+							angle: -90,
+							position: "insideLeft",
+							offset: 16,
+							style: {
+								fontSize: 8,
+								fill: "var(--muted-foreground)",
+								letterSpacing: "0.1em",
+								textAnchor: "middle",
+							},
+						}}
 					/>
 					<ReferenceLine
 						y={0}

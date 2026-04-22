@@ -23,6 +23,14 @@ const RISK_COLORS: Record<string, string> = {
   red: "var(--rose)",
 };
 
+const SEVERITY_ORDER: Record<string, number> = { red: 0, yellow: 1, green: 2 };
+
+function sortBySeverity<T extends { status: string }>(items: T[]): T[] {
+  return [...items].sort(
+    (a, b) => (SEVERITY_ORDER[a.status] ?? 3) - (SEVERITY_ORDER[b.status] ?? 3)
+  );
+}
+
 function DomainDetailPage() {
   const { domain: domainId } = Route.useParams();
   const { data: report } = useReport();
@@ -128,7 +136,7 @@ function DomainDetailPage() {
           </div>
 
           <div className="flex flex-col gap-3">
-            {domain.diseases?.map((disease) => (
+            {sortBySeverity(domain.diseases ?? []).map((disease) => (
               <DiseaseItem key={disease.id} disease={disease} />
             ))}
           </div>
