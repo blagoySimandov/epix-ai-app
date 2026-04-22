@@ -28,6 +28,7 @@
       "risk": "red",
       "geneticRisk": 78,
       "geneticActivation": 56,
+      "trend24h": { "direction": "up", "delta": 4.2, "summary": "Cortisol from travel stress is driving cardiovascular gene activation upward." },
       "diseases": [
         {
           "id": "afib",
@@ -89,6 +90,7 @@
       "risk": "yellow",
       "geneticRisk": 72,
       "geneticActivation": 51,
+      "trend24h": { "direction": "up", "delta": 3.1, "summary": "Jet lag is disrupting circadian insulin and leptin cycles, pushing metabolic activation higher." },
       "diseases": [
         {
           "id": "t2d",
@@ -150,6 +152,7 @@
       "risk": "red",
       "geneticRisk": 76,
       "geneticActivation": 60,
+      "trend24h": { "direction": "up", "delta": 5.8, "summary": "Five nights of disrupted sleep is the strongest known activator of APOE-ε4 and TRPM8 neuro pathways." },
       "diseases": [
         {
           "id": "ad",
@@ -211,6 +214,7 @@
       "risk": "yellow",
       "geneticRisk": 67,
       "geneticActivation": 46,
+      "trend24h": { "direction": "down", "delta": 1.4, "summary": "Oncogenic pathway activation easing slightly — SF air quality improvement offsetting travel-related oxidative stress." },
       "diseases": [
         {
           "id": "breast",

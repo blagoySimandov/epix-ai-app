@@ -18,6 +18,12 @@ export interface Disease {
 	geneticMarker: string;
 }
 
+export interface DomainTrend {
+	direction: "up" | "down";
+	delta: number;
+	summary: string;
+}
+
 export interface Domain {
 	id: string;
 	name: string;
@@ -26,6 +32,7 @@ export interface Domain {
 	risk: RiskLevel;
 	geneticRisk: number;
 	geneticActivation: number;
+	trend24h: DomainTrend;
 	diseases?: Disease[];
 }
 

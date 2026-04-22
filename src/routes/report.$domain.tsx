@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, Activity, Brain, Heart, Shield } from "lucide-react";
+import { ArrowLeft, Activity, Brain, Heart, Shield, TrendingUp, TrendingDown } from "lucide-react";
 import { useReport } from "#/integrations/tanstack-query/queries/use-report";
 import { DiseaseItem, HalfCircleGauge } from "@design-system";
+import type { DomainTrend } from "#/integrations/api/types";
 
 export const Route = createFileRoute("/report/$domain")({
   component: DomainDetailPage,
@@ -28,6 +29,32 @@ const SEVERITY_ORDER: Record<string, number> = { red: 0, yellow: 1, green: 2 };
 function sortBySeverity<T extends { status: string }>(items: T[]): T[] {
   return [...items].sort(
     (a, b) => (SEVERITY_ORDER[a.status] ?? 3) - (SEVERITY_ORDER[b.status] ?? 3)
+  );
+}
+
+function Trend24hBox({ trend }: { trend: DomainTrend }) {
+  const isUp = trend.direction === "up";
+  const color = isUp ? "var(--rose)" : "var(--green-text)";
+  const Icon = isUp ? TrendingUp : TrendingDown;
+
+  return (
+    <div
+      className="rounded-2xl p-4 flex gap-4 items-start border"
+      style={{ background: isUp ? "rgba(244,63,94,0.06)" : "rgba(34,197,94,0.06)", borderColor: isUp ? "rgba(244,63,94,0.2)" : "rgba(34,197,94,0.2)" }}
+    >
+      <div className="shrink-0 mt-0.5 p-2 rounded-xl" style={{ background: isUp ? "rgba(244,63,94,0.1)" : "rgba(34,197,94,0.1)" }}>
+        <Icon size={16} style={{ color }} />
+      </div>
+      <div className="flex flex-col gap-1 min-w-0">
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Last 24h</span>
+          <span className="text-xs font-extrabold font-headline" style={{ color }}>
+            {isUp ? "+" : "-"}{trend.delta}% activation
+          </span>
+        </div>
+        <p className="text-[11px] text-muted-foreground leading-relaxed">{trend.summary}</p>
+      </div>
+    </div>
   );
 }
 
@@ -123,6 +150,8 @@ function DomainDetailPage() {
             </div>
           </div>
         </div>
+
+        <Trend24hBox trend={domain.trend24h} />
 
         {/* Disease List */}
         <div className="flex flex-col gap-4">
