@@ -1,23 +1,23 @@
 {
   "bioAge": {
-    "chrono": 28,
-    "bio": 27,
-    "delta": -1,
+    "chrono": 39,
+    "bio": 36,
+    "delta": -3,
     "status": "Slower aging"
   },
   "bioAgeHistory": [
-    { "week": "Jan 6", "bioAge": 27.8, "baseline": 28 },
-    { "week": "Jan 20", "bioAge": 27.5, "baseline": 28 },
-    { "week": "Feb 3", "bioAge": 27.2, "baseline": 28 },
-    { "week": "Feb 17", "bioAge": 27.0, "baseline": 28 },
-    { "week": "Mar 3", "bioAge": 27.8, "baseline": 28 },
-    { "week": "Mar 17", "bioAge": 27.2, "baseline": 28 },
-    { "week": "Mar 31", "bioAge": 26.7, "baseline": 28 },
-    { "week": "Apr 7", "bioAge": 26.5, "baseline": 28 },
-    { "week": "Apr 14", "bioAge": 27.3, "baseline": 28 },
-    { "week": "Apr 21", "bioAge": 27.8, "baseline": 28 },
-    { "week": "Apr 27", "bioAge": 29.2, "baseline": 28 },
-    { "week": "Apr 28", "bioAge": 29.1, "baseline": 28 }
+    { "week": "Jan 6",  "bioAge": 38.8, "baseline": 39 },
+    { "week": "Jan 20", "bioAge": 38.5, "baseline": 39 },
+    { "week": "Feb 3",  "bioAge": 38.2, "baseline": 39 },
+    { "week": "Feb 17", "bioAge": 38.0, "baseline": 39 },
+    { "week": "Mar 3",  "bioAge": 38.8, "baseline": 39 },
+    { "week": "Mar 17", "bioAge": 38.2, "baseline": 39 },
+    { "week": "Mar 31", "bioAge": 37.7, "baseline": 39 },
+    { "week": "Apr 7",  "bioAge": 37.5, "baseline": 39 },
+    { "week": "Apr 14", "bioAge": 38.3, "baseline": 39 },
+    { "week": "Apr 21", "bioAge": 38.8, "baseline": 39 },
+    { "week": "Apr 27", "bioAge": 40.2, "baseline": 39 },
+    { "week": "Apr 28", "bioAge": 40.8, "baseline": 39 }
   ],
   "domains": [
     {
@@ -272,27 +272,27 @@
     "sleepQuality": 42,
     "history": {
       "steps": [
-        { "day": "Wed", "value": 10400 },
-        { "day": "Thu", "value": 9200 },
-        { "day": "Fri", "value": 11600 },
+        { "day": "Wed", "value": 11200 },
+        { "day": "Thu", "value": 10600 },
+        { "day": "Fri", "value": 9800 },
         { "day": "Sat", "value": 1900 },
-        { "day": "Sun", "value": 3700 },
-        { "day": "Mon", "value": 4300 },
+        { "day": "Sun", "value": 3400 },
+        { "day": "Mon", "value": 3700 },
         { "day": "Tue", "value": 2847 }
       ],
       "restingHR": [
-        { "day": "Wed", "value": 57 },
-        { "day": "Thu", "value": 55 },
-        { "day": "Fri", "value": 58 },
+        { "day": "Wed", "value": 58 },
+        { "day": "Thu", "value": 60 },
+        { "day": "Fri", "value": 62 },
         { "day": "Sat", "value": 68 },
         { "day": "Sun", "value": 74 },
         { "day": "Mon", "value": 72 },
         { "day": "Tue", "value": 71 }
       ],
       "hrv": [
-        { "day": "Wed", "value": 65 },
-        { "day": "Thu", "value": 72 },
-        { "day": "Fri", "value": 68 },
+        { "day": "Wed", "value": 68 },
+        { "day": "Thu", "value": 65 },
+        { "day": "Fri", "value": 61 },
         { "day": "Sat", "value": 38 },
         { "day": "Sun", "value": 24 },
         { "day": "Mon", "value": 27 },

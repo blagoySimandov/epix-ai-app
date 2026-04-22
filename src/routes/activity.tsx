@@ -186,52 +186,49 @@ function QuickStatsGrid({ pa }: { pa: PhysicalActivity }) {
 	);
 }
 
-function TrendsSection({ pa }: { pa: PhysicalActivity }) {
+const SEVERITY: Record<string, number> = {
+	"var(--rose)": 2,
+	"var(--amber)": 1,
+};
+
+function severityOf(color: string) {
+	return SEVERITY[color] ?? 0;
+}
+
+function buildTrendMetrics(pa: PhysicalActivity) {
 	const steps = stepsStatus(pa.steps);
 	const hr    = hrStatus(pa.restingHR);
 	const hrv   = hrvStatus(pa.hrv);
 	const sleep = sleepStatus(pa.sleepQuality);
+
+	return [
+		{ icon: Activity, title: "Steps",                currentValue: pa.steps.toLocaleString(),  unit: undefined,  data: pa.history.steps,       color: steps.color, statusLabel: steps.label },
+		{ icon: Heart,    title: "Resting Heart Rate",   currentValue: pa.restingHR,               unit: " bpm",     data: pa.history.restingHR,   color: hr.color,    statusLabel: hr.label    },
+		{ icon: Zap,      title: "Heart Rate Variability", currentValue: pa.hrv,                   unit: " ms",      data: pa.history.hrv,         color: hrv.color,   statusLabel: hrv.label   },
+		{ icon: Moon,     title: "Sleep Quality",         currentValue: pa.sleepQuality,            unit: "%",        data: pa.history.sleepQuality, color: sleep.color, statusLabel: sleep.label },
+	].sort((a, b) => severityOf(b.color) - severityOf(a.color));
+}
+
+function TrendsSection({ pa }: { pa: PhysicalActivity }) {
+	const metrics = buildTrendMetrics(pa);
 
 	return (
 		<div className="flex flex-col gap-4">
 			<p className="font-semibold text-sm text-muted-foreground uppercase tracking-wider px-1">
 				7-Day Trends
 			</p>
-			<MetricTrendCard
-				icon={Activity}
-				title="Steps"
-				currentValue={pa.steps.toLocaleString()}
-				data={pa.history.steps}
-				color={steps.color}
-				statusLabel={steps.label}
-			/>
-			<MetricTrendCard
-				icon={Heart}
-				title="Resting Heart Rate"
-				currentValue={pa.restingHR}
-				unit=" bpm"
-				data={pa.history.restingHR}
-				color={hr.color}
-				statusLabel={hr.label}
-			/>
-			<MetricTrendCard
-				icon={Zap}
-				title="Heart Rate Variability"
-				currentValue={pa.hrv}
-				unit=" ms"
-				data={pa.history.hrv}
-				color={hrv.color}
-				statusLabel={hrv.label}
-			/>
-			<MetricTrendCard
-				icon={Moon}
-				title="Sleep Quality"
-				currentValue={pa.sleepQuality}
-				unit="%"
-				data={pa.history.sleepQuality}
-				color={sleep.color}
-				statusLabel={sleep.label}
-			/>
+			{metrics.map((m) => (
+				<MetricTrendCard
+					key={m.title}
+					icon={m.icon}
+					title={m.title}
+					currentValue={m.currentValue}
+					unit={m.unit}
+					data={m.data}
+					color={m.color}
+					statusLabel={m.statusLabel}
+				/>
+			))}
 		</div>
 	);
 }

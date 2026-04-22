@@ -2,47 +2,49 @@
 	"alerts": {
 		"food": {
 			"id": "food",
-			"item": "Grapefruit",
+			"item": "Banana",
 			"type": "food",
-			"description": "A citrus fruit commonly eaten fresh or as juice.",
-			"gene": "CYP3A4",
-			"snp": "rs35599367",
+			"description": "A high-potassium fruit containing ~422mg K+ per medium banana.",
+			"gene": "KCNQ1",
+			"snp": "rs2237892",
 			"genotype": "C/T",
-			"impact": "Inhibits statin metabolism",
-			"mechanism": "Grapefruit inhibits CYP3A4 enzyme activity, reducing the body's ability to break down certain medications. The furanocoumarins present in grapefruit irreversibly bind to gut-wall CYP3A4 enzymes, dramatically decreasing first-pass metabolism of substrate drugs.",
+			"impact": "Dietary K+ overload — cardiac conduction risk",
+			"mechanism": "Your KCNQ1 variant reduces IKs channel expression, impairing the cardiac cell's ability to buffer rapid potassium flux. A single banana delivers 422mg potassium — regular consumption causes cumulative plasma K+ elevation that your kidneys cannot offset quickly enough, prolonging cardiac repolarisation (QT interval). Combined with your PITX2-linked atrial fibrillation risk, potassium-induced QT prolongation creates a compounding arrhythmia trigger, particularly under the current dehydration and travel stress conditions.",
 			"risks": [
-				"Up to 15× increase in statin plasma concentration",
-				"Elevated risk of myopathy",
-				"Potential rhabdomyolysis in severe cases"
+				"QT interval prolongation under dietary K+ load",
+				"Atrial conduction disruption — synergistic with PITX2/AFib risk",
+				"Hyperkalaemia threshold reached at 2+ bananas per day",
+				"Risk amplified by current dehydration from long-haul travel"
 			],
 			"alternatives": [
-				{ "name": "Apples", "reason": "No CYP3A4 interaction", "emoji": "🍎" },
-				{ "name": "Berries", "reason": "Safe with statins", "emoji": "🫐" },
-				{ "name": "Oranges", "reason": "Different metabolic pathway", "emoji": "🍊" },
-				{ "name": "Pears", "reason": "No known drug interactions", "emoji": "🍐" },
-				{ "name": "Watermelon", "reason": "Hydrating and safe", "emoji": "🍉" }
+				{ "name": "Blueberries", "reason": "Only 77mg K+ per cup, safe range", "emoji": "🫐" },
+				{ "name": "Apples", "reason": "107mg K+, well below threshold", "emoji": "🍎" },
+				{ "name": "Strawberries", "reason": "153mg K+, no KCNQ1 interaction", "emoji": "🍓" },
+				{ "name": "Grapes", "reason": "Low potassium, antioxidant-rich", "emoji": "🍇" },
+				{ "name": "Watermelon", "reason": "Hydrating, low K+ density", "emoji": "🍉" }
 			]
 		},
 		"medication": {
 			"id": "medication",
-			"item": "Simvastatin",
+			"item": "Coated Aspirin 325mg",
 			"type": "medication",
-			"description": "A lipid-lowering medication used to control cholesterol.",
-			"gene": "SLCO1B1",
-			"snp": "rs4149056",
-			"genotype": "C/C",
-			"impact": "High risk of muscle toxicity",
-			"mechanism": "The SLCO1B1 gene variant decreases the transport of statins into the liver, leading to higher blood levels. This variant encodes for the OATP1B1 transporter; the 'C' allele results in significantly reduced transport capacity.",
+			"description": "Enteric-coated acetylsalicylic acid tablet for pain relief and cardiovascular protection.",
+			"gene": "CYP2C9",
+			"snp": "rs1057910",
+			"genotype": "A/C",
+			"impact": "Impaired clearance — salicylate accumulation risk",
+			"mechanism": "Your CYP2C9*3 variant (A/C) reduces enzyme activity to ~5% of normal, critically slowing aspirin hydrolysis and salicylate oxidation. At 325mg — four times the low-dose threshold — salicylate plasma levels can accumulate to toxic concentrations. Combined with your cardiovascular gene profile (PITX2, CYP11B2), the risk of aspirin-induced gastric haemorrhage and paradoxical platelet rebound is significantly elevated.",
 			"risks": [
-				"4.5× increased risk of myopathy",
-				"Elevated creatinine kinase levels",
-				"Muscle pain and weakness"
+				"Salicylate plasma accumulation up to 3.8× above expected",
+				"Elevated upper GI haemorrhage risk due to COX-1 suppression",
+				"Paradoxical thrombotic rebound on discontinuation",
+				"Interaction with AFib genetic risk (PITX2) amplifies stroke exposure"
 			],
 			"alternatives": [
-				{ "name": "Rosuvastatin", "reason": "Lower SLCO1B1 dependence", "emoji": "💊" },
-				{ "name": "Pravastatin", "reason": "Hydrophillic, safer profile", "emoji": "🛡️" },
-				{ "name": "Fluvastatin", "reason": "Alternative metabolic path", "emoji": "🧬" },
-				{ "name": "Ezetimibe", "reason": "Non-statin cholesterol control", "emoji": "✅" }
+				{ "name": "Aspirin 81mg", "reason": "Low-dose avoids accumulation threshold", "emoji": "💊" },
+				{ "name": "Ticagrelor", "reason": "CYP2C9-independent antiplatelet", "emoji": "🛡️" },
+				{ "name": "Clopidogrel 75mg", "reason": "Lower COX-1 burden", "emoji": "🧬" },
+				{ "name": "Paracetamol", "reason": "Safe alternative for pain relief", "emoji": "✅" }
 			]
 		}
 	}

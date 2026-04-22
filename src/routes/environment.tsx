@@ -20,6 +20,7 @@ import {
 	reportQueryOptions,
 	useReport,
 } from "#/integrations/tanstack-query/queries/use-report";
+import { useWeather } from "#/integrations/tanstack-query/queries/use-weather";
 
 export const Route = createFileRoute("/environment")({
 	loader: ({ context: { queryClient } }) =>
@@ -286,7 +287,15 @@ function TrendsSection({ env }: { env: Environment }) {
 
 function EnvironmentPage() {
 	const { data } = useReport();
-	const { environment: env, physicalEnvironmentAlerts: alerts } = data;
+	const { data: weather } = useWeather();
+	const { physicalEnvironmentAlerts: alerts } = data;
+	const env: Environment = {
+		...data.environment,
+		...(weather && {
+			meteorological: { condition: weather.condition, temp: weather.temp },
+			uvIndex: weather.uvIndex,
+		}),
+	};
 	const [envSheet, setEnvSheet] = React.useState(false);
 
 	return (

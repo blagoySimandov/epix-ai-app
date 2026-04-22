@@ -53,6 +53,12 @@ export interface PhysicalActivity {
 	};
 }
 
+export interface WeatherData {
+	temp: number;
+	condition: string;
+	uvIndex: number;
+}
+
 export interface Environment {
 	airQuality: { aqi: number; label: string };
 	uvIndex: number;
