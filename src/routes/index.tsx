@@ -115,27 +115,6 @@ function EnvironmentPanel({ env }: { env: Environment }) {
   );
 }
 
-function InsightsBanner() {
-  return (
-    <div className="bg-navy-dark rounded-[1.5rem] p-6 text-white flex items-center gap-6 shadow-xl">
-      <div className="flex-1 space-y-1">
-        <p className="font-headline font-bold text-lg leading-tight">
-          Personalized Protocol Updated
-        </p>
-        <p className="text-xs text-navy-text">
-          Based on your recent Cardio score improvement.
-        </p>
-      </div>
-      <button
-        type="button"
-        className="bg-teal/20 text-teal h-10 px-4 rounded-xl font-bold text-xs shrink-0"
-      >
-        View
-      </button>
-    </div>
-  );
-}
-
 function HomePage() {
   const { data } = useReport();
 
@@ -175,7 +154,6 @@ function HomePage() {
             <EnvironmentPanel env={data.environment} />
           </div>
         </section>
-        <InsightsBanner />
       </main>
     </>
   );

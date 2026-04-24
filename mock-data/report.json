@@ -188,10 +188,10 @@
           "id": "stroke",
           "name": "Ischemic Stroke",
           "status": "green",
-          "geneticRisk": 72,
-          "geneticRiskDescription": "High genetic tendency for vascular-neuro events. Strong interaction with blood pressure markers.",
-          "activation": 55,
-          "activationDescription": "Elevated. Dehydration from travel raises blood viscosity, directly interacting with this genetic variant. Rehydrate urgently.",
+          "geneticRisk": 34,
+          "geneticRiskDescription": "Below-average genetic tendency for vascular-neuro events. Low interaction with blood pressure markers.",
+          "activation": 21,
+          "activationDescription": "Low. Current lifestyle and hydration levels are not significantly activating this pathway.",
           "geneticMarker": "PHACTR1"
         },
         {
