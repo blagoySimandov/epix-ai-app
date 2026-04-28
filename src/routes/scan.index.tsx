@@ -34,11 +34,15 @@ function ScanPage() {
 		}
 	}, [isScanning]);
 
+	function analyzeAndNavigate(type: "food" | "medication") {
+		setTimeout(() => navigate({ to: "/scan/alert", search: { type } }), 2500);
+	}
+
 	useHotkeys(
 		(key) => {
 			if (!isScanning) return;
-			if (key === "f") navigate({ to: "/scan/alert", search: { type: "food" } });
-			else if (key === "m") navigate({ to: "/scan/alert", search: { type: "medication" } });
+			if (key === "f") analyzeAndNavigate("food");
+			else if (key === "m") analyzeAndNavigate("medication");
 		},
 		["f", "m"],
 		[isScanning, navigate]
@@ -48,7 +52,7 @@ function ScanPage() {
 		if (!isScanning) return;
 		const { left, width } = e.currentTarget.getBoundingClientRect();
 		const isLeft = e.clientX - left < width / 2;
-		navigate({ to: "/scan/alert", search: { type: isLeft ? "food" : "medication" } });
+		analyzeAndNavigate(isLeft ? "food" : "medication");
 	}
 
 	return (
