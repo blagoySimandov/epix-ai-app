@@ -6,6 +6,7 @@ import {
 	Tooltip,
 	XAxis,
 } from "recharts";
+import { generateDailyLabels } from "#/lib/date-utils";
 
 const TOOLTIP_STYLE = {
 	backgroundColor: "var(--card)",
@@ -22,10 +23,12 @@ export interface MetricChartProps {
 }
 
 export function MetricChart({ data, color, unit = "" }: MetricChartProps) {
+	const labels = generateDailyLabels(data.length);
+	const chartData = data.map((d, i) => ({ ...d, day: labels[i] }));
 	return (
 		<div className="h-28 w-full">
 			<ResponsiveContainer width="100%" height="100%">
-				<BarChart data={data} margin={{ top: 16, right: 4, left: 4, bottom: 0 }}>
+				<BarChart data={chartData} margin={{ top: 16, right: 4, left: 4, bottom: 0 }}>
 					<XAxis
 						dataKey="day"
 						tick={{ fontSize: 10, fill: "var(--muted-foreground)" }}

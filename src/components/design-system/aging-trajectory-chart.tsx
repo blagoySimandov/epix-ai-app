@@ -10,6 +10,7 @@ import {
 	CartesianGrid,
 } from "recharts";
 import { TrendingDown, TrendingUp } from "lucide-react";
+import { generateWeeklyDates } from "#/lib/date-utils";
 
 export interface TrajectoryPoint {
 	week: string;
@@ -30,15 +31,6 @@ const COLOR_BAD = "var(--rose)";
 interface DeltaPoint {
 	week: string;
 	delta: number; // bioAge − standardAging  (<0 = good, >0 = bad)
-}
-
-function generateWeeklyDates(count: number): string[] {
-	const today = new Date();
-	return Array.from({ length: count }, (_, i) => {
-		const d = new Date(today);
-		d.setDate(d.getDate() - (count - 1 - i) * 7);
-		return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-	});
 }
 
 function buildDeltaData(data: TrajectoryPoint[]): DeltaPoint[] {
