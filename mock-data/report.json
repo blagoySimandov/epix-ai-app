@@ -6,18 +6,13 @@
     "status": "Slower aging"
   },
   "bioAgeHistory": [
-    { "week": "Jan 6",  "bioAge": 38.8, "baseline": 39 },
-    { "week": "Jan 20", "bioAge": 38.5, "baseline": 39 },
-    { "week": "Feb 3",  "bioAge": 38.2, "baseline": 39 },
-    { "week": "Feb 17", "bioAge": 38.0, "baseline": 39 },
-    { "week": "Mar 3",  "bioAge": 38.8, "baseline": 39 },
-    { "week": "Mar 17", "bioAge": 38.2, "baseline": 39 },
-    { "week": "Mar 31", "bioAge": 37.7, "baseline": 39 },
-    { "week": "Apr 7",  "bioAge": 37.5, "baseline": 39 },
-    { "week": "Apr 14", "bioAge": 38.3, "baseline": 39 },
-    { "week": "Apr 21", "bioAge": 38.8, "baseline": 39 },
-    { "week": "Apr 27", "bioAge": 40.2, "baseline": 39 },
-    { "week": "Apr 28", "bioAge": 40.8, "baseline": 39 }
+    { "week": "Mon", "bioAge": 39.3, "baseline": 39 },
+    { "week": "Tue", "bioAge": 38.8, "baseline": 39 },
+    { "week": "Wed", "bioAge": 39.4, "baseline": 39 },
+    { "week": "Thu", "bioAge": 38.9, "baseline": 39 },
+    { "week": "Fri", "bioAge": 38.6, "baseline": 39 },
+    { "week": "Sat", "bioAge": 39.2, "baseline": 39 },
+    { "week": "Sun", "bioAge": 38.7, "baseline": 39 }
   ],
   "domains": [
     {

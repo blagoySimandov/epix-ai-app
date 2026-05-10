@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
 	BarChart,
 	Bar,
@@ -9,8 +10,9 @@ import {
 	YAxis,
 	CartesianGrid,
 } from "recharts";
-import { TrendingDown, TrendingUp } from "lucide-react";
-import { generateWeeklyDates } from "#/lib/date-utils";
+import { TrendingDown, TrendingUp, ChevronRight } from "lucide-react";
+import { generateDailyLabels } from "#/lib/date-utils";
+import { BottomSheet } from "./BottomSheet";
 
 export interface TrajectoryPoint {
 	week: string;
@@ -22,21 +24,48 @@ export interface AgingTrajectoryChartProps {
 	data: TrajectoryPoint[];
 }
 
-
-
-// Theme colors
 const COLOR_GOOD = "var(--green-text)";
 const COLOR_BAD = "var(--rose)";
 
 interface DeltaPoint {
 	week: string;
-	delta: number; // bioAge − standardAging  (<0 = good, >0 = bad)
+	delta: number;
 }
 
+interface BreakdownFactor {
+	label: string;
+	value: number;
+	unit: string;
+}
+
+interface BreakdownGroup {
+	title: string;
+	factors: BreakdownFactor[];
+}
+
+const TODAY_BREAKDOWN: BreakdownGroup[] = [
+	{
+		title: "Physical Activity",
+		factors: [
+			{ label: "Steps", value: -0.4, unit: "h" },
+			{ label: "HRV", value: -0.2, unit: "h" },
+			{ label: "Jogging", value: -0.1, unit: "h" },
+		],
+	},
+	{
+		title: "Environment",
+		factors: [
+			{ label: "Air Pollution", value: +0.2, unit: "h" },
+			{ label: "Sleep", value: +0.1, unit: "h" },
+			{ label: "Elevation", value: +0.1, unit: "h" },
+		],
+	},
+];
+
 function buildDeltaData(data: TrajectoryPoint[]): DeltaPoint[] {
-	const dates = generateWeeklyDates(data.length);
+	const labels = generateDailyLabels(data.length);
 	return data.map((p, i) => ({
-		week: dates[i],
+		week: labels[i],
 		delta: parseFloat((p.bioAge - p.baseline).toFixed(2)),
 	}));
 }
@@ -49,7 +78,7 @@ function computeDelta(data: TrajectoryPoint[]): number {
 function DeltaBadge({ delta }: { delta: number }) {
 	const isImproving = delta < 0;
 	const Icon = isImproving ? TrendingDown : TrendingUp;
-	const color = isImproving ? "var(--green-text)" : COLOR_BAD;
+	const color = isImproving ? COLOR_GOOD : COLOR_BAD;
 	return (
 		<div style={{ color }} className="flex items-center gap-1.5">
 			<Icon size={13} strokeWidth={2.5} />
@@ -80,8 +109,6 @@ function ChartHeader({ delta }: { delta: number }) {
 		</div>
 	);
 }
-
-
 
 interface TooltipPayload {
 	payload?: DeltaPoint;
@@ -119,8 +146,6 @@ function ChartArea({ data }: { data: TrajectoryPoint[] }) {
 	const minVal = Math.min(0, ...deltaData.map((d) => d.delta));
 	const maxVal = Math.max(0, ...deltaData.map((d) => d.delta));
 	const lastIdx = deltaData.length - 1;
-	
-	// Ensure baseline is visually balanced. Give the top part (max) at least 1/3 of the bottom part (min) space.
 	const yMin = Math.floor(minVal - 1);
 	const yMax = Math.max(Math.ceil(maxVal + 1), Math.ceil(Math.abs(minVal) * 0.4));
 
@@ -153,7 +178,6 @@ function ChartArea({ data }: { data: TrajectoryPoint[] }) {
 						tick={{ fontSize: 10, fill: "var(--muted-foreground)" }}
 						axisLine={false}
 						tickLine={false}
-						interval={1}
 					/>
 					<YAxis
 						tick={{ fontSize: 10, fill: "var(--muted-foreground)" }}
@@ -257,13 +281,103 @@ function ChartLegend() {
 	);
 }
 
+function FactorRow({ factor }: { factor: BreakdownFactor }) {
+	const isGood = factor.value < 0;
+	const color = isGood ? COLOR_GOOD : COLOR_BAD;
+	return (
+		<div className="flex items-center justify-between py-2 border-b border-border/30 last:border-0">
+			<span className="text-sm text-foreground">{factor.label}</span>
+			<span className="text-sm font-bold" style={{ color }}>
+				{isGood ? "" : "+"}
+				{factor.value.toFixed(1)}{factor.unit}
+			</span>
+		</div>
+	);
+}
+
+function BreakdownGroup({ group }: { group: BreakdownGroup }) {
+	return (
+		<div className="mb-4">
+			<p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-2">
+				{group.title}
+			</p>
+			{group.factors.map((f) => (
+				<FactorRow key={f.label} factor={f} />
+			))}
+		</div>
+	);
+}
+
+function computeBreakdownNet(groups: BreakdownGroup[]): number {
+	return groups.flatMap((g) => g.factors).reduce((sum, f) => sum + f.value, 0);
+}
+
+function BreakdownNet({ groups }: { groups: BreakdownGroup[] }) {
+	const net = computeBreakdownNet(groups);
+	const isGood = net < 0;
+	const color = isGood ? COLOR_GOOD : COLOR_BAD;
+	return (
+		<div
+			className="flex items-center justify-between rounded-xl px-4 py-3 mt-2"
+			style={{ background: "var(--muted)" }}
+		>
+			<span className="text-sm font-bold text-foreground">Net today</span>
+			<div className="flex items-center gap-2">
+				<span className="text-sm font-extrabold" style={{ color }}>
+					{isGood ? "" : "+"}
+					{net.toFixed(1)}h
+				</span>
+				<span className="text-[10px] text-muted-foreground">
+					{isGood ? "Aging slower ✓" : "Aging faster ✗"}
+				</span>
+			</div>
+		</div>
+	);
+}
+
+function TodayBreakdownSheet({ onClose }: { onClose: () => void }) {
+	const labels = generateDailyLabels(7);
+	const todayLabel = labels[labels.length - 1];
+	return (
+		<BottomSheet title={`${todayLabel} — Score Breakdown`} onClose={onClose}>
+			<div>
+				{TODAY_BREAKDOWN.map((group) => (
+					<BreakdownGroup key={group.title} group={group} />
+				))}
+				<BreakdownNet groups={TODAY_BREAKDOWN} />
+			</div>
+		</BottomSheet>
+	);
+}
+
+function TodayBreakdownButton({ onClick }: { onClick: () => void }) {
+	return (
+		<button
+			type="button"
+			onClick={onClick}
+			className="w-full flex items-center justify-between px-3 py-2 rounded-xl mt-1"
+			style={{ background: "var(--muted)" }}
+		>
+			<span className="text-[11px] font-semibold text-muted-foreground">
+				Today's score breakdown
+			</span>
+			<ChevronRight size={13} className="text-muted-foreground" />
+		</button>
+	);
+}
+
 export function AgingTrajectoryChart({ data }: AgingTrajectoryChartProps) {
+	const [showBreakdown, setShowBreakdown] = useState(false);
 	const delta = computeDelta(data);
 	return (
-		<div className="glass-card rounded-[1.5rem] border border-border/40 p-5 space-y-3">
-			<ChartHeader delta={delta} />
-			<ChartArea data={data} />
-			<ChartLegend />
-		</div>
+		<>
+			<div className="glass-card rounded-[1.5rem] border border-border/40 p-5 space-y-3">
+				<ChartHeader delta={delta} />
+				<ChartArea data={data} />
+				<ChartLegend />
+				<TodayBreakdownButton onClick={() => setShowBreakdown(true)} />
+			</div>
+			{showBreakdown && <TodayBreakdownSheet onClose={() => setShowBreakdown(false)} />}
+		</>
 	);
 }
